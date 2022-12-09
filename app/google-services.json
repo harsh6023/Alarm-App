@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "199439339193",
+    "project_id": "kum-ase-get-up-do",
+    "storage_bucket": "kum-ase-get-up-do.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:199439339193:android:dfed1412e9cce1b645d568",
+        "android_client_info": {
+          "package_name": "com.app.kumase_getupdo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "199439339193-ajvmeoird1nioivrelad21t8966io0j8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDvXHqQ2kdpkH0wtkmTTeou32N3Mbtvh6M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "199439339193-ajvmeoird1nioivrelad21t8966io0j8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
