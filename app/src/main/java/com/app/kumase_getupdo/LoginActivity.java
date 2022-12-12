@@ -1,6 +1,8 @@
 package com.app.kumase_getupdo;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
@@ -26,6 +28,13 @@ public class LoginActivity extends BaseActivity {
     private void initialization() {
         //Manage Password Visibility
         managePasswordEditText(binding.etPassword);
+
+        binding.tvSignUp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(LoginActivity.this, SignUpActivity.class));
+            }
+        });
     }
 
     @Override
