@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Kum Ase - Get Up &amp; Do</string>
+    <string name="already_have_an_account_login">Already have an account? <font fgcolor='#0B4E87'>Login</font></string>
+    <string name="don_t_have_an_account_signup">Don\'t have an account? <font fgcolor='#0B4E87'>Signup</font></string>
 </resources>

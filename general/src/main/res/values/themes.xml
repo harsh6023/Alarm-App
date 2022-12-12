@@ -1,0 +1,86 @@
+<resources>
+
+    <!--region #Alert Dialog Style-->
+    <style name="AlertDialogTheme" parent="ThemeOverlay.MaterialComponents.Dialog.Alert">
+        <item name="buttonBarNegativeButtonStyle">@style/AlertDialogButton</item>
+        <item name="buttonBarPositiveButtonStyle">@style/AlertDialogButton</item>
+        <item name="buttonBarNeutralButtonStyle">@style/AlertDialogButton</item>
+        <item name="android:textColor">@color/white_100</item>
+        <item name="android:textColorPrimary">@color/white_100</item>
+        <item name="android:colorAccent">@color/white_100</item>
+        <item name="android:textColorSecondary">@color/white_100</item>
+        <item name="android:colorActivatedHighlight">@color/white_100</item>
+        <item name="android:colorControlActivated">@color/white_100</item>
+        <item name="colorControlNormal">@color/white_100</item>
+        <item name="colorControlActivated">@color/red</item>
+        <item name="textColorAlertDialogListItem">@color/white_100</item>
+        <!--<item name="dialogCornerRadius">8dp</item>-->
+    </style>
+
+    <style name="AlertDialogButton" parent="Widget.MaterialComponents.Button.TextButton.Dialog">
+        <item name="android:textColor">@color/red</item>
+        <!--<item name="android:textSize">20sp</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:gravity">left</item>
+        <item name="android:letterSpacing">0</item>-->
+    </style>
+    <!--endregion-->
+
+    <!--Parent Layout Style-->
+    <style name="ParentLayoutStyle">
+        <item name="android:animateLayoutChanges">true</item>
+        <item name="android:focusable">true</item>
+        <item name="android:focusableInTouchMode">true</item>
+        <item name="android:background">@color/page_background_color</item>
+        <item name="android:fitsSystemWindows">true</item>
+    </style>
+
+
+    <!--Normal Text Style-->
+    <style name="NormalTextStyle">
+        <item name="android:ellipsize">marquee</item>
+        <item name="android:marqueeRepeatLimit">marquee_forever</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:fontFamily">@font/open_sans_semibold</item>
+        <item name="android:textColor">@color/white_100</item>
+        <item name="android:textSize">@dimen/normal_text_size</item>
+        <item name="android:drawableTint">@color/white_100</item>
+        <item name="android:background">?attr/selectableItemBackground</item>
+    </style>
+
+    <!--Small Text Style-->
+    <style name="SmallTextStyle">
+        <item name="android:ellipsize">marquee</item>
+        <item name="android:fontFamily">@font/open_sans_semibold</item>
+        <item name="android:marqueeRepeatLimit">marquee_forever</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:textColor">@color/white_100</item>
+        <item name="android:textSize">@dimen/small_text_size</item>
+        <item name="android:drawableTint">@color/white_100</item>
+        <item name="android:background">?attr/selectableItemBackground</item>
+    </style>
+
+    <!--Toolbar Icon Style-->
+    <style name="ToolbarIconStyle">
+        <item name="android:foreground">?attr/selectableItemBackgroundBorderless</item>
+        <item name="android:padding">@dimen/default_icon_padding</item>
+        <item name="android:tint">@color/toolbar_icon_color</item>
+        <item name="android:background">@drawable/white_circle_ripple</item>
+    </style>
+
+    <!--Small Button Text Style-->
+    <style name="SmallButtonStyle">
+        <item name="android:foreground">?attr/selectableItemBackground</item>
+        <item name="android:background">@drawable/red_button_ripple</item>
+        <item name="android:ellipsize">marquee</item>
+        <item name="android:marqueeRepeatLimit">marquee_forever</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:gravity">center</item>
+        <item name="android:tint">@color/button_text_color</item>
+        <item name="android:textSize">@dimen/button_small_text_size</item>
+        <item name="android:fontFamily">@font/open_sans_regular</item>
+        <item name="android:textColor">@color/button_text_color</item>
+    </style>
+
+</resources>

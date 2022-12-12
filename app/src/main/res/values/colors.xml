@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="purple_200">#2BAEF6</color>
-    <color name="purple_500">#0C59D9</color>
-    <color name="purple_700">#0C59D9</color>
+    <color name="blue_100">#2FCFF8</color>
+    <color name="blue_200">#069BD2</color>
+    <color name="blue_500">#0B4E87</color>
+    <color name="blue_700">#22366D</color>
     <color name="teal_200">#FF03DAC5</color>
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
@@ -13,7 +14,14 @@
     <color name="optionTrue">#4C9A2A</color>
     <color name="optionSelect">#12FFFD</color>
     <color name="optionFalse">#FB5447</color>
+    <color name="gray_text">#787474</color>
 
-    <color name="blue_dark">#0C59D9</color>
-    <color name="blue_light">#2BAEF6</color>
+    <color name="blue_darker">#22366D</color>
+    <color name="blue_dark">#0B4E87</color>
+    <color name="blue_light">#069BD2</color>
+    <color name="blue_lighter">#2FCFF8</color>
+    <!--EditText-->
+    <color name="edit_text_title_text_color">@color/black</color>
+    <color name="edit_text_text_color">@color/black</color>
+    <color name="edit_text_hint_text_color">@color/gray_text</color>
 </resources>

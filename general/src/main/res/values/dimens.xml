@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--@author Jaymin Soni
+    Email: jayminbsoni94@gmail.com
+    Github: https://github.com/jayminbsoni-->
+<resources>
+    <dimen name="default_margin_padding">@dimen/_14sdp</dimen><!--16-->
+    <dimen name="default_divider_height_width">1dp</dimen><!--1-->
+    <dimen name="default_drawable_border">@dimen/_1sdp</dimen>
+    <dimen name="default_icon_padding">@dimen/_5sdp</dimen>
+    <dimen name="default_image_margin_padding">@dimen/_8sdp</dimen>
+    <dimen name="default_corner_radius">@dimen/_5sdp</dimen>
+    <dimen name="default_icon_height_width">@dimen/_25sdp</dimen>
+    <dimen name="default_small_margin_padding">@dimen/_3sdp</dimen>
+    <dimen name="default_dialog_margin_padding">@dimen/_20sdp</dimen><!--24-->
+    <dimen name="default_elevation">@dimen/_5sdp</dimen>
+    <dimen name="normal_text_size">@dimen/_14ssp</dimen>
+    <dimen name="small_text_size">@dimen/_12ssp</dimen>
+    <dimen name="smaller_text_size">@dimen/_10ssp</dimen>
+    <dimen name="smallest_text_size">@dimen/_7sdp</dimen>
+    <dimen name="popup_button_min_width">@dimen/_50sdp</dimen>
+    <dimen name="button_small_text_size">@dimen/smaller_text_size</dimen>
+</resources>

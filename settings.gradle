@@ -4,6 +4,7 @@ pluginManagement {
         google()
         mavenCentral()
         jcenter()
+        maven { url "https://jitpack.io" }
     }
 }
 dependencyResolutionManagement {
@@ -18,3 +19,4 @@ dependencyResolutionManagement {
 }
 rootProject.name = "Kum Ase - Get Up & Do"
 include ':app'
+include ':general'

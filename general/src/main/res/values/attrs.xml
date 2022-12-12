@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="GeneralEditText">
+        <attr name="allowFirstSpace" format="boolean" />
+        <attr name="filterType" format="enum">
+            <enum name="email" value="1" />
+            <enum name="phone" value="2" />
+            <enum name="fullName" value="3" />
+            <enum name="firstLastName" value="4" />
+            <enum name="userName" value="5" />
+            <enum name="address" value="6" />
+            <enum name="state" value="7" />
+            <enum name="zipCode" value="8" />
+            <enum name="companyName" value="9" />
+            <enum name="password" value="10" />
+            <enum name="alphaNumeric" value="11" />
+            <enum name="onlyAlphabets" value="12" />
+            <enum name="onlyNumbers" value="13" />
+            <enum name="noSpecialChars" value="14" />
+            <enum name="accountName" value="15" />
+            <enum name="bankName" value="16" />
+            <enum name="fullNameMultiLanguage" value="17" />
+            <enum name="firstLastNameMultiLanguage" value="18" />
+            <enum name="addressMultiLanguage" value="19" />
+            <enum name="stateMultiLanguage" value="20" />
+            <enum name="accountNameMultiLanguage" value="21" />
+            <enum name="bankNameMultiLanguage" value="22" />
+        </attr>
+    </declare-styleable>
+
+    <!--Circle ImageView-->
+    <declare-styleable name="CircleImageView">
+        <attr name="civ_border_width" format="dimension" />
+        <attr name="civ_border_color" format="color" />
+        <attr name="civ_border_overlay" format="boolean" />
+        <attr name="civ_circle_background_color" format="color" />
+    </declare-styleable>
+
+</resources>
