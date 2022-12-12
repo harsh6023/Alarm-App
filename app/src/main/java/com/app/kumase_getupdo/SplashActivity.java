@@ -80,7 +80,17 @@ public class SplashActivity extends BaseActivity {
      * Perform Navigation
      */
     private void performNavigation() {
-        startActivity(new Intent(SplashActivity.this, LoginActivity.class));
+        boolean isFirstTimeLaunch = preferenceUtils.getBoolean(Constants.PreferenceKeys.FIRST_TIME_LAUNCH_INTRO);
+
+        if (!isFirstTimeLaunch){
+            startActivity(new Intent(SplashActivity.this, IntroductionActivity.class));
+        }else {
+            if (preferenceUtils.getAutoLogin()){
+                startActivity(new Intent(SplashActivity.this, DashboardActivity.class));
+            }else {
+                startActivity(new Intent(SplashActivity.this, LoginActivity.class));
+            }
+        }
         finish();
     }
 

@@ -12,8 +12,7 @@ android {
 
         vectorDrawables.useSupportLibrary = true
 
-        buildConfigField "String", "BASE_URL", '"http://apicricketchampion.in/webservices/"'
-        buildConfigField "String", "BASE_URL_2", '"http://15.206.87.117/crex/public/"'
+        buildConfigField "String", "BASE_URL", '"https://focusbytech.com/kum_ase/"'
         buildConfigField "String", "API_TOKEN", '"dsg93186315c3e014a9ff90d70rty254"'
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -74,6 +73,10 @@ android {
 
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+    }
+
+    lintOptions {
+        disable 'ApplySharedPref'
     }
 }
 

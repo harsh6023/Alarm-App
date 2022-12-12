@@ -102,7 +102,7 @@
                             app:filterType="password" />
 
                         <com.google.android.material.button.MaterialButton
-                            android:id="@+id/mbLogin"
+                            android:id="@+id/mbSignUp"
                             style="@style/Widget.MaterialComponents.Button.TextButton"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -135,6 +135,7 @@
                             android:fontFamily="@font/helvetica_semibold"
                             android:gravity="center_horizontal"
                             android:singleLine="true"
+                            android:alpha="0.5"
                             android:text="@string/already_have_an_account_login"
                             android:textColor="@color/black"
                             android:textSize="16sp"
@@ -178,7 +179,6 @@
                         </com.jbs.general.widget.GeneralLinearLayout>
 
                         <com.jbs.general.widget.GeneralCardView
-                            android:id="@+id/cardGoogle"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_margin="15dp"
@@ -194,10 +194,11 @@
                                 android:gravity="center">
 
                                 <ImageButton
+                                    android:id="@+id/cardGoogle"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:background="@android:color/transparent"
-                                    android:padding="10dp"
+                                    android:padding="15dp"
                                     android:src="@drawable/ic_google" />
                             </com.jbs.general.widget.GeneralLinearLayout>
 

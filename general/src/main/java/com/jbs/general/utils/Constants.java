@@ -67,18 +67,10 @@ public class Constants {
      */
     public interface PreferenceKeys {
         String USER_ID = "user_id";
-        String USER_TOKEN = "user_token";
-        String PROFILE_DATA = "PROFILE_DATA";
+        String USER_DATA = "UserData";
+        String FIRST_TIME_LAUNCH_INTRO = "FIRST_TIME_LAUNCH_INTRO";
         String NOTIFICATION_COUNT = "NOTIFICATION_COUNT";
         String FIREBASE_TOKEN = "FIREBASE_TOKEN";
-        String MY_ID_TYPE = "MY_ID_TYPE";
-        String WALLET_BALANCE = "WALLET_BALANCE";
-        String FIRST_TIME_LAUNCH_INTRO = "FIRST_TIME_LAUNCH_INTRO";
-        String METADATA = "METADATA";
-        String MERCHANT_ID = "MERCHANT_ID";
-        String ORDER_ID = "ORDER_ID";
-        String SELECTED_PAYMENT_METHOD = "SELECTED_PAYMENT_METHOD";
-        String IS_REDIRECTED_TO_WEB = "IS_REDIRECTED_TO_WEB";
     }
 
     public interface APIHeaders {
@@ -91,34 +83,16 @@ public class Constants {
     }
 
     public interface APIEndPoints {
-        String HOME_LIST = "homeList/"+ BuildConfig.API_TOKEN;
-        String SERIES_LIST = "seriesList/"+ BuildConfig.API_TOKEN;
-        String SERIES_LIST_2 = "api/seriesList";
-        String MATCHES_BY_SERIES_ID = "matchesBySeriesId/"+ BuildConfig.API_TOKEN;
-        String UPCOMING_MATCHES = "upcomingMatches/"+ BuildConfig.API_TOKEN;
-        String RECENT_MATCHES = "recentMatches/"+ BuildConfig.API_TOKEN;
-        String SCORE_CARD_BY_MATCH_ID = "api/scorecardByMatchId";
-        String MATCH_INFO = "api/matchInfo";
-        String SQUAD_BY_MATCH_ID = "squadByMatchId/"+ BuildConfig.API_TOKEN;
-        String MATCH_FANCY = "matchFancy/"+ BuildConfig.API_TOKEN;
-        String LIVE_MATCH_LIST = "api/liveMatchList";
-        String LIVE_MATCH = "api/liveMatch";
-        String POINTS_TABLE = "pointsTable/"+ BuildConfig.API_TOKEN;
-        String PLAYERS_BY_MATCH_ID = "playersByMatchId/"+ BuildConfig.API_TOKEN;
-        String MATCH_ODD_HISTORY = "matchOddHistory/"+ BuildConfig.API_TOKEN;
-        String MATCH_STATES = "matchStats/"+ BuildConfig.API_TOKEN;
-        String NEWS = "api/news";
-        String NEWS_DETAILS = "newsDetail/"+ BuildConfig.API_TOKEN;
-        String COMMENTARY = "commentary/"+ BuildConfig.API_TOKEN;
-        String PLAYER_RANKING = "playerRanking/"+ BuildConfig.API_TOKEN;
-        String TEAM_RANKING = "teamRanking/"+ BuildConfig.API_TOKEN;
+        String SIGN_UP = "signup.php";
+        String LOGIN = "login.php";
     }
 
     public interface APIKeys {
-        String SERIES_ID = "series_id";
-        String MATCH_ID = "match_id";
-        String NEWS_ID = "news_id";
-        String TYPE = "type";
+        String USER_NAME = "user_name";
+        String FULL_NAME = "full_name";
+        String EMAIL = "email";
+        String PASSWORD = "password";
+        String LOGIN_FORM = "login_from";
 
     }
 

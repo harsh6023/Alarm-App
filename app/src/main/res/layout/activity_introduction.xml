@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="clickListener"
+            type="com.app.kumase_getupdo.IntroductionActivity" />
+    </data>
+
+    <RelativeLayout
+        style="@style/ParentLayoutStyle"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:showIn="@layout/activity_introduction">
+
+        <com.jbs.general.widget.GeneralFrameLayout
+            android:id="@+id/fl_ad_slider"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.viewpager.widget.ViewPager
+                android:id="@+id/vp_introduction"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+            <com.tbuonomo.viewpagerdotsindicator.DotsIndicator
+                android:id="@+id/dots_indicator"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|center"
+                android:layout_marginHorizontal="@dimen/default_icon_padding"
+                android:layout_marginBottom="@dimen/default_margin_padding"
+                app:dotsColor="@color/default_icon_color"
+                app:dotsCornerRadius="@dimen/default_image_margin_padding"
+                app:dotsSize="@dimen/default_image_margin_padding"
+                app:dotsSpacing="@dimen/default_icon_padding"
+                app:dotsWidthFactor="2.5"
+                app:selectedDotColor="@color/blue_light" />
+        </com.jbs.general.widget.GeneralFrameLayout>
+
+        <!--Next-->
+        <com.jbs.general.widget.GeneralAppCompatTextView
+            android:id="@+id/tv_next"
+            style="@style/NormalTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="?attr/listPreferredItemHeightSmall"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:gravity="center"
+            android:onClick="@{clickListener::onNextClick}"
+            android:paddingHorizontal="@dimen/default_margin_padding"
+            android:text="@string/action_next" />
+
+        <!--Continue-->
+        <com.jbs.general.widget.GeneralAppCompatTextView
+            android:id="@+id/tv_continue"
+            style="@style/NormalTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="?attr/listPreferredItemHeightSmall"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:gravity="center"
+            android:onClick="@{clickListener::onContinueClick}"
+            android:paddingHorizontal="@dimen/default_margin_padding"
+            android:text="@string/action_continue"
+            android:textColor="@color/red"
+            android:visibility="gone" />
+
+        <!--Skip-->
+        <com.jbs.general.widget.GeneralAppCompatTextView
+            android:id="@+id/tv_skip"
+            style="@style/NormalTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="?attr/listPreferredItemHeightSmall"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentBottom="true"
+            android:gravity="center"
+            android:onClick="@{clickListener::onSkipClick}"
+            android:paddingHorizontal="@dimen/default_margin_padding"
+            android:text="@string/action_skip"
+            android:textColor="@android:color/white" />
+
+        <!--Previous-->
+        <com.jbs.general.widget.GeneralAppCompatTextView
+            android:id="@+id/tv_previous"
+            style="@style/NormalTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="?attr/listPreferredItemHeightSmall"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentBottom="true"
+            android:gravity="center"
+            android:onClick="@{clickListener::onPreviousClick}"
+            android:paddingHorizontal="@dimen/default_margin_padding"
+            android:text="@string/action_previous"
+            android:textColor="@android:color/white"
+            android:visibility="gone" />
+    </RelativeLayout>
+</layout>

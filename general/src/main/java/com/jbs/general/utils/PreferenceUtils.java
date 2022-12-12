@@ -153,5 +153,23 @@ public class PreferenceUtils {
         editor.apply();
     }
 
+    /*Auto Login Session*/
+    public void saveAutoLogin(boolean status){
+        SharedPreferences preferences = context.getSharedPreferences("AUTOLOGIN", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putBoolean("IsAutoLogin", status);
+        editor.apply();
+    }
 
+    public boolean getAutoLogin(){
+        SharedPreferences preferences = context.getSharedPreferences("AUTOLOGIN", Context.MODE_PRIVATE);
+        return preferences.getBoolean("IsAutoLogin", false);
+    }
+
+    public void clearAutoLogin(){
+        SharedPreferences preferences = context.getSharedPreferences("AUTOLOGIN", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.clear();
+        editor.commit();
+    }
 }

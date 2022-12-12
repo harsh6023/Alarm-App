@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.jbs.general.widget.GeneralLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black_100"
+    android:orientation="vertical">
+
+    <com.jbs.general.widget.GeneralAppCompatImageView
+        android:id="@+id/iv_intro"
+        android:layout_width="@dimen/introduction_image_width"
+        android:layout_height="@dimen/splash_icon_height_width"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/margin_start_end_margin20"
+        android:scaleType="fitXY"
+        android:src="@drawable/ic_launcher_background" />
+
+
+    <com.jbs.general.widget.GeneralLinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/_minus20sdp"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <com.jbs.general.widget.GeneralAppCompatTextView
+            android:id="@+id/tv_title"
+            style="@style/NormalTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/default_margin_padding"
+            android:text="@string/intro_title_1" />
+
+        <com.jbs.general.widget.GeneralAppCompatTextView
+            android:id="@+id/tv_description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_marginStart="@dimen/margin_start_end_margin20"
+            android:layout_marginEnd="@dimen/margin_start_end_margin20"
+            android:fontFamily="@font/open_sans_regular"
+            android:gravity="center"
+            android:text="@string/intro_desc_1"
+            android:textColor="@color/white_100"
+            android:textSize="@dimen/small_text_size" />
+
+    </com.jbs.general.widget.GeneralLinearLayout>
+</com.jbs.general.widget.GeneralLinearLayout>

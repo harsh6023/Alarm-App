@@ -34,27 +34,6 @@ public class ApiClient {
                     .readTimeout(500, TimeUnit.SECONDS)
                     .writeTimeout(400, TimeUnit.SECONDS)
                     .addInterceptor(interceptor)
-                    /*.addInterceptor(headerChain -> {
-                        Request.Builder builder = headerChain.request().newBuilder();
-                        long userId = preferenceUtils.getLong(Constants.PreferenceKeys.USER_ID);
-                        Timber.e("User ID: " + userId);
-                        String userToken = preferenceUtils.getString(Constants.PreferenceKeys.USER_TOKEN);
-                        Timber.e("User Token: " + userToken);
-                        String firebaseToken = preferenceUtils.getString(Constants.PreferenceKeys.FIREBASE_TOKEN);
-                        Timber.e("Firebase Token: " + firebaseToken);
-
-                        builder.header(Constants.APIHeaders.DEVICE_TYPE, "android");
-                        builder.header(Constants.APIHeaders.VERSION, "1.0.0");
-                        builder.header(Constants.APIHeaders.LANGUAGE, "en");
-                        builder.header(Constants.APIHeaders.DEVICE_TOKEN, firebaseToken);
-                        if (userId != 0) {
-                            builder.header(Constants.APIHeaders.USER_ID, String.valueOf(userId));
-                        }
-                        if (!TextUtils.isEmpty(userToken)) {
-                            builder.header(Constants.APIHeaders.USER_TOKEN, userToken);
-                        }
-                        return headerChain.proceed(builder.build());
-                    })*/
                     .build();
 
             retrofit = new Retrofit.Builder()

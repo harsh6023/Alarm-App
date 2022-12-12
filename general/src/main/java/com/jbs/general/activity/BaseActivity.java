@@ -20,6 +20,7 @@ import android.os.SystemClock;
 import android.provider.Settings;
 import android.text.InputType;
 import android.text.TextUtils;
+import android.util.Patterns;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -474,6 +475,10 @@ public class BaseActivity extends AppCompatActivity {
     public void setEnableDisable(View view, boolean isEnable) {
         view.setAlpha(isEnable ? 1 : 0.5f);
         view.setEnabled(isEnable);
+    }
+
+    public boolean isEmailValid(String email) {
+        return Patterns.EMAIL_ADDRESS.matcher(email).matches();
     }
     //endregion
 }

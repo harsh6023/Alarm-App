@@ -24,4 +24,12 @@
     <color name="edit_text_title_text_color">@color/black</color>
     <color name="edit_text_text_color">@color/black</color>
     <color name="edit_text_hint_text_color">@color/gray_text</color>
+    <color name="disabledColor">#BDBCBC</color>
+    <color name="defaultLabelColor">#000000</color>
+    <color name="colorBackgroundFragment">#F1EEEE</color>
+    <color name="colorBackgroundButton">#FFFFFF</color>
+    <color name="colorPrimary">#069BD2</color>
+    <color name="colorPrimaryDark">#0B4E87</color>
+    <color name="colorAccent">#22366D</color>
+
 </resources>

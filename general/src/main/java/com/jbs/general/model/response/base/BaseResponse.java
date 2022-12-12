@@ -5,19 +5,30 @@ import com.google.gson.annotations.SerializedName;
 
 public class BaseResponse {
 
-    @SerializedName("status")
+    @SerializedName("success")
     @Expose
-    private boolean status;
-    @SerializedName("msg")
+    private boolean success;
+    @SerializedName("code")
+    @Expose
+    private long code;
+    @SerializedName("message")
     @Expose
     private String message;
 
-    public boolean getStatus() {
-        return status;
+    public boolean isSuccess() {
+        return success;
     }
 
-    public void setStatus(boolean status) {
-        this.status = status;
+    public void setSuccess(boolean success) {
+        this.success = success;
+    }
+
+    public long getCode() {
+        return code;
+    }
+
+    public void setCode(long code) {
+        this.code = code;
     }
 
     public String getMessage() {
@@ -31,7 +42,8 @@ public class BaseResponse {
     @Override
     public String toString() {
         return "BaseResponse{" +
-                "status=" + status +
+                "success=" + success +
+                "code=" + code +
                 ", message='" + message + '\'' +
                 '}';
     }
