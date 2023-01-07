@@ -59,7 +59,7 @@ public class SignUpActivity extends BaseActivity implements GoogleApiClient.OnCo
 
     private void initialization() {
         //Manage Password Visibility
-        managePasswordEditText(binding.etPassword);
+        //managePasswordEditText(binding.etPassword);
 
         binding.tvLogin.setOnClickListener(new View.OnClickListener() {
             @Override

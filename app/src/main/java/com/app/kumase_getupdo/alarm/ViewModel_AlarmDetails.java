@@ -326,9 +326,9 @@ public class ViewModel_AlarmDetails extends ViewModel {
 	@SuppressWarnings("SimplifiableConditionalExpression")
 	public boolean getIsRepeatOn() {
 		if (isRepeatOn == null) {
-			isRepeatOn = new MutableLiveData<>(false);
+			isRepeatOn = new MutableLiveData<>(true);
 		}
-		return isRepeatOn.getValue() == null ? false : isRepeatOn.getValue();
+		return isRepeatOn.getValue() == null ? true : isRepeatOn.getValue();
 
 	}
 

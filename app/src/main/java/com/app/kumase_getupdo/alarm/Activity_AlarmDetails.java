@@ -7,6 +7,7 @@ import static com.app.kumase_getupdo.alarm.ConstantsAndStatics.ALARM_TYPE_SOUND_
 import static com.app.kumase_getupdo.alarm.ConstantsAndStatics.BUNDLE_KEY_ALARM_DAY;
 import static com.app.kumase_getupdo.alarm.ConstantsAndStatics.BUNDLE_KEY_ALARM_DETAILS;
 import static com.app.kumase_getupdo.alarm.ConstantsAndStatics.BUNDLE_KEY_ALARM_HOUR;
+import static com.app.kumase_getupdo.alarm.ConstantsAndStatics.BUNDLE_KEY_ALARM_ID;
 import static com.app.kumase_getupdo.alarm.ConstantsAndStatics.BUNDLE_KEY_ALARM_MINUTE;
 import static com.app.kumase_getupdo.alarm.ConstantsAndStatics.BUNDLE_KEY_ALARM_MONTH;
 import static com.app.kumase_getupdo.alarm.ConstantsAndStatics.BUNDLE_KEY_ALARM_TONE_URI;
@@ -35,6 +36,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.util.Log;
 import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
@@ -48,6 +50,7 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.app.kumase_getupdo.R;
+import com.google.gson.Gson;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -73,6 +76,7 @@ public class Activity_AlarmDetails extends AppCompatActivity implements Fragment
 	private static final int FRAGMENT_ALARM_MESSAGE = 401;
 
 	private static int whichFragment = 0;
+	private static int alarmId = -1;
 
 	public static final int MODE_NEW_ALARM = 0, MODE_EXISTING_ALARM = 1;
 
@@ -107,6 +111,7 @@ public class Activity_AlarmDetails extends AppCompatActivity implements Fragment
 			} else if (Objects.requireNonNull(getIntent().getAction()).equals(ACTION_EXISTING_ALARM)) {
 
 				Bundle data = Objects.requireNonNull(getIntent().getExtras()).getBundle(BUNDLE_KEY_ALARM_DETAILS);
+				alarmId = data.getInt(BUNDLE_KEY_ALARM_ID);
 
 				assert data != null;
 
@@ -185,7 +190,7 @@ public class Activity_AlarmDetails extends AppCompatActivity implements Fragment
 		viewModel.setAlarmDateTime(LocalDateTime.now().plusHours(1));
 
 		viewModel.setIsSnoozeOn(sharedPreferences.getBoolean(SHARED_PREF_KEY_DEFAULT_SNOOZE_IS_ON, true));
-		viewModel.setIsRepeatOn(false);
+		viewModel.setIsRepeatOn(true);
 
 		String alarmTone = sharedPreferences.getString(SHARED_PREF_KEY_DEFAULT_ALARM_TONE_URI, null);
 
@@ -200,7 +205,7 @@ public class Activity_AlarmDetails extends AppCompatActivity implements Fragment
 		viewModel.setSnoozeFreq(sharedPreferences.getInt(SHARED_PREF_KEY_DEFAULT_SNOOZE_FREQ, 3));
 		viewModel.setSnoozeIntervalInMins(sharedPreferences.getInt(SHARED_PREF_KEY_DEFAULT_SNOOZE_INTERVAL, 5));
 
-		viewModel.setRepeatDays(null);
+		//viewModel.setRepeatDays(null);
 
 		viewModel.setIsChosenDateToday(viewModel.getAlarmDateTime().toLocalDate().equals(LocalDate.now()));
 
@@ -247,11 +252,11 @@ public class Activity_AlarmDetails extends AppCompatActivity implements Fragment
 			viewModel.setSnoozeIntervalInMins(sharedPreferences.getInt(SHARED_PREF_KEY_DEFAULT_SNOOZE_INTERVAL, 5));
 		}
 
-		if (isRepeatOn && repeatDays != null) {
+		/*if (isRepeatOn && repeatDays != null) {
 			viewModel.setRepeatDays(repeatDays);
 		} else {
 			viewModel.setRepeatDays(null);
-		}
+		}*/
 
 		viewModel.setIsChosenDateToday(viewModel.getAlarmDateTime().toLocalDate().equals(LocalDate.now()));
 
@@ -336,6 +341,11 @@ public class Activity_AlarmDetails extends AppCompatActivity implements Fragment
 	public void onSaveButtonClick() {
 
 		Bundle data = new Bundle();
+
+		//  TODO : HARSH :-> here added alarm id for update code
+		if(alarmId != -1) {
+			data.putInt(BUNDLE_KEY_ALARM_ID, alarmId);
+		}
 		data.putInt(BUNDLE_KEY_ALARM_HOUR, viewModel.getAlarmDateTime().getHour());
 		data.putInt(BUNDLE_KEY_ALARM_MINUTE, viewModel.getAlarmDateTime().getMinute());
 		data.putInt(BUNDLE_KEY_ALARM_DAY, viewModel.getAlarmDateTime().getDayOfMonth());
@@ -351,6 +361,8 @@ public class Activity_AlarmDetails extends AppCompatActivity implements Fragment
 		data.putParcelable(BUNDLE_KEY_ALARM_TONE_URI, viewModel.getAlarmToneUri());
 		data.putString(ConstantsAndStatics.BUNDLE_KEY_ALARM_MESSAGE, viewModel.getAlarmMessage());
 
+		Log.e("OnSaveData", new Gson().toJson(data) + " **");
+
 		if (viewModel.getIsRepeatOn()) {
 			data.putBoolean(BUNDLE_KEY_HAS_USER_CHOSEN_DATE, false);
 		} else {
@@ -362,6 +374,8 @@ public class Activity_AlarmDetails extends AppCompatActivity implements Fragment
 			data.putInt(BUNDLE_KEY_OLD_ALARM_MINUTE, viewModel.getOldAlarmMinute());
 		}
 
+
+		//  TODO : HARSH :-> going back to alarm list activity and check, oldAlarmActLauncher
 		Intent intent = new Intent().putExtra(BUNDLE_KEY_ALARM_DETAILS, data);
 		setResult(RESULT_OK, intent);
 		this.finish();

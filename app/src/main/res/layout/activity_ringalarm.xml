@@ -40,6 +40,22 @@
         app:layout_constraintTop_toBottomOf="@+id/alarmmessageTextView"
         tools:ignore="HardcodedText" />
 
+    <TextView
+        android:id="@+id/alarmTimeTextView3"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="45dp"
+        android:layout_marginEnd="24dp"
+        android:gravity="center"
+        android:text="Please Turn On Flight mode \n And make device in silent."
+        android:textColor="#FFFFFF"
+        android:textSize="35sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/alarmTimeTextView2"
+        tools:ignore="HardcodedText" />
+
     <Button
         android:id="@+id/snoozeButton"
         android:layout_width="wrap_content"
@@ -49,6 +65,7 @@
         android:layout_marginBottom="16dp"
         android:background="@drawable/button_border_ring"
         android:text="@string/snoozeAlarm"
+        android:visibility="gone"
         android:textAllCaps="true"
         app:layout_constraintBottom_toTopOf="@+id/cancelButton"
         app:layout_constraintEnd_toEndOf="parent"

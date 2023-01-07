@@ -104,10 +104,34 @@ public class AlarmEntity {
 	 */
 	public String alarmMessage;
 
+	@Ignore
+	public AlarmEntity() {
+	}
+
+	@Ignore
+	public AlarmEntity(int alarmID, int alarmHour, int alarmMinutes, boolean isAlarmOn, int alarmDay, int alarmMonth, int alarmYear, boolean isSnoozeOn, int snoozeTimeInMinutes, int snoozeFrequency, int alarmVolume, boolean isRepeatOn, int alarmType, Uri alarmTone, boolean hasUserChosenDate, String alarmMessage) {
+		this.alarmID = alarmID;
+		this.alarmHour = alarmHour;
+		this.alarmMinutes = alarmMinutes;
+		this.isAlarmOn = isAlarmOn;
+		this.alarmDay = alarmDay;
+		this.alarmMonth = alarmMonth;
+		this.alarmYear = alarmYear;
+		this.isSnoozeOn = isSnoozeOn;
+		this.snoozeTimeInMinutes = snoozeTimeInMinutes;
+		this.snoozeFrequency = snoozeFrequency;
+		this.alarmVolume = alarmVolume;
+		this.isRepeatOn = isRepeatOn;
+		this.alarmType = alarmType;
+		this.alarmTone = alarmTone;
+		this.hasUserChosenDate = hasUserChosenDate;
+		this.alarmMessage = alarmMessage;
+	}
+
 	public AlarmEntity(int alarmHour, int alarmMinutes, boolean isAlarmOn, boolean isSnoozeOn,
-	                   int snoozeTimeInMinutes, int snoozeFrequency, int alarmVolume, boolean isRepeatOn,
-	                   int alarmType, int alarmDay, int alarmMonth, int alarmYear, Uri alarmTone, String alarmMessage,
-	                   boolean hasUserChosenDate) {
+					   int snoozeTimeInMinutes, int snoozeFrequency, int alarmVolume, boolean isRepeatOn,
+					   int alarmType, int alarmDay, int alarmMonth, int alarmYear, Uri alarmTone, String alarmMessage,
+					   boolean hasUserChosenDate) {
 
 		this.alarmHour = alarmHour;
 		this.alarmMinutes = alarmMinutes;
@@ -153,4 +177,131 @@ public class AlarmEntity {
 		return data;
 	}
 
+	public int getAlarmID() {
+		return alarmID;
+	}
+
+	public int getAlarmHour() {
+		return alarmHour;
+	}
+
+	public int getAlarmMinutes() {
+		return alarmMinutes;
+	}
+
+	public boolean isAlarmOn() {
+		return isAlarmOn;
+	}
+
+	public int getAlarmDay() {
+		return alarmDay;
+	}
+
+	public int getAlarmMonth() {
+		return alarmMonth;
+	}
+
+	public int getAlarmYear() {
+		return alarmYear;
+	}
+
+	public boolean isSnoozeOn() {
+		return isSnoozeOn;
+	}
+
+	public int getSnoozeTimeInMinutes() {
+		return snoozeTimeInMinutes;
+	}
+
+	public int getSnoozeFrequency() {
+		return snoozeFrequency;
+	}
+
+	public int getAlarmVolume() {
+		return alarmVolume;
+	}
+
+	public boolean isRepeatOn() {
+		return isRepeatOn;
+	}
+
+	public int getAlarmType() {
+		return alarmType;
+	}
+
+	public Uri getAlarmTone() {
+		return alarmTone;
+	}
+
+	public boolean isHasUserChosenDate() {
+		return hasUserChosenDate;
+	}
+
+	public String getAlarmMessage() {
+		return alarmMessage;
+	}
+
+	public void setAlarmID(int alarmID) {
+		this.alarmID = alarmID;
+	}
+
+	public void setAlarmHour(int alarmHour) {
+		this.alarmHour = alarmHour;
+	}
+
+	public void setAlarmMinutes(int alarmMinutes) {
+		this.alarmMinutes = alarmMinutes;
+	}
+
+	public void setAlarmOn(boolean alarmOn) {
+		isAlarmOn = alarmOn;
+	}
+
+	public void setAlarmDay(int alarmDay) {
+		this.alarmDay = alarmDay;
+	}
+
+	public void setAlarmMonth(int alarmMonth) {
+		this.alarmMonth = alarmMonth;
+	}
+
+	public void setAlarmYear(int alarmYear) {
+		this.alarmYear = alarmYear;
+	}
+
+	public void setSnoozeOn(boolean snoozeOn) {
+		isSnoozeOn = snoozeOn;
+	}
+
+	public void setSnoozeTimeInMinutes(int snoozeTimeInMinutes) {
+		this.snoozeTimeInMinutes = snoozeTimeInMinutes;
+	}
+
+	public void setSnoozeFrequency(int snoozeFrequency) {
+		this.snoozeFrequency = snoozeFrequency;
+	}
+
+	public void setAlarmVolume(int alarmVolume) {
+		this.alarmVolume = alarmVolume;
+	}
+
+	public void setRepeatOn(boolean repeatOn) {
+		isRepeatOn = repeatOn;
+	}
+
+	public void setAlarmType(int alarmType) {
+		this.alarmType = alarmType;
+	}
+
+	public void setAlarmTone(Uri alarmTone) {
+		this.alarmTone = alarmTone;
+	}
+
+	public void setHasUserChosenDate(boolean hasUserChosenDate) {
+		this.hasUserChosenDate = hasUserChosenDate;
+	}
+
+	public void setAlarmMessage(String alarmMessage) {
+		this.alarmMessage = alarmMessage;
+	}
 }

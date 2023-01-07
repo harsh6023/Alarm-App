@@ -40,10 +40,9 @@ public class IntroductionActivity extends BaseActivity {
 
         //introduction List
         introductionData.clear();
-        introductionData.add(new IntroductionData(getString(R.string.intro_title_1), getString(R.string.intro_desc_1), R.drawable.ic_launcher_background));
-        introductionData.add(new IntroductionData(getString(R.string.intro_title_2), getString(R.string.intro_desc_2), R.drawable.ic_launcher_background));
-        introductionData.add(new IntroductionData(getString(R.string.intro_title_3), getString(R.string.intro_desc_3), R.drawable.ic_launcher_background));
-        introductionData.add(new IntroductionData(getString(R.string.intro_title_4), getString(R.string.intro_desc_4), R.drawable.ic_launcher_background));
+        introductionData.add(new IntroductionData(getString(R.string.intro_title_1), getString(R.string.intro_desc_1), R.drawable.img_1));
+        introductionData.add(new IntroductionData(getString(R.string.intro_title_2), getString(R.string.intro_desc_2), R.drawable.img_2));
+        introductionData.add(new IntroductionData(getString(R.string.intro_title_3), getString(R.string.intro_desc_3), R.drawable.img_3));
 
         //introductions
         adapter = new IntroductionViewPagerAdapter(this, introductionData);

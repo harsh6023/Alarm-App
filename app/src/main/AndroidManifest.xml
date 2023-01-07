@@ -4,6 +4,7 @@
     package="com.app.kumase_getupdo"
     android:installLocation="internalOnly">
 
+    <uses-permission android:name="com.android.vending.BILLING" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
@@ -17,8 +18,12 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
-    <uses-feature android:name="android.hardware.audio.output" android:required="true"/>
-    <uses-feature android:name="android.hardware.sensor.accelerometer" android:required="true"/>
+    <uses-feature
+        android:name="android.hardware.audio.output"
+        android:required="true" />
+    <uses-feature
+        android:name="android.hardware.sensor.accelerometer"
+        android:required="true" />
 
     <application
         android:name=".KamAse"
@@ -35,6 +40,25 @@
         android:usesCleartextTraffic="true"
         tools:replace="android:allowBackup"
         tools:targetApi="31">
+        <activity
+            android:name=".DatePickerActivity"
+            android:exported="false" />
+        <activity
+            android:name=".SubscriptionActivity"
+            android:exported="false" />
+        <activity
+            android:name=".SelectDaysActivity"
+            android:exported="false" />
+        <activity
+            android:name=".SelectSnoozeActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ProfileActivity"
+            android:exported="false" />
+        <activity
+            android:name=".SetAlarmTimeActivity"
+            android:exported="false" />
+
         <provider
             android:name="androidx.startup.InitializationProvider"
             android:authorities="${applicationId}.androidx-startup"
@@ -51,16 +75,15 @@
             android:name=".alarm.MyWorkManagerInitializer"
             android:authorities="in.basulabs.shakealarmclock.MyWorkManagerInitializer"
             android:exported="false" />
+
         <service
             android:name=".alarm.Service_SnoozeAlarm"
             android:enabled="true"
-            android:exported="false"/>
-
+            android:exported="false" />
         <service
             android:name=".alarm.Service_RingAlarm"
             android:enabled="true"
-            android:exported="false"/>
-
+            android:exported="false" />
         <service
             android:name=".alarm.Service_UpdateAlarm"
             android:enabled="true"
@@ -80,37 +103,40 @@
             </intent-filter>
         </receiver>
 
-        <activity android:name=".alarm.Activity_AlarmsList"
+        <activity
+            android:name=".alarm.Activity_AlarmsList"
             android:enabled="true"
-            android:exported="true">
+            android:exported="false">
+
+            <!--
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+            -->
             <intent-filter>
-                <action android:name="android.intent.action.SHOW_ALARMS"/>
-                <category android:name="android.intent.category.DEFAULT"/>
+                <action android:name="android.intent.action.SHOW_ALARMS" />
+
+                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".alarm.Activity_AlarmDetails"
             android:enabled="true"
             android:exported="false"
             android:parentActivityName=".alarm.Activity_AlarmsList" />
-
         <activity
             android:name=".alarm.Activity_RingAlarm"
-            android:enabled="true"
-            android:exported="false"
             android:configChanges="orientation|keyboard"
+            android:enabled="true"
             android:excludeFromRecents="true"
+            android:exported="false"
             android:noHistory="true"
             android:screenOrientation="sensorPortrait"
             android:showOnLockScreen="true"
             android:taskAffinity=""
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-
         <activity
             android:name=".alarm.Activity_RingtonePicker"
             android:enabled="true"
@@ -118,16 +144,15 @@
             android:theme="@style/Theme.AppCompat.DayNight.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.RINGTONE_PICKER" />
+
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".alarm.Activity_Settings"
             android:enabled="true"
             android:exported="false"
             android:parentActivityName=".alarm.Activity_AlarmsList" />
-
         <activity
             android:name=".IntroductionActivity"
             android:exported="false">
@@ -137,7 +162,13 @@
         </activity>
         <activity
             android:name=".DashboardActivity"
-            android:exported="false" />
+            android:exported="false">
+            <intent-filter>
+                <action android:name="android.intent.action.SHOW_ALARMS" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".LoginActivity"
             android:exported="false" />
@@ -146,33 +177,31 @@
             android:exported="false" />
         <activity
             android:name=".SplashActivity"
-            android:exported="false">
-            <!--<intent-filter>
+            android:exported="true">
+            <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>-->
-        </activity>
-
-        <activity android:name=".alarm.Activity_IntentManager"
-            android:enabled="true"
-            android:exported="true"
-            android:theme="@style/Theme.AppCompat.Translucent"
-            android:configChanges="uiMode|orientation|keyboard|colorMode">
-
-            <intent-filter>
-                <action android:name="android.intent.action.DISMISS_ALARM"/>
-                <action android:name="android.intent.action.SET_ALARM"/>
-                <action android:name="android.intent.action.SNOOZE_ALARM"/>
-
-                <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
         </activity>
+        <activity
+            android:name=".alarm.Activity_IntentManager"
+            android:configChanges="uiMode|orientation|keyboard|colorMode"
+            android:enabled="true"
+            android:exported="true"
+            android:theme="@style/Theme.AppCompat.Translucent">
+            <intent-filter>
+                <action android:name="android.intent.action.DISMISS_ALARM" />
+                <action android:name="android.intent.action.SET_ALARM" />
+                <action android:name="android.intent.action.SNOOZE_ALARM" />
 
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".alarm.Activity_RequestPerm"
-            android:exported="false"
-            android:enabled="false"/>
+            android:enabled="false"
+            android:exported="false" />
     </application>
 
 </manifest>

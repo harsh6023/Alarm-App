@@ -63,7 +63,8 @@ import java.nio.charset.StandardCharsets;
 
 import javax.inject.Inject;
 
-public class BaseActivity extends AppCompatActivity {
+public class
+BaseActivity extends AppCompatActivity {
 
     //region #Singleton Instance
     protected PreferenceUtils preferenceUtils = General.getInstance().getAppComponent().providePreferenceUtils();
@@ -146,6 +147,10 @@ public class BaseActivity extends AppCompatActivity {
     public void showSnackbarShort(String message) {
         if (TextUtils.isEmpty(message.trim())) return;
         Snackbar.make(findViewById(android.R.id.content), message.trim(), BaseTransientBottomBar.LENGTH_SHORT).show();
+    }
+    public void showSnackbarLong(String message) {
+        if (TextUtils.isEmpty(message.trim())) return;
+        Snackbar.make(findViewById(android.R.id.content), message.trim(), BaseTransientBottomBar.LENGTH_LONG).show();
     }
 
     /**
@@ -404,6 +409,7 @@ public class BaseActivity extends AppCompatActivity {
      */
     public void performLogout(Context packageContext, Class<?> cls) {
         boolean isFirstTimeLaunch = preferenceUtils.getBoolean(Constants.PreferenceKeys.FIRST_TIME_LAUNCH_INTRO);
+        preferenceUtils.clearAutoLogin();
         preferenceUtils.clearAll();
         preferenceUtils.setBoolean(Constants.PreferenceKeys.FIRST_TIME_LAUNCH_INTRO, isFirstTimeLaunch);
 

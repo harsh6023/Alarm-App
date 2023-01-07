@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".ProfileActivity">
+
+    <data>
+
+        <variable
+            name="clickListener"
+            type="com.app.kumase_getupdo.ProfileActivity" />
+    </data>
+
+    <com.jbs.general.widget.GeneralLinearLayout
+        style="@style/ParentLayoutStyle"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/bg_main_gradient"
+        android:orientation="vertical">
+
+        <com.jbs.general.widget.GeneralFrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/default_margin_padding">
+
+            <com.jbs.general.widget.GeneralLinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="@dimen/_40sdp"
+                android:background="@drawable/bg_home_white"
+                android:gravity="center_horizontal"
+                android:orientation="vertical"
+                android:padding="@dimen/default_margin_padding">
+
+                <com.jbs.general.widget.GeneralAppCompatTextView
+                    android:id="@+id/tv_full_name"
+                    style="@style/NormalTextStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_30sdp"
+                    android:gravity="center"
+                    android:textColor="@color/black"
+                    android:text="Peter Parker" />
+
+                <com.jbs.general.widget.GeneralAppCompatTextView
+                    android:id="@+id/tv_email"
+                    style="@style/NormalTextStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_8sdp"
+                    android:gravity="center"
+                    android:textSize="@dimen/_12ssp"
+                    android:textColor="@color/black"
+                    android:text="Peter Parker" />
+
+                <com.jbs.general.widget.GeneralAppCompatTextView
+                    android:id="@+id/tv_subscriptionDate"
+                    style="@style/NormalTextStyle"
+                    android:visibility="gone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:gravity="center"
+                    android:textColor="@color/black"
+                    android:text="Peter Parker" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/mbRestorePurchase"
+                    style="@style/Widget.MaterialComponents.Button.TextButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/bg_btn"
+                    android:elevation="10dp"
+                    android:fontFamily="@font/helvetica"
+                    android:outlineAmbientShadowColor="@color/blue_lighter"
+                    android:outlineSpotShadowColor="@color/blue_lighter"
+                    android:shadowColor="@color/blue_lighter"
+                    android:text="Restore Purchase"
+                    android:layout_gravity="center"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    app:backgroundTint="@null" />
+
+                <LinearLayout
+                    android:id="@+id/RemoveAds"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="34dp"
+                        android:layout_height="34dp"
+                        android:src="@drawable/ic_baseline_check_circle_outline_24" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="get Unlimited Alarms"
+                        android:layout_marginStart="10dp"
+                        android:textColor="@color/black"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerview"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/RemoveAds"
+                    android:layout_marginTop="10dp"
+                    android:orientation="vertical"
+                    android:visibility="visible"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@string/subscription_terms"
+                    android:textColor="@color/gray_text"
+                    android:textStyle="bold" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"/>
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/mbLogOut"
+                    style="@style/Widget.MaterialComponents.Button.TextButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="20dp"
+                    android:layout_marginTop="25dp"
+                    android:background="@drawable/card_view_border"
+                    android:elevation="10dp"
+                    android:fontFamily="@font/helvetica"
+                    android:outlineAmbientShadowColor="@color/blue_lighter"
+                    android:outlineSpotShadowColor="@color/blue_lighter"
+                    android:shadowColor="@color/blue_lighter"
+                    android:text="logout"
+                    android:textAllCaps="false"
+                    android:textColor="@color/red"
+                    android:textSize="16sp"
+                    android:transitionName="transition 5"
+                    app:backgroundTint="@null"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tvForgotPass"
+                    app:layout_constraintVertical_bias="0"
+                    app:layout_constraintWidth_percent="0.8" />
+
+            </com.jbs.general.widget.GeneralLinearLayout>
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="@dimen/profile_profile_picture_height_width"
+                android:layout_height="@dimen/profile_profile_picture_height_width"
+                android:layout_gravity="center_horizontal"
+                android:src="@drawable/ic_user_profile" />
+
+            <ProgressBar
+                android:id="@+id/loadProducts"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/RemoveAds"
+                android:layout_gravity="center"
+                android:visibility="visible" />
+
+        </com.jbs.general.widget.GeneralFrameLayout>
+    </com.jbs.general.widget.GeneralLinearLayout>
+
+</layout>

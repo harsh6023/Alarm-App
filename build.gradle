@@ -18,8 +18,8 @@ project.ext {
     compileSdkVersion = 32
     appMinSdkVersion = 23
     appTargetSdkVersion = 32
-    appVersionCode = 1
-    appVersionName = "1.0.0"
+    appVersionCode = 8
+    appVersionName = "1.0.7"
 
     //region #AndroidX
     appcompat = '1.4.1'

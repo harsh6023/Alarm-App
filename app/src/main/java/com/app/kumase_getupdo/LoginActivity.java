@@ -55,7 +55,7 @@ public class LoginActivity extends BaseActivity {
 
     private void initialization() {
         //Manage Password Visibility
-        managePasswordEditText(binding.etPassword);
+        //managePasswordEditText(binding.etPassword);
 
         binding.tvSignUp.setOnClickListener(new View.OnClickListener() {
             @Override

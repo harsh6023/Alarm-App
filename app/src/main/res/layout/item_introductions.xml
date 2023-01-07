@@ -12,7 +12,8 @@
         android:layout_gravity="center"
         android:layout_marginTop="@dimen/margin_start_end_margin20"
         android:scaleType="fitXY"
-        android:src="@drawable/ic_launcher_background" />
+        android:elevation="15dp"
+        android:src="@drawable/img_1" />
 
 
     <com.jbs.general.widget.GeneralLinearLayout

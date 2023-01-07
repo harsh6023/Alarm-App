@@ -6,14 +6,17 @@ import static android.content.Context.POWER_SERVICE;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.PowerManager;
 
+import androidx.annotation.RequiresApi;
 import androidx.core.content.ContextCompat;
 
 import java.util.Objects;
 
 public class AlarmBroadcastReceiver extends BroadcastReceiver {
 
+	@RequiresApi(api = Build.VERSION_CODES.O)
 	@Override
 	public void onReceive(Context context, Intent intent) {
 

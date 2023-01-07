@@ -1,8 +1,13 @@
 
 package com.app.kumase_getupdo.alarm;
 
+import android.content.Context;
+import android.media.RingtoneManager;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.Settings;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -81,11 +86,11 @@ public class ViewModel_AlarmsList extends ViewModel implements LifecycleObserver
 	 * @param alarmDatabase The {@link AlarmDatabase} object.
 	 * @return The total number of alarms in the database.
 	 */
-	public int getAlarmsCount(@NonNull AlarmDatabase alarmDatabase) {
+	public int getAlarmsCount(@NonNull ArrayList<AlarmEntity> _alarmEntitiesList) {
 
 		AtomicInteger count = new AtomicInteger(0);
 
-		Thread thread = new Thread(() -> count.set(alarmDatabase.alarmDAO().getNumberOfAlarms()));
+		Thread thread = new Thread(() -> count.set(_alarmEntitiesList.size()));
 		thread.start();
 
 		try {
@@ -107,7 +112,7 @@ public class ViewModel_AlarmsList extends ViewModel implements LifecycleObserver
 	 * @param wait If this is {@code true}, the method will not return until the background thread has completed execution. Otherwise the background
 	 * thread will be started and not waited upon for completion.
 	 */
-	private void init(@NonNull AlarmDatabase alarmDatabase, boolean wait) {
+	private void init(@NonNull ArrayList<AlarmEntity> _alarmEntitiesList, boolean wait) {
 
 		if (alarmDataArrayList == null || alarmDataArrayList.getValue() == null || wait) {
 
@@ -116,14 +121,14 @@ public class ViewModel_AlarmsList extends ViewModel implements LifecycleObserver
 			Thread thread = new Thread(() -> {
 
 				// Retrieve the list of alarms:
-				List<AlarmEntity> alarmEntityList = alarmDatabase.alarmDAO().getAlarms();
+				List<AlarmEntity> alarmEntityList = _alarmEntitiesList;
 
 				if (alarmEntityList != null) {
 
 					///////////////////////////////////////
 					// Update the date
 					///////////////////////////////////////
-					for (AlarmEntity entity : alarmEntityList) {
+					/*for (AlarmEntity entity : alarmEntityList) {
 
 						LocalDateTime alarmDateTime;
 
@@ -145,26 +150,27 @@ public class ViewModel_AlarmsList extends ViewModel implements LifecycleObserver
 								alarmDatabase.alarmDAO().toggleHasUserChosenDate(entity.alarmID, 0);
 							}
 						}
-					}
+					}*/
 
 					//////////////////////////////////////////////////////////////////////////////////////
 					// Now retrieve the alarms list again and fill up alarmDataArrayList
 					// for the RecyclerView.
 					//////////////////////////////////////////////////////////////////////////////////////
-					alarmEntityList = alarmDatabase.alarmDAO().getAlarms();
+					alarmEntityList = _alarmEntitiesList;
 
 					for (AlarmEntity entity : alarmEntityList) {
 
 						LocalDateTime alarmDateTime = LocalDateTime.of(entity.alarmYear, entity.alarmMonth,
 								entity.alarmDay, entity.alarmHour, entity.alarmMinutes);
 
-						ArrayList<Integer> repeatDays = entity.isRepeatOn ? new ArrayList<>(alarmDatabase.alarmDAO()
-						                                                                                 .getAlarmRepeatDays(entity.alarmID)) : null;
+						ArrayList<Integer> repeatDays = new ArrayList<>();
+						repeatDays.add(5);
 
 						Objects.requireNonNull(alarmDataArrayList.getValue()).add(getAlarmDataObject(entity, alarmDateTime, repeatDays));
 
 					}
 
+					Log.e("alarmEntitiesList?size", alarmDataArrayList.getValue().size() + " **");
 					alarmsCount.postValue(alarmEntityList.size());
 					alreadyInitialized.postValue(true);
 				}
@@ -188,39 +194,17 @@ public class ViewModel_AlarmsList extends ViewModel implements LifecycleObserver
 	//-------------------------------------------------------------------------------------------------
 
 	/**
-	 * Re-reads data from the database if and only if the data is not in the memory, and waits for the background thread to be completed.
-	 *
-	 * @param alarmDatabase The {@link AlarmDatabase} object to be used to read the database.
-	 */
-	public void initAndWait(@NonNull AlarmDatabase alarmDatabase) {
-		if (alreadyInitialized.getValue() == null || !alreadyInitialized.getValue()) {
-			init(alarmDatabase, true);
-		}
-	}
-
-	//-------------------------------------------------------------------------------------------------
-
-	/**
 	 * Reads from the database if and only if the ArrayList hasn't been initialized yet. Doesn't wait for background thread to be completed.
 	 *
 	 * @param alarmDatabase The {@link AlarmDatabase} object to be used to read the database.
 	 */
-	public void init(@NonNull AlarmDatabase alarmDatabase) {
+	public void init(@NonNull ArrayList<AlarmEntity> alarmEntitiesList) {
 		if (alreadyInitialized.getValue() == null || !alreadyInitialized.getValue()) {
-			init(alarmDatabase, false);
+			init(alarmEntitiesList, false);
 		}
 	}
 
 	//-------------------------------------------------------------------------------------------------
-
-	/**
-	 * Re-reads data from the database regardless of whether the data is already in the memory.
-	 *
-	 * @param alarmDatabase The {@link AlarmDatabase} object to be used to read the database.
-	 */
-	public void forceInitAndWait(@NonNull AlarmDatabase alarmDatabase) {
-		init(alarmDatabase, true);
-	}
 
 	//--------------------------------------------------------------------------------------------------
 
@@ -592,5 +576,176 @@ public class ViewModel_AlarmsList extends ViewModel implements LifecycleObserver
 
 	public boolean getIsSettingsActOver() {
 		return Objects.requireNonNull(isSettingsActOver.getValue());
+	}
+	/**
+	 * The Uri of the alarm tone. Default value is {@link RingtoneManager#getActualDefaultRingtoneUri(Context, int)} with type {@link
+	 * RingtoneManager#TYPE_ALARM}.
+	 */
+	private MutableLiveData<Uri> alarmToneUri;
+
+	/**
+	 * Get the alarm tone Uri.
+	 *
+	 * @return The alarm tone Uri.
+	 */
+	@NonNull
+	public Uri getAlarmToneUri() {
+		if (alarmToneUri == null) {
+			alarmToneUri = new MutableLiveData<>(Settings.System.DEFAULT_ALARM_ALERT_URI);
+		}
+		return alarmToneUri.getValue() == null ? Settings.System.DEFAULT_ALARM_ALERT_URI : alarmToneUri.getValue();
+	}
+
+	/**
+	 * Get the alarm type.
+	 *
+	 * @return One of {@link ConstantsAndStatics#ALARM_TYPE_SOUND_ONLY}, {@link ConstantsAndStatics#ALARM_TYPE_VIBRATE_ONLY} or {@link
+	 * ConstantsAndStatics#ALARM_TYPE_SOUND_AND_VIBRATE}. Default is {@code ConstantsAndStatics#ALARM_TYPE_SOUND_ONLY}.
+	 */
+
+	/**
+	 * Represents the alarm type. Can have only three values: {@link ConstantsAndStatics#ALARM_TYPE_SOUND_ONLY}, {@link
+	 * ConstantsAndStatics#ALARM_TYPE_VIBRATE_ONLY} or {@link ConstantsAndStatics#ALARM_TYPE_SOUND_AND_VIBRATE}.
+	 */
+	private MutableLiveData<Integer> alarmType;
+	public int getAlarmType() {
+		if (alarmType == null) {
+			alarmType = new MutableLiveData<>(ConstantsAndStatics.ALARM_TYPE_SOUND_ONLY);
+		}
+		return alarmType.getValue() == null ? ConstantsAndStatics.ALARM_TYPE_SOUND_ONLY : alarmType.getValue();
+	}
+
+
+	/**
+	 * The snooze frequency, i.e. the number of times the alarm will be snoozed before it is cancelled automatically.
+	 */
+	private MutableLiveData<Integer> snoozeFreq;
+
+	/**
+	 * Get the number of times the alarm will be snoozed. Returns 3 if not set previously.
+	 *
+	 * @return Same as in description.
+	 */
+	public int getSnoozeFreq() {
+
+		if (snoozeFreq == null) {
+			snoozeFreq = new MutableLiveData<>(3);
+		}
+		return snoozeFreq.getValue() == null ? 3 : snoozeFreq.getValue();
+	}
+
+	/**
+	 * Indicates whether snooze is ON or OFF.
+	 */
+	private MutableLiveData<Boolean> isSnoozeOn;
+
+	/**
+	 * Get whether snooze is ON or OFF. Default: {@code true}.
+	 *
+	 * @return {@code true} is snooze is ON, otherwise {@code false}. Default: {@code true}.
+	 */
+	@SuppressWarnings("SimplifiableConditionalExpression")
+	public boolean getIsSnoozeOn() {
+		if (isSnoozeOn == null) {
+			isSnoozeOn = new MutableLiveData<>(true);
+		}
+		return isSnoozeOn.getValue() == null ? true : isSnoozeOn.getValue();
+	}
+
+	/**
+	 * The alarm volume.
+	 */
+	private MutableLiveData<Integer> alarmVolume;
+
+	/**
+	 * Get the alarm volume. Returns 3 if not set previously.
+	 *
+	 * @return Same as in description.
+	 */
+	public int getAlarmVolume() {
+		if (alarmVolume == null) {
+			alarmVolume = new MutableLiveData<>(3);
+		}
+		return alarmVolume.getValue() == null ? 3 : alarmVolume.getValue();
+	}
+
+	/**
+	 * The snooze interval in minutes.
+	 */
+	private MutableLiveData<Integer> snoozeIntervalInMins;
+
+	/**
+	 * Get the snooze interval, i.e. the period after which the alarm should ring again. Returns 5 if not set previously.
+	 *
+	 * @return Same as in description.
+	 */
+	public int getSnoozeIntervalInMins() {
+		if (snoozeIntervalInMins == null) {
+			snoozeIntervalInMins = new MutableLiveData<>(5);
+		}
+		return snoozeIntervalInMins.getValue() == null ? 5 : snoozeIntervalInMins.getValue();
+	}
+
+	/**
+	 * An integer ArrayList containing the days on which the alarm is to repeat.
+	 * <p>
+	 * The values follow {@link java.time.DayOfWeek} enum, i.e. Monday is 1 and Sunday is 7.
+	 * </p>
+	 */
+	private MutableLiveData<ArrayList<Integer>> repeatDays;
+
+	/**
+	 * Get the days on which the alarm should repeat.
+	 *
+	 * @return An ArrayList specifying the days on which the alarm should repeat. Follows {@link java.time.DayOfWeek} enum.
+	 */
+	@Nullable
+	public ArrayList<Integer> getRepeatDays() {
+		ArrayList<Integer> repeatDay = new ArrayList<>();
+		repeatDay.add(5);
+		return repeatDay;
+	}
+
+	//------------------------------------------------------------------------------------------------------
+
+	/**
+	 * Set the days on which the alarm should repeat.
+	 *
+	 * @param repeatDays An ArrayList specifying the days on which the alarm should repeat. Must follow {@link java.time.DayOfWeek} enum.
+	 */
+	public void setRepeatDays() {
+		if (this.repeatDays == null) {
+			this.repeatDays = new MutableLiveData<>();
+		}
+		ArrayList<Integer> repeatDay = new ArrayList<>();
+		repeatDay.add(5);
+		this.repeatDays.setValue(repeatDay);
+	}
+
+	/**
+	 * A {@link LocalDateTime} object representing the alarm date and time.
+	 */
+	private MutableLiveData<LocalDateTime> alarmDateTime;
+
+	/**
+	 * Get the alarm date and time. If {@code null}, throws a {@link NullPointerException}.
+	 *
+	 * @return Same as in description.
+	 */
+	@NonNull
+	public LocalDateTime getAlarmDateTime() {
+		return Objects.requireNonNull(alarmDateTime.getValue(), "Alarm date-time was null.");
+	}
+
+	/**
+	 * Set the alarm date and time.
+	 *
+	 * @param alarmDateTime The value to be set. Cannot be null.
+	 */
+	public void setAlarmDateTime(@NonNull LocalDateTime alarmDateTime) {
+		if (this.alarmDateTime == null) {
+			this.alarmDateTime = new MutableLiveData<>();
+		}
+		this.alarmDateTime.setValue(alarmDateTime);
 	}
 }

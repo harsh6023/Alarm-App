@@ -7,15 +7,15 @@
 
 
     <!-- Introduction title-->
-    <string name="intro_title_1">One SPOT for all IDs</string>
-    <string name="intro_title_2">hassle-free Transaction</string>
-    <string name="intro_title_3">all in one TAP</string>
+    <string name="intro_title_1">Set Alarm</string>
+    <string name="intro_title_2">Select Time</string>
+    <string name="intro_title_3">Subscribe</string>
     <string name="intro_title_4">exceptional REWARDS</string>
 
     <!-- Introduction Description-->
-    <string name="intro_desc_1">Let\'s play to win! \n Finest Portal for the wild PUNTER in you!</string>
-    <string name="intro_desc_2">Act ahead of time! \n No holding back for WITHDRAWALS!</string>
-    <string name="intro_desc_3">Master your talent! \n Get handy access to all DEMAND IDs!</string>
+    <string name="intro_desc_1">Set or Add Alarm! \n Set or Add new Alarm for your Prayer!</string>
+    <string name="intro_desc_2">Select Time and add alarm tone! \n Select Suitable time for Prayer !</string>
+    <string name="intro_desc_3">Subscribe with plan! \n Set unlimited alarm for your prayer !</string>
     <string name="intro_desc_4">Be our member! \n Make the most with our BEST offers!</string>
 
 
@@ -225,4 +225,6 @@
     <string name="notif_channel_name_snoozed_alarms">Snoozed alarms</string>
     <string name="notif_channel_error">Errors</string>
     <string name="notif_channel_update">Updating alarms</string>
+
+    <string name="subscription_terms">Subscriptions are recurring. You will be automatically be billed through your Google Play Store Account. Your subscription will auto-renew unless you cancel. You can manage your subscription in the settings in the Google Play Store</string>
 </resources>

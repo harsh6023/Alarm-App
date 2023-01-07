@@ -35,7 +35,7 @@
 
     <dimen name="navigation_view_padding_top">@dimen/_30sdp</dimen>
 
-    <dimen name="splash_icon_height_width">@dimen/_250sdp</dimen>
+    <dimen name="splash_icon_height_width">@dimen/_300sdp</dimen>
 
     <dimen name="offer_icon_size">@dimen/_30sdp</dimen>
 
@@ -78,7 +78,7 @@
     <dimen name="profile_icon_height_width">@dimen/_35sdp</dimen>
     <dimen name="payment_method_box_height_width">@dimen/_80sdp</dimen>
 
-    <dimen name="introduction_image_width">@dimen/_150sdp</dimen>
+    <dimen name="introduction_image_width">@dimen/_175sdp</dimen>
 
     <dimen name="small_icon_height_width">@dimen/_12sdp</dimen>
     <dimen name="radioButton_padding">@dimen/_10sdp</dimen>

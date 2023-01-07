@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "199439339193",
+    "firebase_url": "https://kum-ase-get-up-do-default-rtdb.firebaseio.com",
     "project_id": "kum-ase-get-up-do",
     "storage_bucket": "kum-ase-get-up-do.appspot.com"
   },
@@ -13,6 +14,22 @@
         }
       },
       "oauth_client": [
+        {
+          "client_id": "199439339193-dekhcv9c8g48qudd1g3v06f2dodqfh42.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.app.kumase_getupdo",
+            "certificate_hash": "c55d02af2892e8a63a2afad11dd87cdaa3f42a21"
+          }
+        },
+        {
+          "client_id": "199439339193-v6hfsmdkno5c9scdmfp389fhc73i26ae.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.app.kumase_getupdo",
+            "certificate_hash": "8b322515d47fbbd6a624ee7a18b64992f5a93779"
+          }
+        },
         {
           "client_id": "199439339193-ajvmeoird1nioivrelad21t8966io0j8.apps.googleusercontent.com",
           "client_type": 3

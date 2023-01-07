@@ -120,10 +120,10 @@ public class Service_RingAlarm extends Service implements SensorEventListener, A
 			if (Objects.equals(intent.getAction(), ConstantsAndStatics.ACTION_SNOOZE_ALARM)) {
 				snoozeAlarm();
 			} else if (Objects.equals(intent.getAction(), ConstantsAndStatics.ACTION_CANCEL_ALARM)) {
-				dismissAlarm();
+				snoozeAlarm();
 			} else if (Objects.equals(intent.getAction(), Intent.ACTION_SCREEN_OFF)) {
 				if (powerBtnAction == ConstantsAndStatics.DISMISS) {
-					dismissAlarm();
+					snoozeAlarm();
 				} else if (powerBtnAction == ConstantsAndStatics.SNOOZE) {
 					snoozeAlarm();
 				}

@@ -20,10 +20,9 @@
         <item name="android:textColorHint">@color/edit_text_hint_text_color</item>
         <item name="android:textColor">@color/edit_text_text_color</item>
         <item name="android:singleLine">true</item>
-        <item name="android:textCursorDrawable">@null</item>
         <item name="android:textSize">@dimen/_12ssp</item>
         <item name="android:background">@drawable/bg_main_gradient_border</item>
-        <item name="android:padding">12dp</item>
+        <item name="android:padding">15dp</item>
         <item name="android:drawableTint">@color/edit_text_text_color</item>
     </style>
 

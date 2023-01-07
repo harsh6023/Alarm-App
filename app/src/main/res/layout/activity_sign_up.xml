@@ -87,7 +87,35 @@
                             android:hint="Email"
                             android:inputType="textEmailAddress" />
 
-                        <com.jbs.general.widget.GeneralAppCompatEditText
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/etPasswordLayout"
+                            style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.Dense"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="15dp"
+                            android:hint="Password"
+                            android:background="@drawable/bg_main_gradient_border"
+                            app:boxBackgroundColor="@android:color/transparent"
+                            app:passwordToggleTint="@color/black_100"
+                            app:hintEnabled="false"
+                            app:boxBackgroundMode="none"
+                            app:passwordToggleEnabled="true">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/etPassword"
+                                style="@style/EditTextStyle"
+                                android:hint="Password"
+                                android:layout_width="match_parent"
+                                android:layout_height="fill_parent"
+                                app:boxBackgroundMode="none"
+                                android:digits="@string/digits_allowed_alphanumeric_name_characters"
+                                android:padding="12dp"
+                                android:background="@android:color/transparent"
+                                android:inputType="textPassword"/>
+
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <!--<com.jbs.general.widget.GeneralAppCompatEditText
                             android:id="@+id/etPassword"
                             style="@style/EditTextStyle"
                             android:layout_width="match_parent"
@@ -99,7 +127,7 @@
                             android:imeOptions="actionNext"
                             android:inputType="textPassword"
                             app:allowFirstSpace="false"
-                            app:filterType="password" />
+                            app:filterType="password" />-->
 
                         <com.google.android.material.button.MaterialButton
                             android:id="@+id/mbSignUp"

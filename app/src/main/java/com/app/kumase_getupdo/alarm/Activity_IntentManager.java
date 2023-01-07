@@ -234,7 +234,7 @@ public class Activity_IntentManager extends AppCompatActivity {
 		if (intent.getExtras().getBoolean(AlarmClock.EXTRA_SKIP_UI, false)) {
 			// We have been asked to skip the UI. Alarm will be set by this activity itself.
 
-			AlarmEntity alarmEntity = new AlarmEntity(alarmTime.getHour(), alarmTime.getMinute(), true,
+			AlarmEntity alarmEntity = new AlarmEntity(alarmTime.getHour(), alarmTime.getMinute(), false,
 					sharedPreferences.getBoolean(SHARED_PREF_KEY_DEFAULT_SNOOZE_IS_ON, true),
 					sharedPreferences.getInt(SHARED_PREF_KEY_DEFAULT_SNOOZE_INTERVAL, 5),
 					sharedPreferences.getInt(SHARED_PREF_KEY_DEFAULT_SNOOZE_FREQ, 3),

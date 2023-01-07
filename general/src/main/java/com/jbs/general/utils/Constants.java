@@ -22,6 +22,8 @@ public class Constants {
         int DEFAULT_PAGE_OFFSET = 1;
         int DEFAULT_RECORD_LIMIT = 10;
         int NOTIFICATION_RECORD_LIMIT = 15;
+        String ACTION_EXISTING_ALARM = "ACTION_EXISTING_ALARM";
+        String ACTION_NEW_ALARM = "ACTION_NEW_ALARM";
     }
 
     /**
@@ -38,19 +40,13 @@ public class Constants {
      * Activity/Fragment Intent/Bundle Arguments Keys and Values
      */
     public interface Bundles {
-        String COUNTRY_FLAG = "COUNTRY_FLAG";
-        String COUNTRY_CODE = "COUNTRY_CODE";
-        String PHONE_NUMBER = "PHONE_NUMBER";
-        String PASSWORD = "PASSWORD";
-        String TRANSACTION_ID = "TRANSACTION_ID";
-        String TRANSACTION_TYPE = "TRANSACTION_TYPE";
-        String GET_EXCHANGE = "GET_EXCHANGE";
-        String SHOW_USERNAME = "SHOW_USERNAME";
-        String AMOUNT = "AMOUNT";
-        String WITHDRAW_DEPOSIT_TYPE = "WITHDRAW_DEPOSIT_TYPE";
-        String ID_DETAILS = "ID_DETAILS";
-        String PROFILE_DATA = "PROFILE_DATA";
-        String OTP = "OTP";
+        String IS_SNOOZE_ON = "IS_SNOOZE_ON";
+        String IS_SNOOZE_TIME = "IS_SNOOZE_TIME";
+        String IS_SNOOZE_FREQ = "IS_SNOOZE_FREQ";
+        String REPEAT_DAYS = "REPEAT_DAYS";
+        String SELECTED_DAY = "SELECTED_DAY";
+        String SELECTED_MONTH = "SELECTED_MONTH";
+        String SELECTED_YEAR = "SELECTED_YEAR";
     }
 
     /**
@@ -67,10 +63,16 @@ public class Constants {
      */
     public interface PreferenceKeys {
         String USER_ID = "user_id";
+        String ALARM_ID = "alarm_id";
+        String ALARM_DETAILS = "alarm_details";
         String USER_DATA = "UserData";
+        String SUBSCRIBE= "Subscribe";
+        String ACTIVE_ALARM_ID= "Active_Alarm_ID";
+        String ACTIVE_WITHOUT_SUBSCRIBE = "Active_Without_Subscribe";
         String FIRST_TIME_LAUNCH_INTRO = "FIRST_TIME_LAUNCH_INTRO";
         String NOTIFICATION_COUNT = "NOTIFICATION_COUNT";
         String FIREBASE_TOKEN = "FIREBASE_TOKEN";
+        String IS_FIRST_TIME = "IS_FIRST_TIME";
     }
 
     public interface APIHeaders {
@@ -85,20 +87,34 @@ public class Constants {
     public interface APIEndPoints {
         String SIGN_UP = "signup.php";
         String LOGIN = "login.php";
+        String GET_ALARMS = "get_alarms.php";
+        String SET_ALARM = "set_alarm.php";
+        String CUSTOM_ALARM = "custom_alarm.php";
     }
 
     public interface APIKeys {
         String USER_NAME = "user_name";
         String FULL_NAME = "full_name";
         String EMAIL = "email";
+        String USER_ID = "user_id";
+        String ALARM_NAME = "name";
         String PASSWORD = "password";
         String LOGIN_FORM = "login_from";
+        String ALARM_ID = "alarm_id";
+        String TIME = "time";
+        String SOUND = "sound";
+        String URI = "uri";
+        String STATUS = "status";
+        String DAY = "day";
+        String DATE = "date";
 
     }
 
     public interface DateFormats {
+        String TIME_FORMAT = "HH:mm"; //01:05 AM/PM
         String API_DATE_FORMAT = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"; //2022-04-08T15:34:37.000000Z
         String PROFILE_DATE_FORMAT = "dd MMM yyyy"; //22 Jun 2022
+        String ALARM_DATE_FORMAT = "yyyy-MM-dd"; //22 Jun 2022
         String PASSBOOK_DATE_FORMAT = "dd MMM yyyy HH:mm";//20 Aug 2022 17:34
         String NOTIFICATION_DATE_FORMAT = "dd MMM yyyy HH:mm";//20 Aug 2022 17:34
     }
@@ -124,4 +140,6 @@ public class Constants {
         String PLAYERS_TEAM_B_LIST = "Player_team_b_list";
         String IS_LIVE = "Is_Live";
     }
+
+
 }
