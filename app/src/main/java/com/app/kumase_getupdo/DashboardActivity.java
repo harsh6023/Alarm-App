@@ -176,7 +176,7 @@ public class DashboardActivity extends BaseActivity {
         c.setTime(date);
         if (isNetworkAvailable()) {
             showLoader();
-            RetrofitClient.getInstance().getApi().setAlarm(preferenceUtils.getString(Constants.PreferenceKeys.USER_ID), alarmsApiData.getId(), c.get(Calendar.HOUR_OF_DAY) + ":" + c.get(Calendar.MINUTE) + ":00", viewModelSetAlarm.getSnoozeFreq() + " snooze", viewModelSetAlarm.getAlarmToneUri().toString(), 0, alarmsApiData.getDate())
+            RetrofitClient.getInstance().getApi().setAlarm(preferenceUtils.getString(Constants.PreferenceKeys.USER_ID), alarmsApiData.getId(), c.get(Calendar.HOUR_OF_DAY) + ":" + c.get(Calendar.MINUTE) + ":00", (viewModelSetAlarm.getSnoozeIntervalInSecs()/1000) + " Sec", viewModelSetAlarm.getAlarmToneUri().toString(), 0, alarmsApiData.getDate())
                     .enqueue(new Callback<MainResponseSetAlarms>() {
                         @Override
                         public void onResponse(@NonNull Call<MainResponseSetAlarms> call, @NonNull Response<MainResponseSetAlarms> response) {
@@ -243,7 +243,7 @@ public class DashboardActivity extends BaseActivity {
         cDate.setTime(dateD);
         if (isNetworkAvailable()) {
             showLoader();
-            RetrofitClient.getInstance().getApi().setAlarm(preferenceUtils.getString(Constants.PreferenceKeys.USER_ID), alarmsApiData.getId(), c.get(Calendar.HOUR_OF_DAY) + ":" + c.get(Calendar.MINUTE) + ":00", viewModelSetAlarm.getSnoozeFreq() + " snooze", viewModelSetAlarm.getAlarmToneUri().toString(), 1, alarmsApiData.getDate())
+            RetrofitClient.getInstance().getApi().setAlarm(preferenceUtils.getString(Constants.PreferenceKeys.USER_ID), alarmsApiData.getId(), c.get(Calendar.HOUR_OF_DAY) + ":" + c.get(Calendar.MINUTE) + ":00", (viewModelSetAlarm.getSnoozeIntervalInSecs()/1000) + " Sec", viewModelSetAlarm.getAlarmToneUri().toString(), 1, alarmsApiData.getDate())
                     .enqueue(new Callback<MainResponseSetAlarms>() {
                         @Override
                         public void onResponse(@NonNull Call<MainResponseSetAlarms> call, @NonNull Response<MainResponseSetAlarms> response) {
@@ -334,7 +334,7 @@ public class DashboardActivity extends BaseActivity {
         data.putBoolean(BUNDLE_KEY_IS_SNOOZE_ON, viewModelSetAlarm.getIsSnoozeOn());
         data.putBoolean(BUNDLE_KEY_IS_REPEAT_ON, viewModelSetAlarm.getIsRepeatOn());
         data.putInt(BUNDLE_KEY_ALARM_VOLUME, viewModelSetAlarm.getAlarmVolume());
-        data.putInt(BUNDLE_KEY_SNOOZE_TIME_IN_MINS, viewModelSetAlarm.getSnoozeIntervalInMins());
+        data.putInt(BUNDLE_KEY_SNOOZE_TIME_IN_MINS, viewModelSetAlarm.getSnoozeIntervalInSecs());
         data.putInt(BUNDLE_KEY_SNOOZE_FREQUENCY, viewModelSetAlarm.getSnoozeFreq());
         data.putIntegerArrayList(BUNDLE_KEY_REPEAT_DAYS, repeatDays);
         data.putParcelable(BUNDLE_KEY_ALARM_TONE_URI, viewModelSetAlarm.getAlarmToneUri());

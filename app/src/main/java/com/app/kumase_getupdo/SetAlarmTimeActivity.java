@@ -202,8 +202,20 @@ public class SetAlarmTimeActivity extends BaseActivity {
             viewModelSetAlarm.setAlarmId(alarmsApiData.getId());
             viewModelSetAlarm.setAlarmMessage(alarmsApiData.getName());
             binding.etAlarmTitle.setText(alarmsApiData.getName());
+            switch (alarmsApiData.getSound()) {
+                case "3 Sec":
+                    viewModelSetAlarm.setSnoozeIntervalInSecs(3000);
+                    break;
+                case "6 Sec":
+                    viewModelSetAlarm.setSnoozeIntervalInSecs(6000);
+                    break;
+                case "9 Sec":
+                    viewModelSetAlarm.setSnoozeIntervalInSecs(9000);
+                    break;
+            }
             displayAlarmTone();
             displayRepeatOptions();
+            displaySnoozeOptions();
 
         } else if (Objects.equals(getIntent().getAction(), Constants.AppConstant.ACTION_NEW_ALARM)) {
             displayAlarmTone();
@@ -299,7 +311,7 @@ public class SetAlarmTimeActivity extends BaseActivity {
                     data.putBoolean(BUNDLE_KEY_IS_SNOOZE_ON, viewModelSetAlarm.getIsSnoozeOn());
                     data.putBoolean(BUNDLE_KEY_IS_REPEAT_ON, viewModelSetAlarm.getIsRepeatOn());
                     data.putInt(BUNDLE_KEY_ALARM_VOLUME, viewModelSetAlarm.getAlarmVolume());
-                    data.putInt(BUNDLE_KEY_SNOOZE_TIME_IN_MINS, viewModelSetAlarm.getSnoozeIntervalInMins());
+                    data.putInt(BUNDLE_KEY_SNOOZE_TIME_IN_MINS, viewModelSetAlarm.getSnoozeIntervalInSecs());
                     data.putInt(BUNDLE_KEY_SNOOZE_FREQUENCY, viewModelSetAlarm.getSnoozeFreq());
                     data.putIntegerArrayList(BUNDLE_KEY_REPEAT_DAYS, repeatDays);
                     data.putParcelable(BUNDLE_KEY_ALARM_TONE_URI, viewModelSetAlarm.getAlarmToneUri());
@@ -316,7 +328,7 @@ public class SetAlarmTimeActivity extends BaseActivity {
                             .putExtra(Constants.PreferenceKeys.ALARM_DETAILS, new Gson().toJson(alarmsApiData)));
                    /* if (isNetworkAvailable()) {
                         showLoader();
-                        RetrofitClient.getInstance().getApi().setAlarm(preferenceUtils.getString(Constants.PreferenceKeys.USER_ID), viewModelSetAlarm.getAlarmId(), viewModelSetAlarm.getAlarmDateTime().getHour() + ":" + viewModelSetAlarm.getAlarmDateTime().getMinute() + ":00", viewModelSetAlarm.getSnoozeFreq() + " snooze", viewModelSetAlarm.getAlarmToneUri().toString(),  0, viewModelSetAlarm.getRepeatDays())
+                        RetrofitClient.getInstance().getApi().setAlarm(preferenceUtils.getString(Constants.PreferenceKeys.USER_ID), viewModelSetAlarm.getAlarmId(), viewModelSetAlarm.getAlarmDateTime().getHour() + ":" + viewModelSetAlarm.getAlarmDateTime().getMinute() + ":00", viewModelSetAlarm.getSnoozeIntervalInSecs() + " seconds", viewModelSetAlarm.getAlarmToneUri().toString(),  0, viewModelSetAlarm.getRepeatDays())
                                 .enqueue(new Callback<MainResponseSetAlarms>() {
                                     @Override
                                     public void onResponse(@NonNull Call<MainResponseSetAlarms> call, @NonNull Response<MainResponseSetAlarms> response) {
@@ -367,7 +379,7 @@ public class SetAlarmTimeActivity extends BaseActivity {
                         data.putBoolean(BUNDLE_KEY_IS_SNOOZE_ON, viewModelSetAlarm.getIsSnoozeOn());
                         data.putBoolean(BUNDLE_KEY_IS_REPEAT_ON, viewModelSetAlarm.getIsRepeatOn());
                         data.putInt(BUNDLE_KEY_ALARM_VOLUME, viewModelSetAlarm.getAlarmVolume());
-                        data.putInt(BUNDLE_KEY_SNOOZE_TIME_IN_MINS, viewModelSetAlarm.getSnoozeIntervalInMins());
+                        data.putInt(BUNDLE_KEY_SNOOZE_TIME_IN_MINS, viewModelSetAlarm.getSnoozeIntervalInSecs());
                         data.putInt(BUNDLE_KEY_SNOOZE_FREQUENCY, viewModelSetAlarm.getSnoozeFreq());
                         data.putIntegerArrayList(BUNDLE_KEY_REPEAT_DAYS, repeatDays);
                         data.putParcelable(BUNDLE_KEY_ALARM_TONE_URI, viewModelSetAlarm.getAlarmToneUri());
@@ -414,13 +426,11 @@ public class SetAlarmTimeActivity extends BaseActivity {
 
 
     private void displaySnoozeOptions() {
-        if (viewModelSetAlarm.getIsSnoozeOn()) {
+
             binding.etAlarmSnooze.setText(getResources()
                     .getString(R.string.snoozeOptionsTV_snoozeOn,
-                            viewModelSetAlarm.getSnoozeIntervalInMins(), viewModelSetAlarm.getSnoozeFreq()));
-        } else {
-            binding.etAlarmSnooze.setText(getResources().getString(R.string.snoozeOffLabel));
-        }
+                            (viewModelSetAlarm.getSnoozeIntervalInSecs() / 1000)));
+
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -433,7 +443,7 @@ public class SetAlarmTimeActivity extends BaseActivity {
     private void callAddCustomAlarmApi() {
         if (isNetworkAvailable()) {
             showLoader();
-            RetrofitClient.getInstance().getApi().addCustomAlarm(preferenceUtils.getString(Constants.PreferenceKeys.USER_ID), binding.etAlarmTitle.getText().toString(), viewModelSetAlarm.getAlarmDateTime().getHour() + ":" + viewModelSetAlarm.getAlarmDateTime().getMinute() + ":00", viewModelSetAlarm.getSnoozeFreq() + " snooze", viewModelSetAlarm.getAlarmToneUri().toString(), 0, selectedDate)
+            RetrofitClient.getInstance().getApi().addCustomAlarm(preferenceUtils.getString(Constants.PreferenceKeys.USER_ID), binding.etAlarmTitle.getText().toString(), viewModelSetAlarm.getAlarmDateTime().getHour() + ":" + viewModelSetAlarm.getAlarmDateTime().getMinute() + ":00", viewModelSetAlarm.getSnoozeIntervalInSecs() + " seconds", viewModelSetAlarm.getAlarmToneUri().toString(), 0, selectedDate)
                     .enqueue(new Callback<MainResponseSetAlarms>() {
                         @Override
                         public void onResponse(@NonNull Call<MainResponseSetAlarms> call, @NonNull Response<MainResponseSetAlarms> response) {
@@ -492,7 +502,7 @@ public class SetAlarmTimeActivity extends BaseActivity {
             if (resultCode == RESULT_OK){
                 assert data != null;
                 viewModelSetAlarm.setIsSnoozeOn(Objects.requireNonNull(data.getExtras()).getBoolean(Constants.Bundles.IS_SNOOZE_ON));
-                viewModelSetAlarm.setSnoozeIntervalInMins(Objects.requireNonNull(data.getExtras()).getInt(Constants.Bundles.IS_SNOOZE_TIME));
+                viewModelSetAlarm.setSnoozeIntervalInSecs(Objects.requireNonNull(data.getExtras()).getInt(Constants.Bundles.IS_SNOOZE_TIME));
                 viewModelSetAlarm.setSnoozeFreq(Objects.requireNonNull(data.getExtras()).getInt(Constants.Bundles.IS_SNOOZE_FREQ));
             }
         }else if (requestCode == DATE_REQUEST_CODE){

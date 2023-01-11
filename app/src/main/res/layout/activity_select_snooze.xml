@@ -53,6 +53,7 @@
             android:enabled="false"
             android:focusable="false"
             android:clickable="false"
+            android:visibility="gone"
             android:layout_gravity="end"/>
 
         </com.jbs.general.widget.GeneralLinearLayout>
@@ -80,6 +81,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="16dp"
+                    android:visibility="gone"
                     android:layout_marginEnd="16dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="1.0"
@@ -122,6 +124,7 @@
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="16dp"
                     android:autofillHints="30"
+                    android:visibility="gone"
                     android:ems="10"
                     android:hint="@string/snoozeFreq_customHint"
                     android:inputType="number"
@@ -138,6 +141,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="8dp"
+                    android:visibility="gone"
                     android:layout_marginEnd="16dp"
                     android:text="@string/snoozeFrequencyLabel"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -149,6 +153,7 @@
                     android:id="@+id/divider9"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
+                    android:visibility="gone"
                     android:background="?android:attr/listDivider"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
@@ -159,6 +164,7 @@
                     android:layout_width="0dp"
                     android:layout_height="1dp"
                     android:layout_marginTop="8dp"
+                    android:visibility="gone"
                     android:background="?android:attr/listDivider"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -190,30 +196,31 @@
                     app:layout_constraintTop_toBottomOf="@+id/textView9">
 
                     <RadioButton
-                        android:id="@+id/intervalRadioButton_five"
+                        android:id="@+id/intervalRadioButton_three"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/snoozeInterval_five"
+                        android:text="3 Seconds"
                         android:textSize="15sp" />
 
                     <RadioButton
-                        android:id="@+id/intervalRadioButton_ten"
+                        android:id="@+id/intervalRadioButton_six"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/snoozeInterval_ten"
+                        android:text="6 Seconds"
                         android:textSize="15sp" />
 
                     <RadioButton
-                        android:id="@+id/intervalRadioButton_fifteen"
+                        android:id="@+id/intervalRadioButton_nine"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/snoozeInterval_fifteen"
+                        android:text="9 Seconds"
                         android:textSize="15sp" />
 
                     <RadioButton
                         android:id="@+id/intervalRadioButton_custom"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:visibility="gone"
                         android:text="@string/snoozeInterval_custom"
                         android:textSize="15sp" />
                 </RadioGroup>
@@ -227,6 +234,7 @@
                     android:layout_marginEnd="16dp"
                     android:textSize="15sp"
                     android:ems="10"
+                    android:visibility="gone"
                     android:hint="@string/snoozeFreq_customHint"
                     android:importantForAutofill="no"
                     android:inputType="number"

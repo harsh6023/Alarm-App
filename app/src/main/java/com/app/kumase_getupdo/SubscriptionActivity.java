@@ -146,7 +146,7 @@ public class SubscriptionActivity extends BaseActivity implements RecycleViewInt
 
                     if (isNetworkAvailable()) {
                         showLoader();
-                        RetrofitClient.getInstance().getApi().setAlarm(preferenceUtils.getString(Constants.PreferenceKeys.USER_ID), data.getInt(BUNDLE_KEY_ALARM_ID), data.getInt(BUNDLE_KEY_ALARM_HOUR) + ":" + data.getInt(BUNDLE_KEY_ALARM_MINUTE) + ":00", data.getInt(BUNDLE_KEY_SNOOZE_FREQUENCY) + " snooze", data.getParcelable(BUNDLE_KEY_ALARM_TONE_URI).toString(),  1, getIntent().getStringExtra(ConstantsAndStatics.BUNDLE_KEY_ALARM_DATE))
+                        RetrofitClient.getInstance().getApi().setAlarm(preferenceUtils.getString(Constants.PreferenceKeys.USER_ID), data.getInt(BUNDLE_KEY_ALARM_ID), data.getInt(BUNDLE_KEY_ALARM_HOUR) + ":" + data.getInt(BUNDLE_KEY_ALARM_MINUTE) + ":00", (data.getInt(BUNDLE_KEY_SNOOZE_TIME_IN_MINS)/1000) + " Sec", data.getParcelable(BUNDLE_KEY_ALARM_TONE_URI).toString(),  1, getIntent().getStringExtra(ConstantsAndStatics.BUNDLE_KEY_ALARM_DATE))
                                 .enqueue(new Callback<MainResponseSetAlarms>() {
                                     @Override
                                     public void onResponse(@NonNull Call<MainResponseSetAlarms> call, @NonNull Response<MainResponseSetAlarms> response) {
@@ -255,7 +255,7 @@ public class SubscriptionActivity extends BaseActivity implements RecycleViewInt
         data.putBoolean(BUNDLE_KEY_IS_SNOOZE_ON, viewModelSetAlarm.getIsSnoozeOn());
         data.putBoolean(BUNDLE_KEY_IS_REPEAT_ON, viewModelSetAlarm.getIsRepeatOn());
         data.putInt(BUNDLE_KEY_ALARM_VOLUME, viewModelSetAlarm.getAlarmVolume());
-        data.putInt(BUNDLE_KEY_SNOOZE_TIME_IN_MINS, viewModelSetAlarm.getSnoozeIntervalInMins());
+        data.putInt(BUNDLE_KEY_SNOOZE_TIME_IN_MINS, viewModelSetAlarm.getSnoozeIntervalInSecs());
         data.putInt(BUNDLE_KEY_SNOOZE_FREQUENCY, viewModelSetAlarm.getSnoozeFreq());
         data.putIntegerArrayList(BUNDLE_KEY_REPEAT_DAYS, repeatDays);
         data.putParcelable(BUNDLE_KEY_ALARM_TONE_URI, viewModelSetAlarm.getAlarmToneUri());
@@ -393,7 +393,7 @@ public class SubscriptionActivity extends BaseActivity implements RecycleViewInt
     private void callAddCustomAlarmApi(Bundle data) {
         if (isNetworkAvailable()) {
             showLoader();
-            RetrofitClient.getInstance().getApi().addCustomAlarm(preferenceUtils.getString(Constants.PreferenceKeys.USER_ID), getIntent().getStringExtra("Alarm_title"), data.getInt(BUNDLE_KEY_ALARM_HOUR) + ":" + data.getInt(BUNDLE_KEY_ALARM_MINUTE) + ":00", data.getInt(BUNDLE_KEY_SNOOZE_FREQUENCY) + " snooze", data.getParcelable(BUNDLE_KEY_ALARM_TONE_URI).toString(),  1, getIntent().getStringExtra(ConstantsAndStatics.BUNDLE_KEY_ALARM_DATE))
+            RetrofitClient.getInstance().getApi().addCustomAlarm(preferenceUtils.getString(Constants.PreferenceKeys.USER_ID), getIntent().getStringExtra("Alarm_title"), data.getInt(BUNDLE_KEY_ALARM_HOUR) + ":" + data.getInt(BUNDLE_KEY_ALARM_MINUTE) + ":00", (data.getInt(BUNDLE_KEY_SNOOZE_TIME_IN_MINS)/1000) + " Sec", data.getParcelable(BUNDLE_KEY_ALARM_TONE_URI).toString(),  1, getIntent().getStringExtra(ConstantsAndStatics.BUNDLE_KEY_ALARM_DATE))
                     .enqueue(new Callback<MainResponseSetAlarms>() {
                         @Override
                         public void onResponse(@NonNull Call<MainResponseSetAlarms> call, @NonNull Response<MainResponseSetAlarms> response) {

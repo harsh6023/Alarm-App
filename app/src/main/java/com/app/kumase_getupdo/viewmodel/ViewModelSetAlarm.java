@@ -40,6 +40,11 @@ public class ViewModelSetAlarm extends ViewModel {
 	private MutableLiveData<Integer> snoozeIntervalInMins;
 
 	/**
+	 * The snooze interval in minutes.
+	 */
+	private MutableLiveData<Integer> snoozeIntervalInSecs;
+
+	/**
 	 * The snooze frequency, i.e. the number of times the alarm will be snoozed before it is cancelled automatically.
 	 */
 	private MutableLiveData<Integer> snoozeFreq;
@@ -210,6 +215,34 @@ public class ViewModelSetAlarm extends ViewModel {
 	//------------------------------------------------------------------------------------------------------
 
 	/**
+	 * Get the snooze interval, i.e. the period after which the alarm should ring again. Returns 5 if not set previously.
+	 *
+	 * @return Same as in description.
+	 */
+	public int getSnoozeIntervalInSecs() {
+		if (snoozeIntervalInSecs == null) {
+			snoozeIntervalInSecs = new MutableLiveData<>(3000);
+		}
+		return snoozeIntervalInSecs.getValue() == null ? 3000 : snoozeIntervalInSecs.getValue();
+	}
+
+	//------------------------------------------------------------------------------------------------------
+
+	/**
+	 * Set the snooze interval, i.e. the period after which the alarm should ring again.
+	 *
+	 * @param snoozeIntervalInSecs The value to be set.
+	 */
+	public void setSnoozeIntervalInSecs(int snoozeIntervalInSecs) {
+		if (this.snoozeIntervalInSecs == null) {
+			this.snoozeIntervalInSecs = new MutableLiveData<>();
+		}
+		this.snoozeIntervalInSecs.setValue(snoozeIntervalInSecs);
+	}
+
+	//------------------------------------------------------------------------------------------------------
+
+	/**
 	 * Get the number of times the alarm will be snoozed. Returns 3 if not set previously.
 	 *
 	 * @return Same as in description.
@@ -300,9 +333,9 @@ public class ViewModelSetAlarm extends ViewModel {
 	@SuppressWarnings("SimplifiableConditionalExpression")
 	public boolean getIsSnoozeOn() {
 		if (isSnoozeOn == null) {
-			isSnoozeOn = new MutableLiveData<>(true);
+			isSnoozeOn = new MutableLiveData<>(false);
 		}
-		return isSnoozeOn.getValue() == null ? true : isSnoozeOn.getValue();
+		return isSnoozeOn.getValue() == null ? false : isSnoozeOn.getValue();
 
 	}
 

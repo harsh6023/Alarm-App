@@ -8,6 +8,7 @@ import android.content.IntentFilter;
 import android.content.res.Configuration;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.format.DateFormat;
 import android.util.TypedValue;
 import android.view.View;
@@ -21,12 +22,16 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.app.kumase_getupdo.R;
+import com.jbs.general.utils.Constants;
 
 import java.time.LocalTime;
 import java.util.Objects;
 
 @RequiresApi(api = Build.VERSION_CODES.O)
 public class Activity_RingAlarm extends AppCompatActivity implements View.OnClickListener {
+
+	private final Launcher mLauncher = new Launcher();
+	private Handler mSafeHandler = new Handler();
 
 	private final BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
 		@Override
@@ -37,6 +42,14 @@ public class Activity_RingAlarm extends AppCompatActivity implements View.OnClic
 		}
 	};
 
+	private class Launcher implements Runnable {
+		@Override
+		public void run() {
+			Intent intent1 = new Intent(ConstantsAndStatics.ACTION_CANCEL_ALARM);
+			sendBroadcast(intent1);
+			finish();
+		}
+	}
 	//-----------------------------------------------------------------------------------------------------
 
 	@Override
@@ -105,12 +118,25 @@ public class Activity_RingAlarm extends AppCompatActivity implements View.OnClic
 
 	}
 
+	@Override
+	protected void onResume() {
+		super.onResume();
+		mSafeHandler.postDelayed(mLauncher, getIntent().getExtras().getInt("ALARM_SEC", 3000));
+	}
+
 	//--------------------------------------------------------------------------------------------------
 
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();
+		mSafeHandler.removeCallbacks(mLauncher);
 		unregisterReceiver(broadcastReceiver);
+	}
+
+	@Override
+	protected void onStop() {
+		mSafeHandler.removeCallbacks(mLauncher);
+		super.onStop();
 	}
 
 	//--------------------------------------------------------------------------------------------------
@@ -122,6 +148,7 @@ public class Activity_RingAlarm extends AppCompatActivity implements View.OnClic
 			sendBroadcast(intent);
 			finish();
 		} else if (view.getId() == R.id.cancelButton) {
+			mSafeHandler.removeCallbacks(mLauncher);
 			Intent intent1 = new Intent(ConstantsAndStatics.ACTION_CANCEL_ALARM);
 			sendBroadcast(intent1);
 			finish();

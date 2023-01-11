@@ -1,6 +1,8 @@
 
 package com.app.kumase_getupdo.alarm;
 
+import static com.app.kumase_getupdo.alarm.ConstantsAndStatics.BUNDLE_KEY_SNOOZE_TIME_IN_MINS;
+
 import android.app.AlarmManager;
 import android.app.Notification;
 import android.app.NotificationChannel;
@@ -77,6 +79,10 @@ public class Service_RingAlarm extends Service implements SensorEventListener, A
 
 	private Uri alarmToneUri;
 
+
+	private final Launcher mLauncher = new Launcher();
+	private Handler mSafeHandler = new Handler();
+
 	/**
 	 * The unique ID of the currently ringing alarm.
 	 */
@@ -120,10 +126,10 @@ public class Service_RingAlarm extends Service implements SensorEventListener, A
 			if (Objects.equals(intent.getAction(), ConstantsAndStatics.ACTION_SNOOZE_ALARM)) {
 				snoozeAlarm();
 			} else if (Objects.equals(intent.getAction(), ConstantsAndStatics.ACTION_CANCEL_ALARM)) {
-				snoozeAlarm();
+				dismissAlarm();
 			} else if (Objects.equals(intent.getAction(), Intent.ACTION_SCREEN_OFF)) {
 				if (powerBtnAction == ConstantsAndStatics.DISMISS) {
-					snoozeAlarm();
+					dismissAlarm();
 				} else if (powerBtnAction == ConstantsAndStatics.SNOOZE) {
 					snoozeAlarm();
 				}
@@ -223,6 +229,7 @@ public class Service_RingAlarm extends Service implements SensorEventListener, A
 	@Override
 	public void onDestroy() {
 		super.onDestroy();
+		mSafeHandler.removeCallbacks(mLauncher);
 
 		if (preMatureDeath) {
 			dismissAlarm();
@@ -314,7 +321,8 @@ public class Service_RingAlarm extends Service implements SensorEventListener, A
 		Intent fullScreenIntent = new Intent(this, Activity_RingAlarm.class)
 				.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
 				.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
-				.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY).putExtras(alarmDetails);
+				.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY).putExtras(alarmDetails)
+				.putExtra("ALARM_SEC", alarmDetails.getInt(BUNDLE_KEY_SNOOZE_TIME_IN_MINS));
 
 		int flags = Build.VERSION.SDK_INT >= Build.VERSION_CODES.M ?
 				PendingIntent.FLAG_IMMUTABLE | PendingIntent.FLAG_UPDATE_CURRENT : PendingIntent.FLAG_UPDATE_CURRENT;
@@ -381,6 +389,15 @@ public class Service_RingAlarm extends Service implements SensorEventListener, A
 		}
 
 		ringTimer.start();
+
+		mSafeHandler.postDelayed(mLauncher, alarmDetails.getInt(ConstantsAndStatics.BUNDLE_KEY_SNOOZE_TIME_IN_MINS));
+	}
+
+	private class Launcher implements Runnable {
+		@Override
+		public void run() {
+			dismissAlarm();
+		}
 	}
 
 	//--------------------------------------------------------------------------------------------------

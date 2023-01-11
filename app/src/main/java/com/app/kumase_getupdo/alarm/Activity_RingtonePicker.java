@@ -106,7 +106,7 @@ public class Activity_RingtonePicker extends AppCompatActivity implements View.O
 
 	//----------------------------------------------------------------------------------------------------
 
-	@Override
+	/*@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		getMenuInflater().inflate(R.menu.activity_ringtonepicker_menu, menu);
 
@@ -124,7 +124,7 @@ public class Activity_RingtonePicker extends AppCompatActivity implements View.O
 			}
 		});
 		return super.onCreateOptionsMenu(menu);
-	}
+	}*/
 
 	//----------------------------------------------------------------------------------------------------
 
