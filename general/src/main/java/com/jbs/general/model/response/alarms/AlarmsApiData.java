@@ -18,7 +18,7 @@ public class AlarmsApiData implements Parcelable {
     private String time;
     @SerializedName("sound")
     @Expose
-    private String sound;
+    private int sound;
     @SerializedName("uri")
     @Expose
     private String uri;
@@ -31,16 +31,24 @@ public class AlarmsApiData implements Parcelable {
     @SerializedName("date")
     @Expose
     private String date;
+    @SerializedName("sound_frequency")
+    @Expose
+    private int sound_frequency;
+    @SerializedName("sound_time_interval")
+    @Expose
+    private int sound_time_interval;
 
     protected AlarmsApiData(Parcel in) {
         id = in.readInt();
         name = in.readString();
         time = in.readString();
-        sound = in.readString();
+        sound = in.readInt();
         uri = in.readString();
         status = in.readInt();
         day = in.readInt();
         date = in.readString();
+        sound_frequency = in.readInt();
+        sound_time_interval = in.readInt();
     }
 
     @Override
@@ -48,11 +56,13 @@ public class AlarmsApiData implements Parcelable {
         dest.writeInt(id);
         dest.writeString(name);
         dest.writeString(time);
-        dest.writeString(sound);
+        dest.writeInt(sound);
         dest.writeString(uri);
         dest.writeInt(status);
         dest.writeInt(day);
         dest.writeString(date);
+        dest.writeInt(sound_frequency);
+        dest.writeInt(sound_time_interval);
     }
 
     @Override
@@ -92,15 +102,23 @@ public class AlarmsApiData implements Parcelable {
         return time;
     }
 
-    public String getSound() {
-        return sound;
-    }
-
     public int getStatus() {
         return status;
     }
 
     public String getUri() {
         return uri;
+    }
+
+    public int getSound() {
+        return sound;
+    }
+
+    public int getSound_frequency() {
+        return sound_frequency;
+    }
+
+    public int getSound_time_interval() {
+        return sound_time_interval;
     }
 }

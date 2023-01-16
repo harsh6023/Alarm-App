@@ -93,6 +93,9 @@ public class AllAlarmsAdapter extends RecyclerView.Adapter<AllAlarmsAdapter.myVi
             }
         }*/
         holder.alarmDateTextView.setText(alarmData.getDate());
+        holder.alarmTypeTextView.setText(context.getResources()
+                    .getString(R.string.snoozeOptionsTV_snoozeOn,
+                            alarmData.getSound_time_interval(), alarmData.getSound_frequency()));
 
         holder.alarmMessageTextView.setText(alarmData.getName() == null ? "" : alarmData.getName());
     }

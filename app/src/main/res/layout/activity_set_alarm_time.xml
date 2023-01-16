@@ -193,7 +193,40 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
-                    android:text="Alarm Snooze :"
+                    android:text="Alarm time :"
+                    android:textColor="@color/gray_text" />
+
+                <com.jbs.general.widget.GeneralAppCompatEditText
+                    android:id="@+id/etAlarmTime"
+                    style="@style/EditTextStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:clickable="false"
+                    android:editable="false"
+                    android:focusable="false"
+                    android:hint="Alarm time"
+                    android:inputType="textPersonName"
+                    tools:ignore="Deprecated" />
+            </com.jbs.general.widget.GeneralLinearLayout>
+
+            <com.jbs.general.widget.GeneralLinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:orientation="vertical"
+                android:visibility="visible"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/divider11">
+
+                <com.jbs.general.widget.GeneralAppCompatTextView
+                    style="@style/SmallerTextStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:text="Alarm snooze :"
                     android:textColor="@color/gray_text" />
 
                 <com.jbs.general.widget.GeneralAppCompatEditText
@@ -205,7 +238,7 @@
                     android:clickable="false"
                     android:editable="false"
                     android:focusable="false"
-                    android:hint="Alarm Snooze"
+                    android:hint="Alarm snooze"
                     android:inputType="textPersonName"
                     tools:ignore="Deprecated" />
             </com.jbs.general.widget.GeneralLinearLayout>

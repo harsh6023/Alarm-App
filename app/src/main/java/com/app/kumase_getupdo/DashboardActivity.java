@@ -3,6 +3,7 @@ package com.app.kumase_getupdo;
 import static android.provider.Settings.ACTION_REQUEST_SCHEDULE_EXACT_ALARM;
 import static com.app.kumase_getupdo.alarm.ConstantsAndStatics.BUNDLE_KEY_ALARM_DAY;
 import static com.app.kumase_getupdo.alarm.ConstantsAndStatics.BUNDLE_KEY_ALARM_HOUR;
+import static com.app.kumase_getupdo.alarm.ConstantsAndStatics.BUNDLE_KEY_ALARM_ID;
 import static com.app.kumase_getupdo.alarm.ConstantsAndStatics.BUNDLE_KEY_ALARM_MINUTE;
 import static com.app.kumase_getupdo.alarm.ConstantsAndStatics.BUNDLE_KEY_ALARM_MONTH;
 import static com.app.kumase_getupdo.alarm.ConstantsAndStatics.BUNDLE_KEY_ALARM_TONE_URI;
@@ -14,10 +15,12 @@ import static com.app.kumase_getupdo.alarm.ConstantsAndStatics.BUNDLE_KEY_IS_SNO
 import static com.app.kumase_getupdo.alarm.ConstantsAndStatics.BUNDLE_KEY_REPEAT_DAYS;
 import static com.app.kumase_getupdo.alarm.ConstantsAndStatics.BUNDLE_KEY_SNOOZE_FREQUENCY;
 import static com.app.kumase_getupdo.alarm.ConstantsAndStatics.BUNDLE_KEY_SNOOZE_TIME_IN_MINS;
+import static com.app.kumase_getupdo.alarm.ConstantsAndStatics.BUNDLE_KEY_TIME_IN_SECS;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -176,7 +179,7 @@ public class DashboardActivity extends BaseActivity {
         c.setTime(date);
         if (isNetworkAvailable()) {
             showLoader();
-            RetrofitClient.getInstance().getApi().setAlarm(preferenceUtils.getString(Constants.PreferenceKeys.USER_ID), alarmsApiData.getId(), c.get(Calendar.HOUR_OF_DAY) + ":" + c.get(Calendar.MINUTE) + ":00", (viewModelSetAlarm.getSnoozeIntervalInSecs()/1000) + " Sec", viewModelSetAlarm.getAlarmToneUri().toString(), 0, alarmsApiData.getDate())
+            RetrofitClient.getInstance().getApi().setAlarm(preferenceUtils.getString(Constants.PreferenceKeys.USER_ID), alarmsApiData.getId(), c.get(Calendar.HOUR_OF_DAY) + ":" + c.get(Calendar.MINUTE) + ":00", (viewModelSetAlarm.getSnoozeIntervalInSecs()/1000), alarmsApiData.getUri().toString(), 0, alarmsApiData.getDate(), alarmsApiData.getSound_frequency(), alarmsApiData.getSound_time_interval())
                     .enqueue(new Callback<MainResponseSetAlarms>() {
                         @Override
                         public void onResponse(@NonNull Call<MainResponseSetAlarms> call, @NonNull Response<MainResponseSetAlarms> response) {
@@ -243,7 +246,7 @@ public class DashboardActivity extends BaseActivity {
         cDate.setTime(dateD);
         if (isNetworkAvailable()) {
             showLoader();
-            RetrofitClient.getInstance().getApi().setAlarm(preferenceUtils.getString(Constants.PreferenceKeys.USER_ID), alarmsApiData.getId(), c.get(Calendar.HOUR_OF_DAY) + ":" + c.get(Calendar.MINUTE) + ":00", (viewModelSetAlarm.getSnoozeIntervalInSecs()/1000) + " Sec", viewModelSetAlarm.getAlarmToneUri().toString(), 1, alarmsApiData.getDate())
+            RetrofitClient.getInstance().getApi().setAlarm(preferenceUtils.getString(Constants.PreferenceKeys.USER_ID), alarmsApiData.getId(), c.get(Calendar.HOUR_OF_DAY) + ":" + c.get(Calendar.MINUTE) + ":00", (viewModelSetAlarm.getSnoozeIntervalInSecs()/1000), alarmsApiData.getUri().toString(), 1, alarmsApiData.getDate(), alarmsApiData.getSound_frequency(), alarmsApiData.getSound_time_interval())
                     .enqueue(new Callback<MainResponseSetAlarms>() {
                         @Override
                         public void onResponse(@NonNull Call<MainResponseSetAlarms> call, @NonNull Response<MainResponseSetAlarms> response) {
@@ -325,6 +328,7 @@ public class DashboardActivity extends BaseActivity {
         Log.e("Dateeee", alarmDateTime + " ** ");
 
         Bundle data = new Bundle();
+        data.putInt(BUNDLE_KEY_ALARM_ID, alarmsApiData.getId());
         data.putInt(BUNDLE_KEY_ALARM_HOUR, alarmDateTime.getHour());
         data.putInt(BUNDLE_KEY_ALARM_MINUTE, alarmDateTime.getMinute());
         data.putInt(BUNDLE_KEY_ALARM_DAY, alarmDateTime.getDayOfMonth());
@@ -333,11 +337,12 @@ public class DashboardActivity extends BaseActivity {
         data.putInt(BUNDLE_KEY_ALARM_TYPE, viewModelSetAlarm.getAlarmType());
         data.putBoolean(BUNDLE_KEY_IS_SNOOZE_ON, viewModelSetAlarm.getIsSnoozeOn());
         data.putBoolean(BUNDLE_KEY_IS_REPEAT_ON, viewModelSetAlarm.getIsRepeatOn());
-        data.putInt(BUNDLE_KEY_ALARM_VOLUME, viewModelSetAlarm.getAlarmVolume());
-        data.putInt(BUNDLE_KEY_SNOOZE_TIME_IN_MINS, viewModelSetAlarm.getSnoozeIntervalInSecs());
-        data.putInt(BUNDLE_KEY_SNOOZE_FREQUENCY, viewModelSetAlarm.getSnoozeFreq());
+        data.putInt(BUNDLE_KEY_ALARM_VOLUME, viewModelSetAlarm.getAlarmVolume(DashboardActivity.this));
+        data.putInt(BUNDLE_KEY_SNOOZE_TIME_IN_MINS, alarmsApiData.getSound_time_interval());
+        data.putInt(BUNDLE_KEY_TIME_IN_SECS, alarmsApiData.getSound());
+        data.putInt(BUNDLE_KEY_SNOOZE_FREQUENCY, alarmsApiData.getSound_frequency());
         data.putIntegerArrayList(BUNDLE_KEY_REPEAT_DAYS, repeatDays);
-        data.putParcelable(BUNDLE_KEY_ALARM_TONE_URI, viewModelSetAlarm.getAlarmToneUri());
+        data.putParcelable(BUNDLE_KEY_ALARM_TONE_URI, Uri.parse(alarmsApiData.getUri()));
         data.putString(ConstantsAndStatics.BUNDLE_KEY_ALARM_MESSAGE, alarmsApiData.getName());
         data.putIntegerArrayList(ConstantsAndStatics.BUNDLE_KEY_REPEAT_DAYS, repeatDays);
         data.putSerializable(ConstantsAndStatics.BUNDLE_KEY_DATE_TIME, alarmDateTime);

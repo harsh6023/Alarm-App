@@ -73,7 +73,8 @@
         <item>Sound &amp; Vibrate</item>
     </string-array>
 
-    <string name="snoozeOptionsTV_snoozeOn">%d sec</string>
+    <string name="timeOptionsTV_snoozeOn">%d sec</string>
+    <string name="snoozeOptionsTV_snoozeOn">%d mins, %d times</string>
     <string name="alarmToneLabel">Alarm tone:</string>
 
     <string name="alarmMessageLabel">Alarm message:</string>

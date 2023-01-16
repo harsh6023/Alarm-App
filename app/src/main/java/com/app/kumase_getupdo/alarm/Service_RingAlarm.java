@@ -2,6 +2,7 @@
 package com.app.kumase_getupdo.alarm;
 
 import static com.app.kumase_getupdo.alarm.ConstantsAndStatics.BUNDLE_KEY_SNOOZE_TIME_IN_MINS;
+import static com.app.kumase_getupdo.alarm.ConstantsAndStatics.BUNDLE_KEY_TIME_IN_SECS;
 
 import android.app.AlarmManager;
 import android.app.Notification;
@@ -31,6 +32,7 @@ import android.os.IBinder;
 import android.os.SystemClock;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
@@ -126,7 +128,7 @@ public class Service_RingAlarm extends Service implements SensorEventListener, A
 			if (Objects.equals(intent.getAction(), ConstantsAndStatics.ACTION_SNOOZE_ALARM)) {
 				snoozeAlarm();
 			} else if (Objects.equals(intent.getAction(), ConstantsAndStatics.ACTION_CANCEL_ALARM)) {
-				dismissAlarm();
+				snoozeAlarm();
 			} else if (Objects.equals(intent.getAction(), Intent.ACTION_SCREEN_OFF)) {
 				if (powerBtnAction == ConstantsAndStatics.DISMISS) {
 					dismissAlarm();
@@ -220,6 +222,9 @@ public class Service_RingAlarm extends Service implements SensorEventListener, A
 		audioFocusController.requestFocus();
 
 		loadRepeatDays();
+
+		Log.e("BUNDLE_KEY_TIME_IN_SECS", alarmDetails.getInt(BUNDLE_KEY_TIME_IN_SECS) + " **");
+		mSafeHandler.postDelayed(mLauncher, alarmDetails.getInt(BUNDLE_KEY_TIME_IN_SECS));
 
 		return START_NOT_STICKY;
 	}
@@ -322,7 +327,7 @@ public class Service_RingAlarm extends Service implements SensorEventListener, A
 				.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
 				.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
 				.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY).putExtras(alarmDetails)
-				.putExtra("ALARM_SEC", alarmDetails.getInt(BUNDLE_KEY_SNOOZE_TIME_IN_MINS));
+				.putExtra("ALARM_SEC", alarmDetails.getInt(BUNDLE_KEY_TIME_IN_SECS));
 
 		int flags = Build.VERSION.SDK_INT >= Build.VERSION_CODES.M ?
 				PendingIntent.FLAG_IMMUTABLE | PendingIntent.FLAG_UPDATE_CURRENT : PendingIntent.FLAG_UPDATE_CURRENT;
@@ -389,14 +394,12 @@ public class Service_RingAlarm extends Service implements SensorEventListener, A
 		}
 
 		ringTimer.start();
-
-		mSafeHandler.postDelayed(mLauncher, alarmDetails.getInt(ConstantsAndStatics.BUNDLE_KEY_SNOOZE_TIME_IN_MINS));
 	}
 
 	private class Launcher implements Runnable {
 		@Override
 		public void run() {
-			dismissAlarm();
+			snoozeAlarm();
 		}
 	}
 
@@ -430,7 +433,7 @@ public class Service_RingAlarm extends Service implements SensorEventListener, A
 		stopRinging();
 
 		if (alarmDetails.getBoolean(ConstantsAndStatics.BUNDLE_KEY_IS_SNOOZE_ON)) {
-
+			Log.e("numberOfTimesTheAlarmHasBeenSnoozed", numberOfTimesTheAlarmHasBeenSnoozed + " ** " + alarmDetails.getInt(ConstantsAndStatics.BUNDLE_KEY_SNOOZE_FREQUENCY));
 			if (numberOfTimesTheAlarmHasBeenSnoozed < alarmDetails.getInt(ConstantsAndStatics.BUNDLE_KEY_SNOOZE_FREQUENCY)) {
 
 				numberOfTimesTheAlarmHasBeenSnoozed++;

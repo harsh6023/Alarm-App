@@ -30,6 +30,17 @@ public interface ApiService {
                                        @Field(Constants.APIKeys.PASSWORD) String password,
                                        @Field(Constants.APIKeys.LOGIN_FORM) String loginForm);
 
+    //Login
+    @POST(Constants.APIEndPoints.UPDATE_PASSWORD)
+    @FormUrlEncoded
+    Call<MainResponseSignUp> updatePassword(@Field(Constants.APIKeys.EMAIL) String email,
+                                       @Field(Constants.APIKeys.PASSWORD) String password);
+
+    //Login
+    @POST(Constants.APIEndPoints.CHECK_EMAIL)
+    @FormUrlEncoded
+    Call<MainResponseSignUp> checkEmailExist(@Field(Constants.APIKeys.EMAIL) String email);
+
     //Get Alarms
     @GET(Constants.APIEndPoints.GET_ALARMS)
     Call<MainResponseGetAlarms> getAlarms(@Query(Constants.APIKeys.USER_ID) String userId);
@@ -40,10 +51,12 @@ public interface ApiService {
     Call<MainResponseSetAlarms> setAlarm(@Field(Constants.APIKeys.USER_ID) String userId,
                                          @Field(Constants.APIKeys.ALARM_ID) int alarmId,
                                          @Field(Constants.APIKeys.TIME) String time,
-                                         @Field(Constants.APIKeys.SOUND) String sound,
+                                         @Field(Constants.APIKeys.SOUND) int sound,
                                          @Field(Constants.APIKeys.URI) String uri,
                                          @Field(Constants.APIKeys.STATUS) int status,
-                                         @Field(Constants.APIKeys.DATE) String date);
+                                         @Field(Constants.APIKeys.DATE) String date,
+                                         @Field(Constants.APIKeys.SOUND_FREQUENCY) int soundFreq,
+                                         @Field(Constants.APIKeys.SOUND_TIME_INTERVAL) int soundTime);
 
     //Custom Alarm
     @POST(Constants.APIEndPoints.CUSTOM_ALARM)
@@ -51,8 +64,10 @@ public interface ApiService {
     Call<MainResponseSetAlarms> addCustomAlarm(@Field(Constants.APIKeys.USER_ID) String userId,
                                                @Field(Constants.APIKeys.ALARM_NAME) String name,
                                                @Field(Constants.APIKeys.TIME) String time,
-                                               @Field(Constants.APIKeys.SOUND) String sound,
+                                               @Field(Constants.APIKeys.SOUND) int sound,
                                                @Field(Constants.APIKeys.URI) String uri,
                                                @Field(Constants.APIKeys.STATUS) int status,
-                                               @Field(Constants.APIKeys.DATE) String date);
+                                               @Field(Constants.APIKeys.DATE) String date,
+                                               @Field(Constants.APIKeys.SOUND_FREQUENCY) int soundFreq,
+                                               @Field(Constants.APIKeys.SOUND_TIME_INTERVAL) int soundTime);
 }

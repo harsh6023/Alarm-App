@@ -5,9 +5,9 @@
     android:id="@+id/alarmCardView"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    app:cardCornerRadius="5dp"
-    android:layout_marginVertical="8dp"
     android:layout_marginHorizontal="10dp"
+    android:layout_marginVertical="8dp"
+    app:cardCornerRadius="5dp"
     app:cardUseCompatPadding="true">
 
     <LinearLayout
@@ -27,50 +27,74 @@
 
         <LinearLayout
             android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginHorizontal="15dp"
             android:layout_marginTop="5dp"
             android:gravity="center"
-            android:layout_height="wrap_content">
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/recyclerView_alarmMessageTextView"
-                android:layout_width="0dp"
-                android:layout_weight="1"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="start"
-                android:textSize="@dimen/_12ssp"
+                android:layout_weight="1"
+                android:gravity="center"
                 android:text="nxcn"
-                android:textColor="@color/defaultLabelColor" />
+                android:textColor="@color/defaultLabelColor"
+                android:textSize="@dimen/_14ssp" />
 
-            <TextView
-                android:id="@+id/alarmTimeTextView"
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="00:00 AM"
-                android:layout_marginHorizontal="12dp"
-                android:textAlignment="center"
-                android:textColor="@color/defaultLabelColor"
-                android:textSize="@dimen/_15ssp"
-                tools:ignore="HardcodedText" />
+                android:orientation="horizontal">
 
-            <ImageButton
-                android:id="@+id/alarmOnOffImgBtn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@android:color/transparent"
-                android:padding="15dp"
-                app:srcCompat="@drawable/ic_alarm_off"
-                tools:ignore="ContentDescription" />
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="1" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="1" />
+
+                <TextView
+                    android:id="@+id/alarmTimeTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="12dp"
+                    android:gravity="center"
+                    android:text="00:00 AM"
+                    android:textAlignment="center"
+                    android:textColor="@color/defaultLabelColor"
+                    android:textSize="@dimen/_15ssp"
+                    tools:ignore="HardcodedText" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="1" />
+
+                <ImageButton
+                    android:id="@+id/alarmOnOffImgBtn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:padding="15dp"
+                    app:srcCompat="@drawable/ic_alarm_off"
+                    tools:ignore="ContentDescription" />
+
+            </LinearLayout>
 
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:orientation="horizontal"
+            android:layout_height="wrap_content"
             android:layout_marginHorizontal="15dp"
             android:layout_marginVertical="10dp"
-            android:layout_height="wrap_content">
+            android:orientation="horizontal">
 
             <TextView
                 android:id="@+id/alarmDateTextView"
@@ -84,14 +108,14 @@
             <View
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:layout_weight="1"/>
+                android:layout_weight="1" />
 
             <TextView
                 android:id="@+id/alarmTypeTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Sound &amp; Vibrate"
                 android:layout_gravity="end"
+                android:text="Sound &amp; Vibrate"
                 android:textAlignment="viewEnd"
                 android:textColor="@color/defaultLabelColor"
                 tools:ignore="HardcodedText" />

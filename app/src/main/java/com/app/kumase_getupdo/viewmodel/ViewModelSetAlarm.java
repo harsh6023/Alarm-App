@@ -1,7 +1,10 @@
 
 package com.app.kumase_getupdo.viewmodel;
 
+import static android.content.Context.AUDIO_SERVICE;
+
 import android.content.Context;
+import android.media.AudioManager;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Build;
@@ -193,9 +196,9 @@ public class ViewModelSetAlarm extends ViewModel {
 	 */
 	public int getSnoozeIntervalInMins() {
 		if (snoozeIntervalInMins == null) {
-			snoozeIntervalInMins = new MutableLiveData<>(5);
+			snoozeIntervalInMins = new MutableLiveData<>(1);
 		}
-		return snoozeIntervalInMins.getValue() == null ? 5 : snoozeIntervalInMins.getValue();
+		return snoozeIntervalInMins.getValue() == null ? 1 : snoozeIntervalInMins.getValue();
 	}
 
 	//------------------------------------------------------------------------------------------------------
@@ -250,9 +253,9 @@ public class ViewModelSetAlarm extends ViewModel {
 	public int getSnoozeFreq() {
 
 		if (snoozeFreq == null) {
-			snoozeFreq = new MutableLiveData<>(3);
+			snoozeFreq = new MutableLiveData<>(2);
 		}
-		return snoozeFreq.getValue() == null ? 3 : snoozeFreq.getValue();
+		return snoozeFreq.getValue() == null ? 2 : snoozeFreq.getValue();
 	}
 
 	//------------------------------------------------------------------------------------------------------
@@ -302,9 +305,9 @@ public class ViewModelSetAlarm extends ViewModel {
 	 *
 	 * @return Same as in description.
 	 */
-	public int getAlarmVolume() {
+	public int getAlarmVolume(Context context) {
 		if (alarmVolume == null) {
-			alarmVolume = new MutableLiveData<>(3);
+			alarmVolume = new MutableLiveData<>(((AudioManager) context.getSystemService(AUDIO_SERVICE)).getStreamMaxVolume(AudioManager.STREAM_ALARM));
 		}
 		return alarmVolume.getValue() == null ? 3 : alarmVolume.getValue();
 	}
@@ -333,9 +336,9 @@ public class ViewModelSetAlarm extends ViewModel {
 	@SuppressWarnings("SimplifiableConditionalExpression")
 	public boolean getIsSnoozeOn() {
 		if (isSnoozeOn == null) {
-			isSnoozeOn = new MutableLiveData<>(false);
+			isSnoozeOn = new MutableLiveData<>(true);
 		}
-		return isSnoozeOn.getValue() == null ? false : isSnoozeOn.getValue();
+		return isSnoozeOn.getValue() == null ? true : isSnoozeOn.getValue();
 
 	}
 

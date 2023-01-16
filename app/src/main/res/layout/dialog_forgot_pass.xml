@@ -5,7 +5,8 @@
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cv_create_id"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_marginHorizontal="@dimen/_25sdp"
         app:cardCornerRadius="@dimen/_5sdp"
         app:cardBackgroundColor="@color/app_color"
         android:layout_height="wrap_content">
@@ -30,52 +31,42 @@
                     android:layout_height="@dimen/_40sdp"
                     android:background="@drawable/white_circle_ripple"
                     android:layout_marginTop="@dimen/_12sdp"
-                    android:src="@drawable/ic_baseline_check_circle_outline_24"/>
+                    android:src="@drawable/ic_forgot_pass"/>
 
                 <TextView
                     android:id="@+id/tvTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="All Set ! / מוכן !"
+                    android:text="Reset Password!"
                     android:textColor="@color/black_100"
                     style="@style/NormalTextStyle"
-                    android:layout_marginTop="@dimen/_20sdp"/>
+                    android:layout_marginTop="@dimen/_10sdp"/>
 
-                <TextView
-                    android:id="@+id/alarmTimeTextView3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="24dp"
-                    android:layout_marginEnd="24dp"
-                    android:gravity="center"
-                    android:text="Please Turn On Flight mode And make device in silent. /\n נא להפעיל את מצב טיסה ולהפוך את המכשיר למצב שקט."
-                    android:textColor="@color/black"
-                    android:textSize="20sp"
-                    android:layout_marginTop="@dimen/_15sdp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/alarmTimeTextView2"
-                    tools:ignore="HardcodedText" />
-
-                <TextView
-                    android:id="@+id/tvMsg"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAlignment="center"
-                    android:gravity="center"
-                    android:layout_marginHorizontal="@dimen/_15sdp"
-                    android:lineSpacingExtra="3dp"
-                    android:text="Shabbat Shalom ! / שבת שלום !"
-                    android:textColor="@color/black_100"
-                    style="@style/SmallerTextStyle"
-                    android:singleLine="false"
-                    android:layout_marginTop="@dimen/_15sdp"/>
-
-                <View
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/etPasswordLayout"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.Dense"
                     android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@color/gray_text"
-                    android:layout_marginTop="@dimen/_18sdp"/>
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:background="@drawable/bg_main_gradient_border"
+                    app:boxBackgroundMode="none"
+                    app:boxBackgroundColor="@android:color/transparent"
+                    app:passwordToggleTint="@color/black_100"
+                    app:hintEnabled="false"
+                    app:passwordToggleEnabled="true">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etPassword"
+                        style="@style/EditTextStyle"
+                        android:hint="Password"
+                        android:layout_width="match_parent"
+                        android:layout_height="fill_parent"
+                        android:background="@android:color/transparent"
+                        android:digits="@string/digits_allowed_alphanumeric_name_characters"
+                        android:padding="12dp"
+                        android:inputType="textPassword"/>
+
+                </com.google.android.material.textfield.TextInputLayout>
 
                 <androidx.appcompat.widget.LinearLayoutCompat
                     android:layout_width="wrap_content"
@@ -85,7 +76,7 @@
                     android:orientation="horizontal">
 
                     <com.google.android.material.button.MaterialButton
-                        android:id="@+id/btnOk"
+                        android:id="@+id/btnReset"
                         style="@style/Widget.MaterialComponents.Button.TextButton"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -96,7 +87,7 @@
                         android:outlineAmbientShadowColor="@color/blue_lighter"
                         android:outlineSpotShadowColor="@color/blue_lighter"
                         android:shadowColor="@color/blue_lighter"
-                        android:text="Ok"
+                        android:text="Reset"
                         android:textAllCaps="false"
                         android:textColor="@color/white"
                         android:textSize="16sp"

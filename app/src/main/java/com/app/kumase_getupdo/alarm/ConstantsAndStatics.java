@@ -3,9 +3,11 @@ package com.app.kumase_getupdo.alarm;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.util.Log;
 
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.work.Configuration;
 import androidx.work.Constraints;
@@ -63,6 +65,11 @@ public class ConstantsAndStatics {
 	 * Bundle key for the alarm snooze interval. The value is an integer.
 	 */
 	public static String BUNDLE_KEY_SNOOZE_TIME_IN_MINS = "com.app.kumase_getupdo.SNOOZE_TIME_IN_MINS";
+
+	/**
+	 * Bundle key for the alarm snooze interval. The value is an integer.
+	 */
+	public static String BUNDLE_KEY_TIME_IN_SECS = "com.app.kumase_getupdo.TIME_IN_SECS";
 
 	/**
 	 * Bundle key for the number of times the alarm should snooze itself. The value is an integer.
@@ -327,6 +334,7 @@ public class ConstantsAndStatics {
 	 *
 	 * @param context The {@link Context} that is scheduling the work.
 	 */
+	@RequiresApi(api = Build.VERSION_CODES.O)
 	public static void schedulePeriodicWork(Context context) {
 
 		try {

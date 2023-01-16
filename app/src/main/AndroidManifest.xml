@@ -44,13 +44,16 @@
             android:name=".DatePickerActivity"
             android:exported="false" />
         <activity
+            android:name=".SelectSnoozeActivity"
+            android:exported="false" />
+        <activity
             android:name=".SubscriptionActivity"
             android:exported="false" />
         <activity
             android:name=".SelectDaysActivity"
             android:exported="false" />
         <activity
-            android:name=".SelectSnoozeActivity"
+            android:name=".SelectTimerActivity"
             android:exported="false" />
         <activity
             android:name=".ProfileActivity"

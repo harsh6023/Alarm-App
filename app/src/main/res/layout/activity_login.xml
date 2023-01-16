@@ -118,7 +118,8 @@
                             android:layout_gravity="end"
                             android:layout_marginTop="10dp"
                             android:gravity="center"
-                            android:visibility="gone"
+                            android:id="@+id/tvForgotPass"
+                            android:visibility="visible"
                             android:fontFamily="@font/helvetica_semibold"
                             android:text="Forgot Password ?"
                             android:textColor="@color/gray_text"/>
@@ -129,7 +130,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginHorizontal="100dp"
-                            android:layout_marginTop="25dp"
+                            android:layout_marginTop="15dp"
                             android:background="@drawable/bg_btn"
                             android:elevation="10dp"
                             android:fontFamily="@font/helvetica"
@@ -153,7 +154,7 @@
                             android:id="@+id/tvSignUp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="15dp"
+                            android:layout_marginTop="10dp"
                             android:fontFamily="@font/helvetica_semibold"
                             android:gravity="center_horizontal"
                             android:singleLine="true"
@@ -171,7 +172,7 @@
                         <com.jbs.general.widget.GeneralLinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="15dp"
+                            android:layout_marginTop="10dp"
                             android:gravity="center">
 
                             <View

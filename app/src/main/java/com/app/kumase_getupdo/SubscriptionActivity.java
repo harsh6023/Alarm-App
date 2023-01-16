@@ -18,6 +18,7 @@ import static com.app.kumase_getupdo.alarm.ConstantsAndStatics.BUNDLE_KEY_IS_SNO
 import static com.app.kumase_getupdo.alarm.ConstantsAndStatics.BUNDLE_KEY_REPEAT_DAYS;
 import static com.app.kumase_getupdo.alarm.ConstantsAndStatics.BUNDLE_KEY_SNOOZE_FREQUENCY;
 import static com.app.kumase_getupdo.alarm.ConstantsAndStatics.BUNDLE_KEY_SNOOZE_TIME_IN_MINS;
+import static com.app.kumase_getupdo.alarm.ConstantsAndStatics.BUNDLE_KEY_TIME_IN_SECS;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
@@ -36,6 +37,7 @@ import android.app.PendingIntent;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -97,6 +99,7 @@ public class SubscriptionActivity extends BaseActivity implements RecycleViewInt
     private ViewModelSetAlarm viewModelSetAlarm;
     private BillingClient billingClient;
     private Handler handler;
+    private Bundle alarmDetails;
     private List<ProductDetails> productDetailsList;
     private SubscriptionAdapter adapter;
     private ActivityResultLauncher<Intent> settingsActLauncher;
@@ -110,6 +113,8 @@ public class SubscriptionActivity extends BaseActivity implements RecycleViewInt
         viewModelSetAlarm = new ViewModelProvider(this).get(ViewModelSetAlarm.class);
         productDetailsList = new ArrayList<>();
         handler = new Handler();
+
+        alarmDetails = Objects.requireNonNull(Objects.requireNonNull(getIntent().getExtras()).getBundle(ConstantsAndStatics.BUNDLE_KEY_ALARM_DETAILS));
 
         settingsActLauncher = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(),
@@ -146,7 +151,7 @@ public class SubscriptionActivity extends BaseActivity implements RecycleViewInt
 
                     if (isNetworkAvailable()) {
                         showLoader();
-                        RetrofitClient.getInstance().getApi().setAlarm(preferenceUtils.getString(Constants.PreferenceKeys.USER_ID), data.getInt(BUNDLE_KEY_ALARM_ID), data.getInt(BUNDLE_KEY_ALARM_HOUR) + ":" + data.getInt(BUNDLE_KEY_ALARM_MINUTE) + ":00", (data.getInt(BUNDLE_KEY_SNOOZE_TIME_IN_MINS)/1000) + " Sec", data.getParcelable(BUNDLE_KEY_ALARM_TONE_URI).toString(),  1, getIntent().getStringExtra(ConstantsAndStatics.BUNDLE_KEY_ALARM_DATE))
+                        RetrofitClient.getInstance().getApi().setAlarm(preferenceUtils.getString(Constants.PreferenceKeys.USER_ID), data.getInt(BUNDLE_KEY_ALARM_ID), data.getInt(BUNDLE_KEY_ALARM_HOUR) + ":" + data.getInt(BUNDLE_KEY_ALARM_MINUTE) + ":00", (data.getInt(BUNDLE_KEY_TIME_IN_SECS)/1000), data.getParcelable(BUNDLE_KEY_ALARM_TONE_URI).toString(),  1, getIntent().getStringExtra(ConstantsAndStatics.BUNDLE_KEY_ALARM_DATE), data.getInt(BUNDLE_KEY_SNOOZE_FREQUENCY), data.getInt(BUNDLE_KEY_SNOOZE_TIME_IN_MINS))
                                 .enqueue(new Callback<MainResponseSetAlarms>() {
                                     @Override
                                     public void onResponse(@NonNull Call<MainResponseSetAlarms> call, @NonNull Response<MainResponseSetAlarms> response) {
@@ -246,6 +251,7 @@ public class SubscriptionActivity extends BaseActivity implements RecycleViewInt
         Log.e("Dateeee", alarmDateTime + " ** ");
 
         Bundle data = new Bundle();
+        data.putInt(BUNDLE_KEY_ALARM_ID, alarmsApiData.getId());
         data.putInt(BUNDLE_KEY_ALARM_HOUR, alarmDateTime.getHour());
         data.putInt(BUNDLE_KEY_ALARM_MINUTE, alarmDateTime.getMinute());
         data.putInt(BUNDLE_KEY_ALARM_DAY, alarmDateTime.getDayOfMonth());
@@ -254,11 +260,12 @@ public class SubscriptionActivity extends BaseActivity implements RecycleViewInt
         data.putInt(BUNDLE_KEY_ALARM_TYPE, viewModelSetAlarm.getAlarmType());
         data.putBoolean(BUNDLE_KEY_IS_SNOOZE_ON, viewModelSetAlarm.getIsSnoozeOn());
         data.putBoolean(BUNDLE_KEY_IS_REPEAT_ON, viewModelSetAlarm.getIsRepeatOn());
-        data.putInt(BUNDLE_KEY_ALARM_VOLUME, viewModelSetAlarm.getAlarmVolume());
-        data.putInt(BUNDLE_KEY_SNOOZE_TIME_IN_MINS, viewModelSetAlarm.getSnoozeIntervalInSecs());
-        data.putInt(BUNDLE_KEY_SNOOZE_FREQUENCY, viewModelSetAlarm.getSnoozeFreq());
+        data.putInt(BUNDLE_KEY_ALARM_VOLUME, viewModelSetAlarm.getAlarmVolume(SubscriptionActivity.this));
+        data.putInt(BUNDLE_KEY_SNOOZE_TIME_IN_MINS, alarmDetails.getInt(ConstantsAndStatics.BUNDLE_KEY_SNOOZE_TIME_IN_MINS));
+        data.putInt(BUNDLE_KEY_TIME_IN_SECS, alarmDetails.getInt(ConstantsAndStatics.BUNDLE_KEY_TIME_IN_SECS));
+        data.putInt(BUNDLE_KEY_SNOOZE_FREQUENCY, alarmDetails.getInt(ConstantsAndStatics.BUNDLE_KEY_SNOOZE_FREQUENCY));
         data.putIntegerArrayList(BUNDLE_KEY_REPEAT_DAYS, repeatDays);
-        data.putParcelable(BUNDLE_KEY_ALARM_TONE_URI, viewModelSetAlarm.getAlarmToneUri());
+        data.putParcelable(BUNDLE_KEY_ALARM_TONE_URI, alarmDetails.getParcelable(ConstantsAndStatics.BUNDLE_KEY_ALARM_TONE_URI));
         data.putString(ConstantsAndStatics.BUNDLE_KEY_ALARM_MESSAGE, alarmsApiData.getName());
         data.putIntegerArrayList(ConstantsAndStatics.BUNDLE_KEY_REPEAT_DAYS, repeatDays);
         data.putSerializable(ConstantsAndStatics.BUNDLE_KEY_DATE_TIME, alarmDateTime);
@@ -393,7 +400,7 @@ public class SubscriptionActivity extends BaseActivity implements RecycleViewInt
     private void callAddCustomAlarmApi(Bundle data) {
         if (isNetworkAvailable()) {
             showLoader();
-            RetrofitClient.getInstance().getApi().addCustomAlarm(preferenceUtils.getString(Constants.PreferenceKeys.USER_ID), getIntent().getStringExtra("Alarm_title"), data.getInt(BUNDLE_KEY_ALARM_HOUR) + ":" + data.getInt(BUNDLE_KEY_ALARM_MINUTE) + ":00", (data.getInt(BUNDLE_KEY_SNOOZE_TIME_IN_MINS)/1000) + " Sec", data.getParcelable(BUNDLE_KEY_ALARM_TONE_URI).toString(),  1, getIntent().getStringExtra(ConstantsAndStatics.BUNDLE_KEY_ALARM_DATE))
+            RetrofitClient.getInstance().getApi().addCustomAlarm(preferenceUtils.getString(Constants.PreferenceKeys.USER_ID), getIntent().getStringExtra("Alarm_title"), data.getInt(BUNDLE_KEY_ALARM_HOUR) + ":" + data.getInt(BUNDLE_KEY_ALARM_MINUTE) + ":00", (data.getInt(BUNDLE_KEY_TIME_IN_SECS)/1000), data.getParcelable(BUNDLE_KEY_ALARM_TONE_URI).toString(),  1, getIntent().getStringExtra(ConstantsAndStatics.BUNDLE_KEY_ALARM_DATE), data.getInt(BUNDLE_KEY_SNOOZE_FREQUENCY), data.getInt(BUNDLE_KEY_SNOOZE_TIME_IN_MINS))
                     .enqueue(new Callback<MainResponseSetAlarms>() {
                         @Override
                         public void onResponse(@NonNull Call<MainResponseSetAlarms> call, @NonNull Response<MainResponseSetAlarms> response) {
@@ -406,6 +413,7 @@ public class SubscriptionActivity extends BaseActivity implements RecycleViewInt
                             MainResponseSetAlarms mainResponseSetAlarms = response.body();
                             Log.e("mainResponseGetAlarms", new Gson().toJson(mainResponseSetAlarms) + " **");
                             if (mainResponseSetAlarms.isSuccess()) {
+                                addOrActivateAlarm(mainResponseSetAlarms.getData().getAlarm());
                                 showToastShort("Alarm saved successfully!");
                                 final Dialog dialog = new Dialog(SubscriptionActivity.this);
                                 dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);

@@ -90,6 +90,8 @@ public class Constants {
         String GET_ALARMS = "get_alarms.php";
         String SET_ALARM = "set_alarm.php";
         String CUSTOM_ALARM = "custom_alarm.php";
+        String CHECK_EMAIL = "check_email.php";
+        String UPDATE_PASSWORD = "update_password.php";
     }
 
     public interface APIKeys {
@@ -107,6 +109,8 @@ public class Constants {
         String STATUS = "status";
         String DAY = "day";
         String DATE = "date";
+        String SOUND_FREQUENCY = "sound_frequency";
+        String SOUND_TIME_INTERVAL = "sound_time_interval";
 
     }
 

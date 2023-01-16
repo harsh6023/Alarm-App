@@ -1,10 +1,15 @@
 package com.app.kumase_getupdo;
 
+import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,6 +22,8 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.button.MaterialButton;
+import com.google.android.material.textfield.TextInputEditText;
 import com.google.gson.Gson;
 import com.jbs.general.activity.BaseActivity;
 import com.jbs.general.api.RetrofitClient;
@@ -88,6 +95,109 @@ public class LoginActivity extends BaseActivity {
                 }
             }
         });
+
+        binding.tvForgotPass.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (isClickDisabled()) {
+                    return;
+                }
+                hideKeyboard(view);
+
+                if (isEmailValid()){
+                    checkEmailExistApi(binding.etEmail.getText().toString().trim());
+                }
+            }
+        });
+    }
+
+    private void checkEmailExistApi(String email) {
+        if (isNetworkAvailable()) {
+            showLoader();
+            RetrofitClient.getInstance().getApi().checkEmailExist(email).enqueue(new Callback<MainResponseSignUp>() {
+                @Override
+                public void onResponse(@NonNull Call<MainResponseSignUp> call, @NonNull Response<MainResponseSignUp> response) {
+                    hideLoader();
+                    if (response.body() == null) {
+                        showSnackbarShort(getString(R.string.error_something_went_wrong));
+                        return;
+                    }
+
+                    MainResponseSignUp mainResponseSignUp = response.body();
+                    if (mainResponseSignUp.isSuccess()) {
+                        if (!mainResponseSignUp.getData().getLogin_from().equalsIgnoreCase("google")){
+                            final Dialog dialog = new Dialog(LoginActivity.this);
+                            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                            dialog.setCancelable(false);
+                            dialog.setContentView(R.layout.dialog_forgot_pass);
+
+                            TextInputEditText etPassword = dialog.findViewById(R.id.etPassword);
+                            MaterialButton btnReset = dialog.findViewById(R.id.btnReset);
+
+                            btnReset.setOnClickListener(v -> {
+                                if (isClickDisabled()) {
+                                    return;
+                                }
+                                hideKeyboard(v);
+
+                                if (isPasswordValid(etPassword.getText().toString().trim())){
+                                    resetPasswordApi(email, etPassword.getText().toString().trim());
+                                }
+
+                                dialog.dismiss();
+                            });
+
+                            dialog.show();
+                        }else {
+
+                        }
+                    } else {
+                        showSnackbarShort(getString(R.string.error_something_went_wrong) + "\n" + mainResponseSignUp.getMessage());
+                    }
+                }
+
+                @Override
+                public void onFailure(@NonNull Call<MainResponseSignUp> call, @NonNull Throwable t) {
+                    hideLoader();
+                    Timber.tag("onFailure?checkEmailExi").e(t);
+                }
+            });
+        } else {
+            hideLoader();
+            showSnackbarShort(getString(R.string.error_please_connect_to_internet));
+        }
+    }
+
+    private void resetPasswordApi(String email, String password) {
+        if (isNetworkAvailable()) {
+            showLoader();
+            RetrofitClient.getInstance().getApi().updatePassword(email, password).enqueue(new Callback<MainResponseSignUp>() {
+                @Override
+                public void onResponse(@NonNull Call<MainResponseSignUp> call, @NonNull Response<MainResponseSignUp> response) {
+                    hideLoader();
+                    if (response.body() == null) {
+                        showSnackbarShort(getString(R.string.error_something_went_wrong));
+                        return;
+                    }
+                    MainResponseSignUp mainResponseSignUp = response.body();
+                    if (mainResponseSignUp.isSuccess()) {
+                        Toast.makeText(LoginActivity.this, "Password changed Successfully.", Toast.LENGTH_SHORT).show();
+                    } else {
+                        showSnackbarShort(getString(R.string.error_something_went_wrong) + "\n" + mainResponseSignUp.getMessage());
+                    }
+                }
+
+                @Override
+                public void onFailure(@NonNull Call<MainResponseSignUp> call, @NonNull Throwable t) {
+                    hideLoader();
+                    Timber.tag("onFailure?updatePasswor").e(t);
+                }
+            });
+        }else {
+            hideLoader();
+            showSnackbarShort(getString(R.string.error_please_connect_to_internet));
+        }
     }
 
     private void callLoginApi(String email, String password, String loginForm) {
@@ -153,6 +263,32 @@ public class LoginActivity extends BaseActivity {
             binding.etPassword.setSelection(binding.etPassword.getText().toString().length());
             return false;
         }*/
+        return true;
+    }
+
+    public boolean isPasswordValid(String password) {
+        if (TextUtils.isEmpty(password)) {
+            showSnackbarShort("Please Enter valid Password");
+            binding.etPassword.requestFocus();
+            binding.etPassword.setSelection(binding.etPassword.getText().toString().length());
+            return false;
+        }
+        return true;
+    }
+
+    public boolean isEmailValid() {
+        if (TextUtils.isEmpty(binding.etEmail.getText().toString().trim())) {
+            showSnackbarShort("Please Enter valid Email");
+            binding.etEmail.requestFocus();
+            binding.etEmail.setSelection(binding.etEmail.getText().toString().length());
+            return false;
+        }
+        if (!isEmailValid(binding.etEmail.getText().toString().trim())) {
+            showSnackbarShort("Please Enter valid Email");
+            binding.etEmail.requestFocus();
+            binding.etEmail.setSelection(binding.etEmail.getText().toString().length());
+            return false;
+        }
         return true;
     }
 
