@@ -45,6 +45,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
+import android.widget.CompoundButton;
 import android.widget.TextView;
 
 import com.android.billingclient.api.AcknowledgePurchaseParams;
@@ -69,6 +70,7 @@ import com.jbs.general.activity.BaseActivity;
 import com.jbs.general.api.RetrofitClient;
 import com.jbs.general.model.response.alarms.AlarmsApiData;
 import com.jbs.general.model.response.alarms.MainResponseSetAlarms;
+import com.jbs.general.model.response.singup.MainResponseSignUp;
 import com.jbs.general.utils.Constants;
 
 import java.text.NumberFormat;
@@ -104,6 +106,7 @@ public class SubscriptionActivity extends BaseActivity implements RecycleViewInt
     private SubscriptionAdapter adapter;
     private ActivityResultLauncher<Intent> settingsActLauncher;
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -140,68 +143,100 @@ public class SubscriptionActivity extends BaseActivity implements RecycleViewInt
             @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onClick(View view) {
-                if (Objects.equals(getIntent().getAction(), Constants.AppConstant.ACTION_EXISTING_ALARM)) {
-                      ArrayList<Integer> repeatDays = new ArrayList<>();
-                    repeatDays.add(viewModelSetAlarm.getRepeatDays());
-                    if (repeatDays != null) {
-                        Collections.sort(repeatDays);
+                if (preferenceUtils.getInteger(Constants.PreferenceKeys.SUBSCRIBE) == 1) {
+                    AddOrSetAlarm();
+                }else {
+                    if (preferenceUtils.getInteger(Constants.PreferenceKeys.ACTIVE_ALARM_ID) == 0){
+                        AddOrSetAlarm();
+                    }else {
+                        showSnackbarLong("Please Subscribe to plan.!");
                     }
-
-                    Bundle data = Objects.requireNonNull(getIntent().getExtras()).getBundle(BUNDLE_KEY_ALARM_DETAILS);
-
-                    if (isNetworkAvailable()) {
-                        showLoader();
-                        RetrofitClient.getInstance().getApi().setAlarm(preferenceUtils.getString(Constants.PreferenceKeys.USER_ID), data.getInt(BUNDLE_KEY_ALARM_ID), data.getInt(BUNDLE_KEY_ALARM_HOUR) + ":" + data.getInt(BUNDLE_KEY_ALARM_MINUTE) + ":00", (data.getInt(BUNDLE_KEY_TIME_IN_SECS)/1000), data.getParcelable(BUNDLE_KEY_ALARM_TONE_URI).toString(),  1, getIntent().getStringExtra(ConstantsAndStatics.BUNDLE_KEY_ALARM_DATE), data.getInt(BUNDLE_KEY_SNOOZE_FREQUENCY), data.getInt(BUNDLE_KEY_SNOOZE_TIME_IN_MINS))
-                                .enqueue(new Callback<MainResponseSetAlarms>() {
-                                    @Override
-                                    public void onResponse(@NonNull Call<MainResponseSetAlarms> call, @NonNull Response<MainResponseSetAlarms> response) {
-                                        hideLoader();
-                                        if (response.body() == null) {
-                                            showSnackbarShort(getString(R.string.error_something_went_wrong));
-                                            return;
-                                        }
-
-                                        MainResponseSetAlarms mainResponseSetAlarms = response.body();
-                                        Log.e("mainResponseGetAlarms", new Gson().toJson(mainResponseSetAlarms) + " **");
-                                        if (mainResponseSetAlarms.isSuccess()) {
-                                            addOrActivateAlarm(mainResponseSetAlarms.getData().getAlarm());
-                                            showToastShort("Alarm saved successfully!");
-                                            final Dialog dialog = new Dialog(SubscriptionActivity.this);
-                                            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-                                            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-                                            dialog.setCancelable(false);
-                                            dialog.setContentView(R.layout.dialog_all_set);
-
-                                            MaterialButton btnOk = dialog.findViewById(R.id.btnOk);
-
-                                            btnOk.setOnClickListener(v -> {
-                                                dialog.dismiss();
-                                                startActivity(new Intent(SubscriptionActivity.this, DashboardActivity.class));
-                                                finish();
-                                            });
-
-                                            dialog.show();
-                                        } else {
-                                            showSnackbarShort(getString(R.string.error_something_went_wrong) + "\n" + mainResponseSetAlarms.getMessage());
-                                        }
-                                    }
-
-                                    @Override
-                                    public void onFailure(@NonNull Call<MainResponseSetAlarms> call, @NonNull Throwable t) {
-                                        hideLoader();
-                                        Timber.tag("onFailure?callSignup").e(t);
-                                    }
-                                });
-                    } else {
-                        hideLoader();
-                        showSnackbarShort(getString(R.string.error_please_connect_to_internet));
-                    }
-                }else if (Objects.equals(getIntent().getAction(), Constants.AppConstant.ACTION_NEW_ALARM)) {
-                    Bundle data = Objects.requireNonNull(getIntent().getExtras()).getBundle(BUNDLE_KEY_ALARM_DETAILS);
-                    callAddCustomAlarmApi(data);
                 }
             }
         });
+
+        binding.btnSubscription.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if (b){
+                    binding.btnFirstAlarm.setChecked(false);
+                }
+            }
+        });
+
+        binding.btnFirstAlarm.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if (b){
+                    binding.btnSubscription.setChecked(false);
+                }
+            }
+        });
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    private void AddOrSetAlarm() {
+        if (Objects.equals(getIntent().getAction(), Constants.AppConstant.ACTION_EXISTING_ALARM)) {
+            ArrayList<Integer> repeatDays = new ArrayList<>();
+            repeatDays.add(viewModelSetAlarm.getRepeatDays());
+            if (repeatDays != null) {
+                Collections.sort(repeatDays);
+            }
+
+            Bundle data = Objects.requireNonNull(getIntent().getExtras()).getBundle(BUNDLE_KEY_ALARM_DETAILS);
+
+            if (isNetworkAvailable()) {
+                showLoader();
+                RetrofitClient.getInstance().getApi().setAlarm(preferenceUtils.getString(Constants.PreferenceKeys.USER_ID), data.getInt(BUNDLE_KEY_ALARM_ID), data.getInt(BUNDLE_KEY_ALARM_HOUR) + ":" + data.getInt(BUNDLE_KEY_ALARM_MINUTE) + ":00", (data.getInt(BUNDLE_KEY_TIME_IN_SECS)/1000), data.getParcelable(BUNDLE_KEY_ALARM_TONE_URI).toString(),  1, getIntent().getStringExtra(ConstantsAndStatics.BUNDLE_KEY_ALARM_DATE), data.getInt(BUNDLE_KEY_SNOOZE_FREQUENCY), data.getInt(BUNDLE_KEY_SNOOZE_TIME_IN_MINS))
+                        .enqueue(new Callback<MainResponseSetAlarms>() {
+                            @Override
+                            public void onResponse(@NonNull Call<MainResponseSetAlarms> call, @NonNull Response<MainResponseSetAlarms> response) {
+                                hideLoader();
+                                if (response.body() == null) {
+                                    showSnackbarShort(getString(R.string.error_something_went_wrong));
+                                    return;
+                                }
+
+                                MainResponseSetAlarms mainResponseSetAlarms = response.body();
+                                Log.e("mainResponseGetAlarms", new Gson().toJson(mainResponseSetAlarms) + " **");
+                                if (mainResponseSetAlarms.isSuccess()) {
+                                    addOrActivateAlarm(mainResponseSetAlarms.getData().getAlarm());
+                                    showToastShort("Alarm saved successfully!");
+                                    final Dialog dialog = new Dialog(SubscriptionActivity.this);
+                                    dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                                    dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                                    dialog.setCancelable(false);
+                                    dialog.setContentView(R.layout.dialog_all_set);
+
+                                    MaterialButton btnOk = dialog.findViewById(R.id.btnOk);
+
+                                    btnOk.setOnClickListener(v -> {
+                                        dialog.dismiss();
+                                        startActivity(new Intent(SubscriptionActivity.this, DashboardActivity.class));
+                                        finish();
+                                    });
+
+                                    dialog.show();
+                                } else {
+                                    showSnackbarShort(getString(R.string.error_something_went_wrong) + "\n" + mainResponseSetAlarms.getMessage());
+                                }
+                            }
+
+                            @Override
+                            public void onFailure(@NonNull Call<MainResponseSetAlarms> call, @NonNull Throwable t) {
+                                hideLoader();
+                                Timber.tag("onFailure?callSignup").e(t);
+                            }
+                        });
+            } else {
+                hideLoader();
+                showSnackbarShort(getString(R.string.error_please_connect_to_internet));
+            }
+        }
+        else if (Objects.equals(getIntent().getAction(), Constants.AppConstant.ACTION_NEW_ALARM)) {
+            Bundle data = Objects.requireNonNull(getIntent().getExtras()).getBundle(BUNDLE_KEY_ALARM_DETAILS);
+            callAddCustomAlarmApi(data);
+        }
     }
 
 
@@ -463,6 +498,7 @@ public class SubscriptionActivity extends BaseActivity implements RecycleViewInt
         billingClient.launchBillingFlow(SubscriptionActivity.this, billingFlowParams);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     void verifySubPurchase(Purchase purchases) {
 
         AcknowledgePurchaseParams acknowledgePurchaseParams = AcknowledgePurchaseParams
@@ -477,19 +513,48 @@ public class SubscriptionActivity extends BaseActivity implements RecycleViewInt
                 // 1 - premium
                 // 0 - no premium
                 preferenceUtils.setInteger(Constants.PreferenceKeys.SUBSCRIBE, 1);
+                showSnackbarLong("SuccessFully Purchased Plan");
                 goBack();
+            }else {
+                showSnackbarLong("Something Went wrong please try again!");
             }
         });
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     private void goBack() {
-        handler.postDelayed(() -> {
+        /*handler.postDelayed(() -> {
             startActivity(new Intent(getApplicationContext(), SubscriptionActivity.class));
             finish();
-        },2000);
+        },2000);*/
+        RetrofitClient.getInstance().getApi().Subscribe(preferenceUtils.getString(Constants.PreferenceKeys.USER_ID), parseDateToyyyyMMddhhmmss()).enqueue(new Callback<MainResponseSignUp>() {
+            @Override
+            public void onResponse(@NonNull Call<MainResponseSignUp> call, @NonNull Response<MainResponseSignUp> response) {
+                if (response.body() == null) {
+                    AddOrSetAlarm();
+                    showSnackbarShort(getString(R.string.error_something_went_wrong));
+                    return;
+                }
 
+                MainResponseSignUp mainResponseSignUp = response.body();
+                if (mainResponseSignUp.isSuccess()){
+                    preferenceUtils.setInteger(Constants.PreferenceKeys.SUBSCRIBE, 1);
+
+                }else {
+                    showSnackbarShort(mainResponseSignUp.getMessage());
+                }
+                AddOrSetAlarm();
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<MainResponseSignUp> call, @NonNull Throwable t) {
+                AddOrSetAlarm();
+                Timber.tag("onFailure?Subscribe").e(t);
+            }
+        });
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     protected void onResume() {
         super.onResume();
         billingClient.queryPurchasesAsync(
@@ -559,6 +624,7 @@ public class SubscriptionActivity extends BaseActivity implements RecycleViewInt
             public void onBillingServiceDisconnected() {
             }
 
+            @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onBillingSetupFinished(@NonNull BillingResult billingResult) {
 

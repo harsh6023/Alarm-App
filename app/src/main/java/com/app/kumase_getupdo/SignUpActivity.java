@@ -111,6 +111,7 @@ public class SignUpActivity extends BaseActivity implements GoogleApiClient.OnCo
                     if (mainResponseSignUp.isSuccess()){
                         preferenceUtils.saveAutoLogin(true);
                         preferenceUtils.setString(Constants.PreferenceKeys.USER_ID, mainResponseSignUp.getData().getId());
+                        preferenceUtils.setInteger(Constants.PreferenceKeys.SUBSCRIBE, mainResponseSignUp.getData().getSubscribed());
                         preferenceUtils.setString(Constants.PreferenceKeys.USER_DATA, new Gson().toJson(mainResponseSignUp.getData()));
 
                         startActivity(new Intent(SignUpActivity.this, DashboardActivity.class));

@@ -41,7 +41,9 @@ import com.google.android.gms.tasks.Task;
 import com.google.common.collect.ImmutableList;
 import com.google.gson.Gson;
 import com.jbs.general.activity.BaseActivity;
+import com.jbs.general.api.RetrofitClient;
 import com.jbs.general.model.response.alarms.AlarmsApiData;
+import com.jbs.general.model.response.singup.MainResponseSignUp;
 import com.jbs.general.model.response.singup.SignUpData;
 import com.jbs.general.utils.Constants;
 
@@ -49,6 +51,11 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import timber.log.Timber;
 
 public class ProfileActivity extends BaseAppActivity<ProfileActivity> implements RecycleViewInterface{
 
@@ -203,11 +210,34 @@ public class ProfileActivity extends BaseAppActivity<ProfileActivity> implements
     }
 
     private void goBack() {
+        RetrofitClient.getInstance().getApi().Subscribe(preferenceUtils.getString(Constants.PreferenceKeys.USER_ID), parseDateToyyyyMMddhhmmss()).enqueue(new Callback<MainResponseSignUp>() {
+            @Override
+            public void onResponse(@NonNull Call<MainResponseSignUp> call, @NonNull Response<MainResponseSignUp> response) {
+                if (response.body() == null) {
+                    showSnackbarShort(getString(R.string.error_something_went_wrong));
+                    return;
+                }
+
+                MainResponseSignUp mainResponseSignUp = response.body();
+                if (mainResponseSignUp.isSuccess()){
+                    preferenceUtils.setInteger(Constants.PreferenceKeys.SUBSCRIBE, 1);
+
+                }else {
+                    showSnackbarShort(getString(R.string.error_something_went_wrong) + "\n" + mainResponseSignUp.getMessage());
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<MainResponseSignUp> call, @NonNull Throwable t) {
+                hideLoader();
+                Timber.tag("onFailure?Subscribe").e(t);
+            }
+        });
+
         handler.postDelayed(() -> {
-            startActivity(new Intent(getApplicationContext(), ProfileActivity.class));
+            startActivity(new Intent(getApplicationContext(), DashboardActivity.class));
             finish();
         },2000);
-
     }
 
     protected void onResume() {

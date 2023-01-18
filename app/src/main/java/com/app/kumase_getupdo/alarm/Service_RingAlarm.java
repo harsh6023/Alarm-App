@@ -33,6 +33,7 @@ import android.os.SystemClock;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
 import android.util.Log;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
@@ -40,6 +41,11 @@ import androidx.core.app.NotificationCompat;
 import androidx.core.content.ContextCompat;
 
 import com.app.kumase_getupdo.R;
+import com.google.gson.Gson;
+import com.jbs.general.api.RetrofitClient;
+import com.jbs.general.model.response.alarms.MainResponseDeactivateAlarm;
+import com.jbs.general.model.response.alarms.MainResponseSetAlarms;
+import com.jbs.general.model.response.singup.MainResponseSignUp;
 
 import java.io.IOException;
 import java.time.DayOfWeek;
@@ -54,6 +60,10 @@ import java.util.Collections;
 import java.util.Objects;
 
 import in.basulabs.audiofocuscontroller.AudioFocusController;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import timber.log.Timber;
 
 @RequiresApi(api = Build.VERSION_CODES.O)
 public class Service_RingAlarm extends Service implements SensorEventListener, AudioFocusController.OnAudioFocusChangeListener {
@@ -131,7 +141,7 @@ public class Service_RingAlarm extends Service implements SensorEventListener, A
 				snoozeAlarm();
 			} else if (Objects.equals(intent.getAction(), Intent.ACTION_SCREEN_OFF)) {
 				if (powerBtnAction == ConstantsAndStatics.DISMISS) {
-					dismissAlarm();
+					snoozeAlarm();
 				} else if (powerBtnAction == ConstantsAndStatics.SNOOZE) {
 					snoozeAlarm();
 				}
@@ -464,8 +474,24 @@ public class Service_RingAlarm extends Service implements SensorEventListener, A
 		stopRinging();
 		cancelPendingIntent();
 
-		Thread thread_toggleAlarm =
-				new Thread(() -> alarmDatabase.alarmDAO().toggleAlarm(alarmDetails.getInt(ConstantsAndStatics.BUNDLE_KEY_ALARM_ID), 0));
+		Thread thread_toggleAlarm = new Thread(() -> RetrofitClient.getInstance().getApi().deactivateAlarm(alarmDetails.getInt(ConstantsAndStatics.BUNDLE_KEY_ALARM_ID)).enqueue(new Callback<MainResponseDeactivateAlarm>() {
+			@Override
+			public void onResponse(@NonNull Call<MainResponseDeactivateAlarm> call, @NonNull Response<MainResponseDeactivateAlarm> response) {
+				MainResponseDeactivateAlarm mainResponseSetAlarms = response.body();
+				Log.e("mainResponseGetAlarms", new Gson().toJson(mainResponseSetAlarms) + " **");
+				if (mainResponseSetAlarms.isSuccess()) {
+
+				} else {
+					Toast.makeText(Service_RingAlarm.this, mainResponseSetAlarms.getMessage(), Toast.LENGTH_SHORT).show();
+				}
+			}
+
+			@Override
+			public void onFailure(@NonNull Call<MainResponseDeactivateAlarm> call, @NonNull Throwable t) {
+				Timber.tag("onFailure?deactivateAla").e(t);
+			}
+		}));
+		//Thread thread_toggleAlarm = new Thread(() -> alarmDatabase.alarmDAO().toggleAlarm(alarmDetails.getInt(ConstantsAndStatics.BUNDLE_KEY_ALARM_ID), 0));
 
 		//////////////////////////////////////////////////////
 		// If repeat is on, set another alarm. Otherwise

@@ -27,7 +27,7 @@ public class SignUpData implements Parcelable {
     private String login_from;
     @SerializedName("subscribed")
     @Expose
-    private String subscribed;
+    private int subscribed;
     @SerializedName("subscribed_date_time")
     @Expose
     private String subscribed_date_time;
@@ -48,7 +48,7 @@ public class SignUpData implements Parcelable {
         email = in.readString();
         password = in.readString();
         login_from = in.readString();
-        subscribed = in.readString();
+        subscribed = in.readInt();
         subscribed_date_time = in.readString();
         subscription_cancel_date_time = in.readString();
         created_at = in.readString();
@@ -63,7 +63,7 @@ public class SignUpData implements Parcelable {
         dest.writeString(email);
         dest.writeString(password);
         dest.writeString(login_from);
-        dest.writeString(subscribed);
+        dest.writeInt(subscribed);
         dest.writeString(subscribed_date_time);
         dest.writeString(subscription_cancel_date_time);
         dest.writeString(created_at);
@@ -111,7 +111,7 @@ public class SignUpData implements Parcelable {
         return login_from;
     }
 
-    public String getSubscribed() {
+    public int getSubscribed() {
         return subscribed;
     }
 

@@ -166,7 +166,11 @@ public class SetAlarmTimeActivity extends BaseActivity {
 
             try {
                 if (alarmsApiData.getDate() != null || !TextUtils.isEmpty(alarmsApiData.getDate())) {
-                    dateD = sdfDate.parse(alarmsApiData.getDate());
+                    if (!isAfterDate(alarmsApiData.getDate() + " " + alarmsApiData.getTime())) {
+                        dateD = sdfDate.parse(alarmsApiData.getDate());
+                    }else {
+                        dateD = sdfDate.parse(String.valueOf(LocalDateTime.now().plusHours(1)));
+                    }
                 } else {
                     dateD = sdfDate.parse(String.valueOf(LocalDateTime.now().plusHours(1)));
                 }
@@ -378,7 +382,8 @@ public class SetAlarmTimeActivity extends BaseActivity {
                         hideLoader();
                         showSnackbarShort(getString(R.string.error_please_connect_to_internet));
                     }*/
-                } else if (Objects.equals(getIntent().getAction(), Constants.AppConstant.ACTION_NEW_ALARM)) {
+                }
+                else if (Objects.equals(getIntent().getAction(), Constants.AppConstant.ACTION_NEW_ALARM)) {
                     if (isFieldsValid()) {
                         //callAddCustomAlarmApi();
                         ArrayList<Integer> repeatDays = new ArrayList<>();

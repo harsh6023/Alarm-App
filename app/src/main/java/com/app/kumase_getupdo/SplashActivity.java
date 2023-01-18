@@ -111,7 +111,7 @@ public class SplashActivity extends BaseActivity {
                     finalBillingClient.queryPurchasesAsync(
                             QueryPurchasesParams.newBuilder().setProductType(BillingClient.ProductType.SUBS).build(), (billingResult1, list) -> {
 
-                                Log.e("BillingResult", new Gson().toJson(billingResult1) + " \n\n " + new Gson().toJson(list));
+                                Log.e("BillingResult", new Gson().toJson(billingResult1) + " \n\n " + new Gson().toJson(list) + " ** " + list.get(0).isAutoRenewing());
                                 if (billingResult1.getResponseCode() == BillingClient.BillingResponseCode.OK) {
                                     if (list.size() > 0) {
                                         if (list.get(0).isAutoRenewing()) {

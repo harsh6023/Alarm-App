@@ -48,6 +48,7 @@ import com.jbs.general.api.RetrofitClient;
 import com.jbs.general.model.response.alarms.AlarmsApiData;
 import com.jbs.general.model.response.alarms.MainResponseGetAlarms;
 import com.jbs.general.model.response.alarms.MainResponseSetAlarms;
+import com.jbs.general.model.response.singup.MainResponseSignUp;
 import com.jbs.general.model.response.singup.SignUpData;
 import com.jbs.general.utils.Constants;
 
@@ -94,6 +95,7 @@ public class DashboardActivity extends BaseActivity {
         initialization();
 
         SignUpData signUpData = new Gson().fromJson(preferenceUtils.getString(Constants.PreferenceKeys.USER_DATA), SignUpData.class);
+        Log.e("SingupData", new Gson().toJson(signUpData) + " **");
         binding.tvUserName.setText(signUpData.getUser_name());
 
         settingsActLauncher = registerForActivityResult(
@@ -109,6 +111,9 @@ public class DashboardActivity extends BaseActivity {
     }
 
     private void initialization() {
+        if (preferenceUtils.getInteger(Constants.PreferenceKeys.SUBSCRIBE) == 0) {
+            changeStatusApi();
+        }
         getAlarmsFromApi();
 
         allAlarmsAdapter = new AllAlarmsAdapter(DashboardActivity.this, alarmsApiDataList);
@@ -118,20 +123,25 @@ public class DashboardActivity extends BaseActivity {
             @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onOnOffButtonClick(int position) {
-                /*if (preferenceUtils.getInteger(Constants.PreferenceKeys.SUBSCRIBE) == 1){*/
+                if (preferenceUtils.getInteger(Constants.PreferenceKeys.SUBSCRIBE) == 1){
                     Log.e("Subscribed", "true...!");
                     if (alarmsApiDataList.get(position).getTime().equals("00:00:00")) {
                         showSnackbarLong("Please set Alarm time first.!");
                     } else {
                         Log.e("onOnOffButtonClick", alarmsApiDataList.get(position).getTime() + " **");
                         if (alarmsApiDataList.get(position).getStatus() == 1) {
-                            setStatusChangeApiDeActivate(alarmsApiDataList.get(position));
+                                setStatusChangeApiDeActivate(alarmsApiDataList.get(position));
                         } else {
-                            preferenceUtils.setInteger(Constants.PreferenceKeys.ACTIVE_ALARM_ID, alarmsApiDataList.get(position).getId());
-                            setStatusChangeApiActivate(alarmsApiDataList.get(position));
+                            if (!isAfterDate(alarmsApiDataList.get(position).getDate() + " " + alarmsApiDataList.get(position).getTime())) {
+                                //preferenceUtils.setInteger(Constants.PreferenceKeys.ACTIVE_ALARM_ID, alarmsApiDataList.get(position).getId());
+                                setStatusChangeApiActivate(alarmsApiDataList.get(position));
+                            }else {
+                                showSnackbarLong("Can't set alarm for previous date, please change date!");
+                            }
                         }
                     }
-                /*}else {
+                }else {
+                    Log.e("ActiveAlarmId", preferenceUtils.getInteger(Constants.PreferenceKeys.ACTIVE_ALARM_ID) + " **");
                     if (preferenceUtils.getInteger(Constants.PreferenceKeys.ACTIVE_ALARM_ID) == 0){
                         Log.e("Alarm", "Already No Alarm Active");
                         if (alarmsApiDataList.get(position).getTime().equals("00:00:00")) {
@@ -141,15 +151,23 @@ public class DashboardActivity extends BaseActivity {
                             if (alarmsApiDataList.get(position).getStatus() == 1) {
                                 setStatusChangeApiDeActivate(alarmsApiDataList.get(position));
                             } else {
-                                preferenceUtils.setInteger(Constants.PreferenceKeys.ACTIVE_ALARM_ID, alarmsApiDataList.get(position).getId());
-                                setStatusChangeApiActivate(alarmsApiDataList.get(position));
+                                Log.e("DateAndTime", alarmsApiDataList.get(position).getDate() + " " + alarmsApiDataList.get(position).getTime());
+                                if (!isAfterDate(alarmsApiDataList.get(position).getDate() + " " + alarmsApiDataList.get(position).getTime())) {
+                                    //preferenceUtils.setInteger(Constants.PreferenceKeys.ACTIVE_ALARM_ID, alarmsApiDataList.get(position).getId());
+                                    setStatusChangeApiActivate(alarmsApiDataList.get(position));
+                                }else {
+                                    showSnackbarLong("Can't set alarm for previous date, please change date!");
+                                }
                             }
                         }
                     }else {
+                        if (alarmsApiDataList.get(position).getStatus() == 1) {
+                            setStatusChangeApiDeActivate(alarmsApiDataList.get(position));
+                        }
                         showSnackbarLong("Please Subscribe to plan.!");
                         Log.e("Alarm", "Already One Alarm Active");
                     }
-                }*/
+                }
             }
 
             @Override
@@ -160,6 +178,38 @@ public class DashboardActivity extends BaseActivity {
                         .putExtra(Constants.PreferenceKeys.ALARM_DETAILS, new Gson().toJson(alarmsApiDataList.get(position))));
             }
         });
+    }
+
+    private void changeStatusApi() {
+        if (isNetworkAvailable()) {
+            showLoader();
+            RetrofitClient.getInstance().getApi().cancelSubscription(preferenceUtils.getString(Constants.PreferenceKeys.USER_ID), parseDateToyyyyMMddhhmmss()).enqueue(new Callback<MainResponseSignUp>() {
+                @Override
+                public void onResponse(@NonNull Call<MainResponseSignUp> call, @NonNull Response<MainResponseSignUp> response) {
+                    hideLoader();
+                    if (response.body() == null) {
+                        showSnackbarShort(getString(R.string.error_something_went_wrong));
+                        return;
+                    }
+
+                    MainResponseSignUp mainResponseSignUp = response.body();
+                    if (mainResponseSignUp.isSuccess()){
+                        preferenceUtils.setInteger(Constants.PreferenceKeys.SUBSCRIBE, 0);
+                    }else {
+                        showSnackbarShort(getString(R.string.error_something_went_wrong) + "\n" + mainResponseSignUp.getMessage());
+                    }
+                }
+
+                @Override
+                public void onFailure(@NonNull Call<MainResponseSignUp> call, @NonNull Throwable t) {
+                    hideLoader();
+                    Timber.tag("onFailure?cancelSubscri").e(t);
+                }
+            });
+        }else {
+            hideLoader();
+            showSnackbarShort(getString(R.string.error_please_connect_to_internet));
+        }
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -492,7 +542,6 @@ public class DashboardActivity extends BaseActivity {
         }
         return msg;
     }
-
 
     /**
      * Requests the {@link android.Manifest.permission#SCHEDULE_EXACT_ALARM} permission by directing the user to go to Settings.

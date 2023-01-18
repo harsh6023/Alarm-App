@@ -92,6 +92,9 @@ public class Constants {
         String CUSTOM_ALARM = "custom_alarm.php";
         String CHECK_EMAIL = "check_email.php";
         String UPDATE_PASSWORD = "update_password.php";
+        String CANCEL_SUBSCRIPTION = "cancel_subscription.php";
+        String SUBSCRIBE = "subscribe.php";
+        String DEACTIVATE_ALARM = "deactivate_alarm.php";
     }
 
     public interface APIKeys {
@@ -111,6 +114,8 @@ public class Constants {
         String DATE = "date";
         String SOUND_FREQUENCY = "sound_frequency";
         String SOUND_TIME_INTERVAL = "sound_time_interval";
+        String SUBSCRIPTION_CANCEL_DATE_TIME = "subscription_cancel_date_time";
+        String SUBSCRIBED_DATE_TIME = "subscribed_date_time";
 
     }
 

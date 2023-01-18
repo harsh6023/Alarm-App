@@ -1,5 +1,6 @@
 package com.jbs.general.api;
 
+import com.jbs.general.model.response.alarms.MainResponseDeactivateAlarm;
 import com.jbs.general.model.response.alarms.MainResponseGetAlarms;
 import com.jbs.general.model.response.alarms.MainResponseSetAlarms;
 import com.jbs.general.model.response.singup.MainResponseSignUp;
@@ -40,6 +41,23 @@ public interface ApiService {
     @POST(Constants.APIEndPoints.CHECK_EMAIL)
     @FormUrlEncoded
     Call<MainResponseSignUp> checkEmailExist(@Field(Constants.APIKeys.EMAIL) String email);
+
+    //Cancel Subscription
+    @POST(Constants.APIEndPoints.CANCEL_SUBSCRIPTION)
+    @FormUrlEncoded
+    Call<MainResponseSignUp> cancelSubscription(@Field(Constants.APIKeys.USER_ID) String userId,
+                                                @Field(Constants.APIKeys.SUBSCRIPTION_CANCEL_DATE_TIME) String cancelDate);
+
+    //Cancel Subscription
+    @POST(Constants.APIEndPoints.SUBSCRIBE)
+    @FormUrlEncoded
+    Call<MainResponseSignUp> Subscribe(@Field(Constants.APIKeys.USER_ID) String userId,
+                                                @Field(Constants.APIKeys.SUBSCRIBED_DATE_TIME) String subscribedDate);
+
+    //Cancel Subscription
+    @POST(Constants.APIEndPoints.DEACTIVATE_ALARM)
+    @FormUrlEncoded
+    Call<MainResponseDeactivateAlarm> deactivateAlarm(@Field(Constants.APIKeys.ALARM_ID) int alarmId);
 
     //Get Alarms
     @GET(Constants.APIEndPoints.GET_ALARMS)

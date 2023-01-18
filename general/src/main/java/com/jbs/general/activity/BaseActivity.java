@@ -60,6 +60,10 @@ import com.squareup.otto.Bus;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 import javax.inject.Inject;
 
@@ -137,6 +141,24 @@ BaseActivity extends AppCompatActivity {
     public void showToastShort(String message) {
         if (TextUtils.isEmpty(message.trim())) return;
         Toast.makeText(this, message.trim(), Toast.LENGTH_SHORT).show();
+    }
+
+    public static String parseDateToyyyyMMddhhmmss() {
+
+        String date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).format(new Date());
+
+        return date;
+    }
+
+    public static boolean isAfterDate(String date) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date strDate = null;
+        try {
+            strDate = sdf.parse(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return new Date().after(strDate);
     }
 
     /**
