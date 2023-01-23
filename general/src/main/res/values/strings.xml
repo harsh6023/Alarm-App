@@ -1,0 +1,25 @@
+<resources>
+
+    <!--English-->
+    <string name="app_name">General</string>
+
+    <!--region #Digits-->
+    <string name="digits_allowed_person_name_characters" translatable="false">abcdefghijklmnopqrstuvwxysz ABCDEFGHIJKLMNOPQRSTUVWXYZ</string>
+    <string name="digits_allowed_email_characters" translatable="false">abcdefghijklmnopqrstuvwxyszABCDEFGHIJKLMNOPQRSTUVWXYZ@_.1234567890-</string>
+    <string name="digits_allowed_alphanumeric_name_characters" translatable="false">abcdefghijklmnopqurstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789</string>
+    <string name="digits_allowed_company_name_characters" translatable="false">abcdefghijklmnopqurstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_. /\'\,\"\(\)\-</string>
+    <string name="digits_allowed_address_name_characters" translatable="false">abcdefghijklmnopqurstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_. \,/\'"\(\)\-\;\:</string>
+    <string name="digits_allowed_phone_characters" translatable="false">1234567890+ \(\-\)</string>
+    <string name="digits_allow_alphabets" translatable="false">abcdefghijklmnopqurstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ</string>
+    <string name="digits_allow_numeric" translatable="false">0123456789</string>
+    <string name="digits_no_special_characters" translatable="false">abcdefghijklmnopqrstuvwxysz ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789+-*/\</string>
+    <string name="digits_allowed_first_last_name_characters" translatable="false">abcdefghijklmnopqrstuvwxyszABCDEFGHIJKLMNOPQRSTUVWXYZ</string>
+    <string name="digits_allowed_money_characters" translatable="false">0123456789\.,\$</string>
+    <string name="digits_allow_numeric_except_zero" translatable="false">123456789</string>
+    <string name="digits_do_not_allow_full_name_multi_language" translatable="false"><![CDATA[0123456789!@#$%^&*()-_+={}[]|:;\'<>,.?/`~\"\\]]></string>
+    <string name="digits_do_not_allow_first_last_name_multi_language" translatable="false"><![CDATA[0123456789!@#$%^&*() -_+={}[]|:;\'<>,.?/`~\"\\]]></string>
+    <string name="digits_do_not_allow_address_multi_language" translatable="false"><![CDATA[!@#$%^&*+={}[]|:;<>?`~\\]]></string>
+    <string name="digits_do_not_allow_account_name_multi_language" translatable="false"><![CDATA[!@#$%^&*+={}[]|:;<>?`~\\]]></string>
+    <string name="digits_allow_decimal_points" translatable="false">0123456789.</string>
+    <!--endregion-->
+</resources>

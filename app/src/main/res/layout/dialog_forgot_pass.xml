@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cv_create_id"
+        android:layout_width="match_parent"
+        android:layout_marginHorizontal="@dimen/_25sdp"
+        app:cardCornerRadius="@dimen/_5sdp"
+        app:cardBackgroundColor="@color/app_color"
+        android:layout_height="wrap_content">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            app:cardElevation="0dp"
+            app:cardCornerRadius="@dimen/_5sdp"
+            android:layout_marginHorizontal="@dimen/_1sdp"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:padding="@dimen/default_image_margin_padding">
+
+                <ImageView
+                    android:id="@+id/iv"
+                    android:layout_width="@dimen/_40sdp"
+                    android:layout_height="@dimen/_40sdp"
+                    android:background="@drawable/white_circle_ripple"
+                    android:layout_marginTop="@dimen/_12sdp"
+                    android:src="@drawable/ic_forgot_pass"/>
+
+                <TextView
+                    android:id="@+id/tvTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Reset Password!"
+                    android:textColor="@color/black_100"
+                    style="@style/NormalTextStyle"
+                    android:layout_marginTop="@dimen/_10sdp"/>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/etPasswordLayout"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.Dense"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:background="@drawable/bg_main_gradient_border"
+                    app:boxBackgroundMode="none"
+                    app:boxBackgroundColor="@android:color/transparent"
+                    app:passwordToggleTint="@color/black_100"
+                    app:hintEnabled="false"
+                    app:passwordToggleEnabled="true">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etPassword"
+                        style="@style/EditTextStyle"
+                        android:hint="Password"
+                        android:layout_width="match_parent"
+                        android:layout_height="fill_parent"
+                        android:background="@android:color/transparent"
+                        android:digits="@string/digits_allowed_alphanumeric_name_characters"
+                        android:padding="12dp"
+                        android:inputType="textPassword"/>
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginVertical="@dimen/_20sdp"
+                    android:orientation="horizontal">
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnReset"
+                        style="@style/Widget.MaterialComponents.Button.TextButton"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="80dp"
+                        android:background="@drawable/bg_btn"
+                        android:elevation="10dp"
+                        android:fontFamily="@font/helvetica"
+                        android:outlineAmbientShadowColor="@color/blue_lighter"
+                        android:outlineSpotShadowColor="@color/blue_lighter"
+                        android:shadowColor="@color/blue_lighter"
+                        android:text="Reset"
+                        android:textAllCaps="false"
+                        android:textColor="@color/white"
+                        android:textSize="16sp"
+                        android:transitionName="transition 5"
+                        app:backgroundTint="@null"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/tvForgotPass"
+                        app:layout_constraintVertical_bias="0"
+                        app:layout_constraintWidth_percent="0.8" />
+
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+    </androidx.cardview.widget.CardView>
+
+</layout>

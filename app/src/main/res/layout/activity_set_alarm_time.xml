@@ -1,0 +1,277 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".SetAlarmTimeActivity">
+
+    <data>
+        <variable
+            name="clickListener"
+            type="com.app.kumase_getupdo.SetAlarmTimeActivity" />
+    </data>
+
+    <com.jbs.general.widget.GeneralLinearLayout
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_height="match_parent">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:overScrollMode="never"
+        android:scrollbars="none">
+
+        <com.jbs.general.widget.GeneralLinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="15dp"
+            android:orientation="vertical">
+
+            <TimePicker
+                android:id="@+id/addAlarmTimePicker"
+                android:layout_width="match_parent"
+                android:numbersTextColor="@color/black"
+                android:headerBackground="@color/blue_dark"
+                android:numbersSelectorColor="@color/blue_light"
+                android:layout_height="wrap_content" />
+
+            <com.jbs.general.widget.GeneralLinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:orientation="vertical">
+
+                <com.jbs.general.widget.GeneralAppCompatTextView
+                    style="@style/SmallerTextStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:text="Alarm Title :"
+                    android:textColor="@color/gray_text" />
+
+                <com.jbs.general.widget.GeneralAppCompatEditText
+                    android:id="@+id/etAlarmTitle"
+                    style="@style/EditTextStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:hint="Alarm name"
+                    android:inputType="textPersonName" />
+
+            </com.jbs.general.widget.GeneralLinearLayout>
+
+            <com.jbs.general.widget.GeneralLinearLayout
+                android:id="@+id/alarmToneConstraintLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:orientation="vertical"
+                android:visibility="visible"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/divider11">
+
+                <com.jbs.general.widget.GeneralAppCompatTextView
+                    style="@style/SmallerTextStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:text="Alarm Tone :"
+                    android:textColor="@color/gray_text" />
+
+                <com.jbs.general.widget.GeneralAppCompatEditText
+                    android:id="@+id/etAlarmTone"
+                    style="@style/EditTextStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:clickable="false"
+                    android:editable="false"
+                    android:focusable="false"
+                    android:hint="Alarm Tone"
+                    android:inputType="textPersonName"
+                    tools:ignore="Deprecated" />
+            </com.jbs.general.widget.GeneralLinearLayout>
+
+            <com.jbs.general.widget.GeneralLinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:orientation="vertical"
+                android:visibility="visible"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/divider11">
+
+                <com.jbs.general.widget.GeneralAppCompatTextView
+                    style="@style/SmallerTextStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:text="Alarm Date :"
+                    android:textColor="@color/gray_text" />
+
+                <com.jbs.general.widget.GeneralAppCompatEditText
+                    android:id="@+id/etAlarmDate"
+                    style="@style/EditTextStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:clickable="false"
+                    android:editable="false"
+                    android:focusable="false"
+                    android:hint="Alarm Date"
+                    android:inputType="textPersonName"
+                    tools:ignore="Deprecated" />
+            </com.jbs.general.widget.GeneralLinearLayout>
+
+
+            <DatePicker
+                android:id="@+id/datePicker"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:numbersTextColor="@color/black"
+                android:layout_marginTop="12dp"
+                android:visibility="gone"
+                tools:visibility="visible"
+                android:headerBackground="@color/blue_dark"
+                android:numbersSelectorColor="@color/blue_light"
+                android:layout_marginHorizontal="25dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView7" />
+
+            <com.jbs.general.widget.GeneralLinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:orientation="vertical"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/divider11">
+
+                <com.jbs.general.widget.GeneralAppCompatTextView
+                    style="@style/SmallerTextStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:text="Alarm Day :"
+                    android:textColor="@color/gray_text" />
+
+                <com.jbs.general.widget.GeneralAppCompatEditText
+                    android:id="@+id/etAlarmDay"
+                    style="@style/EditTextStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:clickable="false"
+                    android:editable="false"
+                    android:focusable="false"
+                    android:hint="Alarm Day"
+                    android:inputType="textPersonName"
+                    tools:ignore="Deprecated" />
+            </com.jbs.general.widget.GeneralLinearLayout>
+
+            <com.jbs.general.widget.GeneralLinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:orientation="vertical"
+                android:visibility="visible"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/divider11">
+
+                <com.jbs.general.widget.GeneralAppCompatTextView
+                    style="@style/SmallerTextStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:text="Alarm time :"
+                    android:textColor="@color/gray_text" />
+
+                <com.jbs.general.widget.GeneralAppCompatEditText
+                    android:id="@+id/etAlarmTime"
+                    style="@style/EditTextStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:clickable="false"
+                    android:editable="false"
+                    android:focusable="false"
+                    android:hint="Alarm time"
+                    android:inputType="textPersonName"
+                    tools:ignore="Deprecated" />
+            </com.jbs.general.widget.GeneralLinearLayout>
+
+            <com.jbs.general.widget.GeneralLinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:orientation="vertical"
+                android:visibility="visible"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/divider11">
+
+                <com.jbs.general.widget.GeneralAppCompatTextView
+                    style="@style/SmallerTextStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:text="Alarm snooze :"
+                    android:textColor="@color/gray_text" />
+
+                <com.jbs.general.widget.GeneralAppCompatEditText
+                    android:id="@+id/etAlarmSnooze"
+                    style="@style/EditTextStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:clickable="false"
+                    android:editable="false"
+                    android:focusable="false"
+                    android:hint="Alarm snooze"
+                    android:inputType="textPersonName"
+                    tools:ignore="Deprecated" />
+            </com.jbs.general.widget.GeneralLinearLayout>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnSave"
+                style="@style/Widget.MaterialComponents.Button.TextButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="100dp"
+                android:layout_marginTop="25dp"
+                android:layout_marginBottom="30dp"
+                android:background="@drawable/bg_btn"
+                android:elevation="10dp"
+                android:fontFamily="@font/helvetica"
+                android:outlineAmbientShadowColor="@color/blue_lighter"
+                android:outlineSpotShadowColor="@color/blue_lighter"
+                android:shadowColor="@color/blue_lighter"
+                android:text="Next"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:transitionName="transition 5"
+                app:backgroundTint="@null"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvForgotPass"
+                app:layout_constraintVertical_bias="0"
+                app:layout_constraintWidth_percent="0.8" />
+
+        </com.jbs.general.widget.GeneralLinearLayout>
+    </ScrollView>
+
+    </com.jbs.general.widget.GeneralLinearLayout>
+</layout>

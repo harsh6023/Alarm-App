@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".SelectDaysActivity">
+    <data>
+
+        <variable
+            name="clickListener"
+            type="com.app.kumase_getupdo.SelectDaysActivity" />
+    </data>
+
+    <com.jbs.general.widget.GeneralLinearLayout
+        android:layout_width="match_parent"
+        android:background="@drawable/bg_main_gradient"
+        android:orientation="vertical"
+        android:layout_height="match_parent">
+
+        <com.jbs.general.widget.GeneralLinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/btnBack"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="15dp"
+                android:src="@drawable/ic_back"
+                app:tint="@color/white_100" />
+
+            <com.jbs.general.widget.GeneralAppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:text="Select Snooze"
+                style="@style/NormalTextStyle"/>
+
+            <View
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="0dp"/>
+
+            <androidx.appcompat.widget.SwitchCompat
+                android:id="@+id/snoozeOnOffSwitch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:switchPadding="50sp"
+                android:layout_marginEnd="15dp"
+                android:checked="true"
+                android:enabled="false"
+                android:focusable="false"
+                android:clickable="false"
+                android:layout_gravity="end"/>
+
+        </com.jbs.general.widget.GeneralLinearLayout>
+
+        <com.jbs.general.widget.GeneralLinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/bg_home_white"
+            android:orientation="vertical">
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:overScrollMode="never"
+                android:scrollbars="none"
+                android:fillViewport="true">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <RadioGroup
+                        android:id="@+id/daysRadioGroup"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginEnd="16dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="1.0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/textView8">
+
+                        <RadioButton
+                            android:id="@+id/radioFriday"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/tuesday"
+                            android:textSize="15sp" />
+
+                        <RadioButton
+                            android:id="@+id/radioSaturday"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/wednesday"
+                            android:textSize="15sp" />
+                    </RadioGroup>
+
+                    <TextView
+                        android:id="@+id/textView8"
+                        style="@style/labelStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginEnd="16dp"
+                        android:text="Select Day"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"/>
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </ScrollView>
+
+        </com.jbs.general.widget.GeneralLinearLayout>
+    </com.jbs.general.widget.GeneralLinearLayout>
+
+</layout>

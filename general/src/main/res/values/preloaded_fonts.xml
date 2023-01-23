@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="preloaded_fonts" translatable="false">
+        <!--Regular 400-->
+        <item>@font/open_sans_regular</item>
+        <!--SemiBold 600-->
+        <item>@font/open_sans_semibold</item>
+    </array>
+</resources>

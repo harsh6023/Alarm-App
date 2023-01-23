@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".DatePickerActivity">
+
+    <data>
+
+        <variable
+            name="clickListener"
+            type="com.app.kumase_getupdo.DatePickerActivity" />
+    </data>
+
+    <com.jbs.general.widget.GeneralLinearLayout
+        android:layout_width="match_parent"
+        android:background="@drawable/bg_main_gradient"
+        android:orientation="vertical"
+        android:layout_height="match_parent">
+
+    <com.jbs.general.widget.GeneralLinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/btnBack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="15dp"
+            android:src="@drawable/ic_back"
+            app:tint="@color/white_100" />
+
+        <com.jbs.general.widget.GeneralAppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:text="Select Date"
+            style="@style/NormalTextStyle"/>
+
+        <View
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="0dp"/>
+
+    </com.jbs.general.widget.GeneralLinearLayout>
+
+    <com.jbs.general.widget.GeneralLinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/bg_home_white"
+        android:orientation="vertical">
+
+    <DatePicker
+        android:id="@+id/datePicker"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:numbersTextColor="@color/black"
+        android:headerBackground="@color/blue_dark"
+        android:numbersSelectorColor="@color/blue_light"
+        android:layout_marginHorizontal="25dp"
+        android:layout_marginTop="30dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView7" />
+
+    </com.jbs.general.widget.GeneralLinearLayout>
+    </com.jbs.general.widget.GeneralLinearLayout>
+
+
+</layout>

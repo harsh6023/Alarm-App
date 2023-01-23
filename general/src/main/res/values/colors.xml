@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="blue_100">#2FCFF8</color>
+    <color name="blue_200">#069BD2</color>
+    <color name="blue_500">#0B4E87</color>
+    <color name="blue_700">#22366D</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
+
+    <color name="black_100">#FF000000</color>
+    <color name="black_20">#33000000</color>
+    <color name="white_100">#FFFFFFFF</color>
+    <color name="white_50">#7FFFFFFF</color>
+
+    <color name="default_icon_color">@color/white_100</color>
+
+    <!--region #App Colors-->
+    <color name="red">#B00710</color>
+    <color name="page_background_color">#1C1C1C</color>
+    <color name="deposit_withdraw_card_bg_color">#151313</color>
+    <color name="darker_gray">#151313</color>
+    <color name="toolbar_icon_color">@color/red</color>
+    <color name="button_text_color">@color/white_100</color>
+    <!--endregion-->
+</resources>
