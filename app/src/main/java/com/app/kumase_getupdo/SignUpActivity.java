@@ -27,6 +27,7 @@ import com.jbs.general.api.RetrofitClient;
 import com.jbs.general.model.response.singup.MainResponseSignUp;
 import com.jbs.general.utils.Constants;
 
+import papaya.in.sendmail.SendMail;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -113,6 +114,12 @@ public class SignUpActivity extends BaseActivity implements GoogleApiClient.OnCo
                         preferenceUtils.setString(Constants.PreferenceKeys.USER_ID, mainResponseSignUp.getData().getId());
                         preferenceUtils.setInteger(Constants.PreferenceKeys.SUBSCRIBE, mainResponseSignUp.getData().getSubscribed());
                         preferenceUtils.setString(Constants.PreferenceKeys.USER_DATA, new Gson().toJson(mainResponseSignUp.getData()));
+
+                        SendMail sendMail =new SendMail("rnd.focusbytech@gmail.com",
+                                "tgdhwbewtnhsmhvo","rnd.focusbytech@gmail.com",
+                                "New User Registered in Kum Ase - Get Up & Do",
+                                "User Name: "+userName + "\n Full Name: "+ fullName+ "\n Email: "+ email);
+                        sendMail.execute();
 
                         startActivity(new Intent(SignUpActivity.this, DashboardActivity.class));
                         finish();

@@ -97,7 +97,15 @@ public class AllAlarmsAdapter extends RecyclerView.Adapter<AllAlarmsAdapter.myVi
                     .getString(R.string.snoozeOptionsTV_snoozeOn,
                             alarmData.getSound_time_interval(), alarmData.getSound_frequency()));
 
-        holder.alarmMessageTextView.setText(alarmData.getName() == null ? "" : alarmData.getName());
+        String[] alarmsName = alarmData.getName() == null ? null : alarmData.getName().split("/");
+
+        holder.alarmMessageTextView.setText(alarmsName[0] == null ? "" : alarmsName[0]);
+
+        if(alarmsName.length >= 2 ) {
+            holder.alarmMessageTextView_2.setText(alarmsName[1] == null ? "" : alarmsName[1]);
+        }else{
+            holder.alarmDateTextView.setVisibility(View.GONE);
+        }
     }
 
     @Override
@@ -107,7 +115,7 @@ public class AllAlarmsAdapter extends RecyclerView.Adapter<AllAlarmsAdapter.myVi
 
     public class myViewHolder extends RecyclerView.ViewHolder {
         public ImageButton alarmOnOffImgBtn, alarmDeleteBtn;
-        public TextView alarmTimeTextView, alarmDateTextView, alarmTypeTextView, alarmMessageTextView;
+        public TextView alarmTimeTextView, alarmDateTextView, alarmTypeTextView, alarmMessageTextView,alarmMessageTextView_2;
         public CardView alarmCardView;
         public myViewHolder(@NonNull View view, final OnItemClickListener listener) {
             super(view);
@@ -116,6 +124,7 @@ public class AllAlarmsAdapter extends RecyclerView.Adapter<AllAlarmsAdapter.myVi
             alarmDateTextView = view.findViewById(R.id.alarmDateTextView);
             alarmTypeTextView = view.findViewById(R.id.alarmTypeTextView);
             alarmMessageTextView = view.findViewById(R.id.recyclerView_alarmMessageTextView);
+            alarmMessageTextView_2 = view.findViewById(R.id.recyclerView_alarmMessageTextView_2);
             alarmDeleteBtn = view.findViewById(R.id.alarmDeleteBtn);
             alarmCardView = view.findViewById(R.id.alarmCardView);
 

@@ -242,6 +242,14 @@
 
         </ScrollView>
 
+        <TextView android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/footer"
+            android:gravity="center"
+            android:padding="2dip"
+            android:background="@color/white"
+            android:textSize="@dimen/smallest_text_size"
+            android:layout_gravity="bottom" />
     </com.jbs.general.widget.GeneralFrameLayout>
 
 </layout>

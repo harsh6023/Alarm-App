@@ -11,6 +11,9 @@
             type="com.app.kumase_getupdo.SubscriptionActivity" />
     </data>
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
     <com.jbs.general.widget.GeneralLinearLayout
         android:layout_width="match_parent"
         android:background="@drawable/bg_main_gradient"
@@ -199,5 +202,16 @@
 
         </com.jbs.general.widget.GeneralLinearLayout>
     </com.jbs.general.widget.GeneralLinearLayout>
+        <TextView
+            android:id="@+id/txt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center_horizontal"
+            android:text="@string/footer"
+            android:textSize="@dimen/smallest_text_size" />
 
+    </RelativeLayout>
 </layout>

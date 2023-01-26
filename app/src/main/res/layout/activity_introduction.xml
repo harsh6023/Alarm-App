@@ -50,7 +50,8 @@
             <!--Next-->
             <com.jbs.general.widget.GeneralAppCompatTextView
                 android:id="@+id/tv_next"
-                style="@style/NormalTextStyle"
+                android:textStyle="bold"
+                android:textSize="@dimen/mid_text_size"
                 android:layout_width="wrap_content"
                 android:layout_height="?attr/listPreferredItemHeightSmall"
                 android:layout_alignParentEnd="true"
@@ -58,12 +59,14 @@
                 android:gravity="center"
                 android:onClick="@{clickListener::onNextClick}"
                 android:paddingHorizontal="@dimen/default_margin_padding"
-                android:text="@string/action_next" />
+                android:text="@string/action_next"
+                android:textColor="@color/white"/>
 
             <!--Continue-->
             <com.jbs.general.widget.GeneralAppCompatTextView
                 android:id="@+id/tv_continue"
-                style="@style/NormalTextStyle"
+                android:textStyle="bold"
+                android:textSize="@dimen/mid_text_size"
                 android:layout_width="wrap_content"
                 android:layout_height="?attr/listPreferredItemHeightSmall"
                 android:layout_alignParentEnd="true"
@@ -78,7 +81,6 @@
             <!--Skip-->
             <com.jbs.general.widget.GeneralAppCompatTextView
                 android:id="@+id/tv_skip"
-                style="@style/NormalTextStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="?attr/listPreferredItemHeightSmall"
                 android:layout_alignParentStart="true"
@@ -87,12 +89,15 @@
                 android:onClick="@{clickListener::onSkipClick}"
                 android:paddingHorizontal="@dimen/default_margin_padding"
                 android:text="@string/action_skip"
+                android:textStyle="bold"
+                android:textSize="@dimen/mid_text_size"
                 android:textColor="@android:color/white" />
 
             <!--Previous-->
             <com.jbs.general.widget.GeneralAppCompatTextView
                 android:id="@+id/tv_previous"
-                style="@style/NormalTextStyle"
+                android:textStyle="bold"
+                android:textSize="@dimen/mid_text_size"
                 android:layout_width="wrap_content"
                 android:layout_height="?attr/listPreferredItemHeightSmall"
                 android:layout_alignParentStart="true"

@@ -16,8 +16,12 @@ import static com.app.kumase_getupdo.alarm.ConstantsAndStatics.BUNDLE_KEY_SNOOZE
 import static com.app.kumase_getupdo.alarm.ConstantsAndStatics.BUNDLE_KEY_SNOOZE_TIME_IN_MINS;
 import static com.app.kumase_getupdo.alarm.ConstantsAndStatics.BUNDLE_KEY_TIME_IN_SECS;
 
+import android.app.Dialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Build;
@@ -27,6 +31,7 @@ import android.provider.Settings;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
 import android.widget.TimePicker;
 
 import androidx.annotation.NonNull;
@@ -39,6 +44,7 @@ import com.app.kumase_getupdo.alarm.Activity_RingtonePicker;
 import com.app.kumase_getupdo.alarm.ConstantsAndStatics;
 import com.app.kumase_getupdo.databinding.ActivitySetAlarmTimeBinding;
 import com.app.kumase_getupdo.viewmodel.ViewModelSetAlarm;
+import com.google.android.material.button.MaterialButton;
 import com.google.gson.Gson;
 import com.jbs.general.activity.BaseActivity;
 import com.jbs.general.api.RetrofitClient;
@@ -336,52 +342,72 @@ public class SetAlarmTimeActivity extends BaseActivity {
                     data.putInt(BUNDLE_KEY_SNOOZE_TIME_IN_MINS, viewModelSetAlarm.getSnoozeIntervalInMins());
                     data.putInt(BUNDLE_KEY_TIME_IN_SECS, viewModelSetAlarm.getSnoozeIntervalInSecs());
                     data.putInt(BUNDLE_KEY_SNOOZE_FREQUENCY, viewModelSetAlarm.getSnoozeFreq());
+                    data.putInt(BUNDLE_KEY_SNOOZE_FREQUENCY, viewModelSetAlarm.getSnoozeFreq());
                     data.putIntegerArrayList(BUNDLE_KEY_REPEAT_DAYS, repeatDays);
                     data.putParcelable(BUNDLE_KEY_ALARM_TONE_URI, viewModelSetAlarm.getAlarmToneUri());
                     data.putString(ConstantsAndStatics.BUNDLE_KEY_ALARM_MESSAGE, viewModelSetAlarm.getAlarmMessage());
 
                     Log.e("OnSaveData", viewModelSetAlarm.getAlarmDateTime().getHour() + " ** " + viewModelSetAlarm.getAlarmDateTime().getMinute());
 
+                    if (preferenceUtils.getInteger(Constants.PreferenceKeys.SUBSCRIBE) == 1) {
+                        if (isNetworkAvailable()) {
+                            showLoader();
+                            RetrofitClient.getInstance().getApi().setAlarm(preferenceUtils.getString(Constants.PreferenceKeys.USER_ID), data.getInt(BUNDLE_KEY_ALARM_ID), data.getInt(BUNDLE_KEY_ALARM_HOUR) + ":" + data.getInt(BUNDLE_KEY_ALARM_MINUTE) + ":00", (data.getInt(BUNDLE_KEY_TIME_IN_SECS)/1000), data.getParcelable(BUNDLE_KEY_ALARM_TONE_URI).toString(),  1, selectedDate, data.getInt(BUNDLE_KEY_SNOOZE_FREQUENCY), data.getInt(BUNDLE_KEY_SNOOZE_TIME_IN_MINS))
+                                    .enqueue(new Callback<MainResponseSetAlarms>() {
+                                        @Override
+                                        public void onResponse(@NonNull Call<MainResponseSetAlarms> call, @NonNull Response<MainResponseSetAlarms> response) {
+                                            hideLoader();
+                                            if (response.body() == null) {
+                                                showSnackbarShort(getString(R.string.error_something_went_wrong));
+                                                return;
+                                            }
 
-                    startActivity(new Intent(SetAlarmTimeActivity.this, SubscriptionActivity.class)
-                            .setAction(Constants.AppConstant.ACTION_EXISTING_ALARM)
-                            .putExtra(Constants.PreferenceKeys.ALARM_ID, alarmsApiData.getId())
-                            .putExtra(ConstantsAndStatics.BUNDLE_KEY_ALARM_DETAILS, data)
-                            .putExtra(ConstantsAndStatics.BUNDLE_KEY_ALARM_DATE, selectedDate)
-                            .putExtra(Constants.PreferenceKeys.ALARM_DETAILS, new Gson().toJson(alarmsApiData)));
-                   /* if (isNetworkAvailable()) {
-                        showLoader();
-                        RetrofitClient.getInstance().getApi().setAlarm(preferenceUtils.getString(Constants.PreferenceKeys.USER_ID), viewModelSetAlarm.getAlarmId(), viewModelSetAlarm.getAlarmDateTime().getHour() + ":" + viewModelSetAlarm.getAlarmDateTime().getMinute() + ":00", viewModelSetAlarm.getSnoozeIntervalInSecs() + " seconds", viewModelSetAlarm.getAlarmToneUri().toString(),  0, viewModelSetAlarm.getRepeatDays())
-                                .enqueue(new Callback<MainResponseSetAlarms>() {
-                                    @Override
-                                    public void onResponse(@NonNull Call<MainResponseSetAlarms> call, @NonNull Response<MainResponseSetAlarms> response) {
-                                        hideLoader();
-                                        if (response.body() == null) {
-                                            showSnackbarShort(getString(R.string.error_something_went_wrong));
-                                            return;
+                                            MainResponseSetAlarms mainResponseSetAlarms = response.body();
+                                            Log.e("mainResponseGetAlarms", new Gson().toJson(mainResponseSetAlarms) + " **");
+                                            if (mainResponseSetAlarms.isSuccess()) {
+                                                showToastShort("Alarm saved successfully!");
+
+                                                final Dialog dialog = new Dialog(SetAlarmTimeActivity.this);
+
+                                                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                                                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                                                dialog.setCancelable(false);
+                                                dialog.setContentView(R.layout.dialog_all_set);
+
+                                                MaterialButton btnOk = dialog.findViewById(R.id.btnOk);
+
+                                                btnOk.setOnClickListener(v -> {
+                                                    dialog.dismiss();
+                                                    startActivity(new Intent(SetAlarmTimeActivity.this, DashboardActivity.class));
+                                                    finish();
+                                                });
+
+                                                dialog.show();
+
+                                            } else {
+                                                showSnackbarShort(getString(R.string.error_something_went_wrong) + "\n" + mainResponseSetAlarms.getMessage());
+                                            }
                                         }
 
-                                        MainResponseSetAlarms mainResponseSetAlarms = response.body();
-                                        Log.e("mainResponseGetAlarms", new Gson().toJson(mainResponseSetAlarms) + " **");
-                                        if (mainResponseSetAlarms.isSuccess()) {
-                                            showToastShort("Alarm saved successfully!");
-                                            startActivity(new Intent(SetAlarmTimeActivity.this, DashboardActivity.class));
-                                            finish();
-                                        } else {
-                                            showSnackbarShort(getString(R.string.error_something_went_wrong) + "\n" + mainResponseSetAlarms.getMessage());
+                                        @Override
+                                        public void onFailure(@NonNull Call<MainResponseSetAlarms> call, @NonNull Throwable t) {
+                                            hideLoader();
+                                            Timber.tag("onFailure?callSignup").e(t);
                                         }
-                                    }
+                                    });
+                        } else {
+                            hideLoader();
+                            showSnackbarShort(getString(R.string.error_please_connect_to_internet));
+                        }
+                    }else {
+                        startActivity(new Intent(SetAlarmTimeActivity.this, SubscriptionActivity.class)
+                                .setAction(Constants.AppConstant.ACTION_EXISTING_ALARM)
+                                .putExtra(Constants.PreferenceKeys.ALARM_ID, alarmsApiData.getId())
+                                .putExtra(ConstantsAndStatics.BUNDLE_KEY_ALARM_DETAILS, data)
+                                .putExtra(ConstantsAndStatics.BUNDLE_KEY_ALARM_DATE, selectedDate)
+                                .putExtra(Constants.PreferenceKeys.ALARM_DETAILS, new Gson().toJson(alarmsApiData)));
+                    }
 
-                                    @Override
-                                    public void onFailure(@NonNull Call<MainResponseSetAlarms> call, @NonNull Throwable t) {
-                                        hideLoader();
-                                        Timber.tag("onFailure?callSignup").e(t);
-                                    }
-                                });
-                    } else {
-                        hideLoader();
-                        showSnackbarShort(getString(R.string.error_please_connect_to_internet));
-                    }*/
                 }
                 else if (Objects.equals(getIntent().getAction(), Constants.AppConstant.ACTION_NEW_ALARM)) {
                     if (isFieldsValid()) {

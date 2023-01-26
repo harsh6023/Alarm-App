@@ -7,6 +7,39 @@
         <entry key="..\:/Freelancer/KumAseGetUpDo/KumAseGetUpDo/app/src/main/res/layout/activity_sign_up.xml" value="0.22" />
         <entry key="..\:/Freelancer/KumAseGetUpDo/KumAseGetUpDo/app/src/main/res/layout/activity_splash.xml" value="0.16" />
         <entry key="..\:/Freelancer/KumAseGetUpDo/KumAseGetUpDo/app/src/main/res/layout/loading_dialog.xml" value="0.1" />
+        <entry key="..\:/Users/Bobby/StudioProjects/kum-ase-get-up-do/app/src/main/res/layout/activity_addalarm.xml" value="0.16" />
+        <entry key="..\:/Users/Bobby/StudioProjects/kum-ase-get-up-do/app/src/main/res/layout/activity_alarmslist.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Bobby/StudioProjects/kum-ase-get-up-do/app/src/main/res/layout/activity_dashboard.xml" value="0.33" />
+        <entry key="..\:/Users/Bobby/StudioProjects/kum-ase-get-up-do/app/src/main/res/layout/activity_date_picker.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Bobby/StudioProjects/kum-ase-get-up-do/app/src/main/res/layout/activity_introduction.xml" value="0.25" />
+        <entry key="..\:/Users/Bobby/StudioProjects/kum-ase-get-up-do/app/src/main/res/layout/activity_login.xml" value="0.22" />
+        <entry key="..\:/Users/Bobby/StudioProjects/kum-ase-get-up-do/app/src/main/res/layout/activity_profile.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Bobby/StudioProjects/kum-ase-get-up-do/app/src/main/res/layout/activity_req_alarm_perm.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Bobby/StudioProjects/kum-ase-get-up-do/app/src/main/res/layout/activity_ringalarm.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Bobby/StudioProjects/kum-ase-get-up-do/app/src/main/res/layout/activity_ringtonepicker.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Bobby/StudioProjects/kum-ase-get-up-do/app/src/main/res/layout/activity_ringtonepicker_scrollview.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Bobby/StudioProjects/kum-ase-get-up-do/app/src/main/res/layout/activity_select_days.xml" value="0.21" />
+        <entry key="..\:/Users/Bobby/StudioProjects/kum-ase-get-up-do/app/src/main/res/layout/activity_select_snooze.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Bobby/StudioProjects/kum-ase-get-up-do/app/src/main/res/layout/activity_select_timer.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Bobby/StudioProjects/kum-ase-get-up-do/app/src/main/res/layout/activity_set_alarm_time.xml" value="0.22" />
+        <entry key="..\:/Users/Bobby/StudioProjects/kum-ase-get-up-do/app/src/main/res/layout/activity_settings.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Bobby/StudioProjects/kum-ase-get-up-do/app/src/main/res/layout/activity_settings_expand_shakeoptions.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Bobby/StudioProjects/kum-ase-get-up-do/app/src/main/res/layout/activity_settings_expand_snoozeoptions.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Bobby/StudioProjects/kum-ase-get-up-do/app/src/main/res/layout/activity_sign_up.xml" value="0.2" />
+        <entry key="..\:/Users/Bobby/StudioProjects/kum-ase-get-up-do/app/src/main/res/layout/activity_splash.xml" value="0.2" />
+        <entry key="..\:/Users/Bobby/StudioProjects/kum-ase-get-up-do/app/src/main/res/layout/activity_subscription.xml" value="0.2" />
+        <entry key="..\:/Users/Bobby/StudioProjects/kum-ase-get-up-do/app/src/main/res/layout/bottom_subscription.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Bobby/StudioProjects/kum-ase-get-up-do/app/src/main/res/layout/dialog_all_set.xml" value="0.33" />
+        <entry key="..\:/Users/Bobby/StudioProjects/kum-ase-get-up-do/app/src/main/res/layout/frag_alarm_details_main.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Bobby/StudioProjects/kum-ase-get-up-do/app/src/main/res/layout/frag_alarmdetails_datepicker.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Bobby/StudioProjects/kum-ase-get-up-do/app/src/main/res/layout/frag_alarmdetails_datepicker_scrollview.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Bobby/StudioProjects/kum-ase-get-up-do/app/src/main/res/layout/frag_alarmdetails_message_scrollview.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Bobby/StudioProjects/kum-ase-get-up-do/app/src/main/res/layout/frag_alarmdetails_repeatoptions.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Bobby/StudioProjects/kum-ase-get-up-do/app/src/main/res/layout/frag_alarmdetails_snooze.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Bobby/StudioProjects/kum-ase-get-up-do/app/src/main/res/layout/item_introductions.xml" value="0.33" />
+        <entry key="..\:/Users/Bobby/StudioProjects/kum-ase-get-up-do/app/src/main/res/layout/product_item.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Bobby/StudioProjects/kum-ase-get-up-do/app/src/main/res/layout/recyclerviewrow_alarmslist.xml" value="0.5" />
+        <entry key="..\:/Users/Bobby/StudioProjects/kum-ase-get-up-do/app/src/main/res/layout/stub_alarmslist_empty.xml" value="0.20416666666666666" />
       </map>
     </option>
   </component>

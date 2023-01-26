@@ -7,22 +7,22 @@
 
 
     <!-- Introduction title-->
-    <string name="intro_title_1">Set Alarm</string>
-    <string name="intro_title_2">Select Time</string>
-    <string name="intro_title_3">Subscribe</string>
-    <string name="intro_title_4">exceptional REWARDS</string>
+    <string name="intro_title_1">Set Alarm \n הגדר אזעקה</string>
+    <string name="intro_title_2">Select Time \n בחר זמן</string>
+    <string name="intro_title_3">Subscribe \n הירשם</string>
+    <string name="intro_title_4">exceptional REWARDS \n פרסים יוצאי דופן</string>
 
     <!-- Introduction Description-->
-    <string name="intro_desc_1">Set or Add Alarm! \n Set or Add new Alarm for your Prayer!</string>
-    <string name="intro_desc_2">Select Time and add alarm tone! \n Select Suitable time for Prayer !</string>
-    <string name="intro_desc_3">Subscribe with plan! \n Set unlimited alarm for your prayer !</string>
-    <string name="intro_desc_4">Be our member! \n Make the most with our BEST offers!</string>
+    <string name="intro_desc_1">Set or Add Alarm! \n הגדר או הוסף אזעקה! \n Set or Add new Alarm for your Prayer! \n הגדר או הוסף אזעקה חדשה לתפילה שלך!</string>
+    <string name="intro_desc_2">Select Time and add alarm tone! \n בחר זמן והוסף צליל אזעקה! \n Select Suitable time for Prayer ! \n בחר זמן מתאים לתפילה!</string>
+    <string name="intro_desc_3">Subscribe with plan! \n הירשם עם תוכנית! \n Set unlimited alarm for your prayer ! \n הגדר אזעקה בלתי מוגבלת לתפילה שלך!</string>
+    <string name="intro_desc_4">Be our member! \n תהיה חבר שלנו! \n Make the most with our BEST offers! \n הפק את המרב עם ההצעות הטובות ביותר שלנו!</string>
 
 
-    <string name="action_skip">Skip</string>
-    <string name="action_next">Next</string>
-    <string name="action_continue">Continue</string>
-    <string name="action_previous">Previous</string>
+    <string name="action_skip">Skip \n לדלג</string>
+    <string name="action_next">Next \n הַבָּא</string>
+    <string name="action_continue">Continue \n לְהַמשִׁיך</string>
+    <string name="action_previous">Previous \n קודם</string>
 
 
     <!-- Activity_AlarmsList -->
@@ -228,4 +228,5 @@
     <string name="notif_channel_update">Updating alarms</string>
 
     <string name="subscription_terms">Subscriptions are recurring. You will be automatically be billed through your Google Play Store Account. Your subscription will auto-renew unless you cancel. You can manage your subscription in the settings in the Google Play Store</string>
+    <string name="footer">design: www.freepik.com</string>
 </resources>

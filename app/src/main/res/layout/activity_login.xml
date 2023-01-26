@@ -221,7 +221,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:background="@android:color/transparent"
-                                    android:padding="15dp"
+                                    android:padding="10dp"
                                     android:src="@drawable/ic_google" />
                             </com.jbs.general.widget.GeneralLinearLayout>
 
@@ -260,6 +260,7 @@
                     <com.jbs.general.widget.GeneralCircleImageView
                         android:layout_width="50dp"
                         android:layout_height="50dp"
+                        android:layout_marginBottom="@dimen/_10sdp"
                         android:src="@mipmap/ic_focusby_tech_logo_round" />
 
                 </com.jbs.general.widget.GeneralLinearLayout>
@@ -267,6 +268,15 @@
             </com.jbs.general.widget.GeneralLinearLayout>
 
         </ScrollView>
+
+        <TextView android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/footer"
+            android:gravity="center"
+            android:padding="2dip"
+            android:background="@color/white"
+            android:textSize="@dimen/smallest_text_size"
+            android:layout_gravity="bottom" />
 
     </com.jbs.general.widget.GeneralFrameLayout>
 </layout>
